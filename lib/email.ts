@@ -2,7 +2,7 @@ import { ServerClient } from "postmark"
 
 // Initialize Postmark client
 const client = new ServerClient(process.env.POSTMARK_API_TOKEN || "")
-const fromEmail = process.env.POSTMARK_FROM_EMAIL || "contact@theproject.com"
+const fromEmail = process.env.POSTMARK_FROM_EMAIL || "tjsmith@theproject.com"
 
 // Send an email to the site admin
 export async function sendAdminNotification(name: string, email: string, subject: string, message: string) {

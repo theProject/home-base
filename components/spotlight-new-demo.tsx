@@ -10,8 +10,8 @@ export default function SpotlightNewDemo() {
           beautiful. <span className="text-magenta">intriguing.</span> relentless.
         </h1>
         <p className="mt-8 font-normal text-base md:text-lg text-black/80 dark:text-neutral-300 max-w-3xl text-center mx-auto font-geist">
-          Celebrating 13 years of business crafting mobile applications, video games, and currently treading the
-          frontier with generative AI. We are the leaders in the Lehigh Valley - just ask.
+          Celebrating 13 years of business, crafting mobile applications, video games, and currently treading the
+          frontier with generative AI. We are the leaders in the Lehigh Valley - just ask. AI is our specialty.
         </p>
         <div className="mt-10 flex flex-col sm:flex-row gap-4">
           <button className="px-6 py-3 rounded-md bg-magenta text-white font-medium font-geist hover:bg-opacity-90 transition-all">

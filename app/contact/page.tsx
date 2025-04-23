@@ -152,14 +152,14 @@ export default function ContactPage() {
                     <Mail className="w-5 h-5 text-magenta mr-3 mt-0.5" />
                     <div>
                       <p className="text-sm font-medium text-black dark:text-white">Email</p>
-                      <p className="text-black/70 dark:text-white/70">hello@theproject.com</p>
+                      <p className="text-black/70 dark:text-white/70">tjsmith@theproject.com</p>
                     </div>
                   </div>
                   <div className="flex items-start">
                     <Phone className="w-5 h-5 text-magenta mr-3 mt-0.5" />
                     <div>
-                      <p className="text-sm font-medium text-black dark:text-white">Phone</p>
-                      <p className="text-black/70 dark:text-white/70">(555) 123-4567</p>
+                      <p className="text-sm ftsont-medium text-black dark:text-white">Phone</p>
+                      <p className="text-black/70 dark:text-white/70">(484) 894-2159</p>
                     </div>
                   </div>
                   <div className="flex items-start">
@@ -167,9 +167,9 @@ export default function ContactPage() {
                     <div>
                       <p className="text-sm font-medium text-black dark:text-white">Location</p>
                       <p className="text-black/70 dark:text-white/70">
-                        123 Innovation Way
+                        1983 Leithsville Rd
                         <br />
-                        Lehigh Valley, PA 18000
+                        Hellertown PA 18055
                       </p>
                     </div>
                   </div>
@@ -177,7 +177,7 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <h3 className="text-xl font-bold text-black dark:text-white mb-4 font-geist">Business Hours</h3>
+                <h3 className="text-x Vallel font-bold text-black dark:text-white mb-4 font-geist">Business Hours</h3>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-black/70 dark:text-white/70">Monday - Friday</span>

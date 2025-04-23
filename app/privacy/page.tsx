@@ -1,20 +1,32 @@
-import Header from "@/components/header"
-import Footer from "@/components/footer"
+'use client';
+
+import Header from "@/components/header";
+import Footer from "@/components/footer";
+
+/**
+ * Keep the date string static during SSR so React’s server & client markup match
+ * and you avoid the “Text content does not match server-rendered HTML” error.
+ * (Runs only on the server; the browser never re-evaluates it.)
+ */
+const LAST_UPDATED = new Intl.DateTimeFormat("en-US", {
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+}).format(new Date());
 
 export default function PrivacyPage() {
   return (
     <div className="min-h-screen bg-white dark:bg-black">
       <Header />
+
       <main className="container mx-auto px-4 pt-24 pb-16">
-        <div className="max-w-3xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold text-black dark:text-white mb-8 font-geist">
+        <div className="mx-auto max-w-3xl">
+          <h1 className="mb-8 font-geist text-4xl font-bold text-black dark:text-white md:text-5xl">
             Privacy <span className="text-magenta">Policy</span>
           </h1>
 
-          <div className="prose prose-lg dark:prose-invert max-w-none">
-            <p>
-              Last updated: {new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
-            </p>
+          <div className="prose prose-lg max-w-none dark:prose-invert">
+            <p>Last updated: {LAST_UPDATED}</p>
 
             <h2>Introduction</h2>
             <p>
@@ -36,9 +48,9 @@ export default function PrivacyPage() {
                 <strong>Contact Data</strong> includes email address and telephone numbers.
               </li>
               <li>
-                <strong>Technical Data</strong> includes internet protocol (IP) address, browser type and version, time
-                zone setting and location, browser plug-in types and versions, operating system and platform, and other
-                technology on the devices you use to access this website.
+                <strong>Technical Data</strong> includes IP address, browser type and version, time-zone setting,
+                location, browser plug-in types and versions, operating system, platform, and other tech on the devices
+                you use to access this website.
               </li>
               <li>
                 <strong>Usage Data</strong> includes information about how you use our website, products and services.
@@ -51,7 +63,7 @@ export default function PrivacyPage() {
               data in the following circumstances:
             </p>
             <ul>
-              <li>Where we need to perform the contract we are about to enter into or have entered into with you.</li>
+              <li>To perform the contract we are about to enter into or have entered into with you.</li>
               <li>
                 Where it is necessary for our legitimate interests (or those of a third party) and your interests and
                 fundamental rights do not override those interests.
@@ -62,37 +74,35 @@ export default function PrivacyPage() {
             <h2>Data Security</h2>
             <p>
               We have put in place appropriate security measures to prevent your personal data from being accidentally
-              lost, used or accessed in an unauthorized way, altered or disclosed. In addition, we limit access to your
-              personal data to those employees, agents, contractors and other third parties who have a business need to
-              know.
+              lost, used or accessed in an unauthorised way, altered, or disclosed. Access is limited to employees,
+              agents, contractors and other third parties who have a business need to know.
             </p>
 
             <h2>Your Legal Rights</h2>
             <p>
-              Under certain circumstances, you have rights under data protection laws in relation to your personal data,
+              Under certain circumstances, you have rights under data-protection laws in relation to your personal data,
               including the right to:
             </p>
             <ul>
-              <li>Request access to your personal data.</li>
-              <li>Request correction of your personal data.</li>
-              <li>Request erasure of your personal data.</li>
-              <li>Object to processing of your personal data.</li>
-              <li>Request restriction of processing your personal data.</li>
-              <li>Request transfer of your personal data.</li>
-              <li>Right to withdraw consent.</li>
+              <li>Request access, correction, or erasure of your personal data.</li>
+              <li>Object to or request restriction of processing.</li>
+              <li>Request transfer of your data.</li>
+              <li>Withdraw consent at any time where we rely on consent to process your data.</li>
             </ul>
 
             <h2>Contact Us</h2>
-            <p>If you have any questions about this privacy policy or our privacy practices, please contact us at:</p>
             <p>
-              Email: privacy@theproject.com
+              If you have any questions about this privacy policy or our privacy practices, please contact us at:
               <br />
-              Phone: (555) 123-4567
+              <strong>Email:</strong> devops@theproject.com
+              <br />
+              <strong>Phone:</strong> (484) 894-2519
             </p>
           </div>
         </div>
       </main>
+
       <Footer />
     </div>
-  )
+  );
 }
