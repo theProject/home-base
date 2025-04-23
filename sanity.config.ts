@@ -1,4 +1,4 @@
-import { defineConfig } from "next-sanity"
+import { defineConfig } from "sanity"
 
 export default defineConfig({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "",

@@ -18,13 +18,9 @@ const nextConfig = {
     unoptimized: true,
   },
   experimental: {
-    // Enable React 19 features
-    react: {
-      version: 19,
-    },
-    // Enable Next.js 15 features
+  
     serverActions: {
-      allowedOrigins: ['localhost:3000', 'theproject.com'],
+      allowedOrigins: ['localhost:3000', 'bytheproject.com'],
     },
   },
 }
