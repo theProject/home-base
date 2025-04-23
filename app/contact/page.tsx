@@ -3,11 +3,11 @@
 import { useState } from "react"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Mail, Phone, MapPin, CheckCircle, AlertCircle } from "lucide-react"
 import { sendContactEmail } from "@/app/actions/contact"
+import { BorderButton } from "@/components/ui/border-button"
 
 export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -62,9 +62,9 @@ export default function ContactPage() {
                     We've also sent you a confirmation email. If you don't see it in your inbox, please check your spam
                     folder.
                   </p>
-                  <Button className="mt-6 bg-magenta hover:bg-magenta/90 text-white" onClick={() => setFormStatus({})}>
+                  <BorderButton className="mt-6" onClick={() => setFormStatus({})}>
                     Send Another Message
-                  </Button>
+                  </BorderButton>
                 </div>
               ) : (
                 <form id="contact-form" action={handleSubmit} className="space-y-6">
@@ -130,7 +130,7 @@ export default function ContactPage() {
                     />
                   </div>
 
-                  <Button type="submit" className="bg-magenta hover:bg-magenta/90 text-white" disabled={isSubmitting}>
+                  <BorderButton type="submit" disabled={isSubmitting}>
                     {isSubmitting ? (
                       <>
                         <span className="mr-2">Sending...</span>
@@ -139,7 +139,7 @@ export default function ContactPage() {
                     ) : (
                       "Send Message"
                     )}
-                  </Button>
+                  </BorderButton>
                 </form>
               )}
             </div>
@@ -152,14 +152,14 @@ export default function ContactPage() {
                     <Mail className="w-5 h-5 text-magenta mr-3 mt-0.5" />
                     <div>
                       <p className="text-sm font-medium text-black dark:text-white">Email</p>
-                      <p className="text-black/70 dark:text-white/70">tjsmith@theproject.com</p>
+                      <p className="text-black/70 dark:text-white/70">hello@theproject.com</p>
                     </div>
                   </div>
                   <div className="flex items-start">
                     <Phone className="w-5 h-5 text-magenta mr-3 mt-0.5" />
                     <div>
-                      <p className="text-sm ftsont-medium text-black dark:text-white">Phone</p>
-                      <p className="text-black/70 dark:text-white/70">(484) 894-2159</p>
+                      <p className="text-sm font-medium text-black dark:text-white">Phone</p>
+                      <p className="text-black/70 dark:text-white/70">(555) 123-4567</p>
                     </div>
                   </div>
                   <div className="flex items-start">
@@ -167,9 +167,9 @@ export default function ContactPage() {
                     <div>
                       <p className="text-sm font-medium text-black dark:text-white">Location</p>
                       <p className="text-black/70 dark:text-white/70">
-                        1983 Leithsville Rd
+                        123 Innovation Way
                         <br />
-                        Hellertown PA 18055
+                        Lehigh Valley, PA 18000
                       </p>
                     </div>
                   </div>
@@ -177,7 +177,7 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <h3 className="text-x Vallel font-bold text-black dark:text-white mb-4 font-geist">Business Hours</h3>
+                <h3 className="text-xl font-bold text-black dark:text-white mb-4 font-geist">Business Hours</h3>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-black/70 dark:text-white/70">Monday - Friday</span>

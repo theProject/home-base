@@ -1,25 +1,42 @@
 "use client"
 import { Spotlight } from "@/components/ui/spotlight-new"
+import { BorderButton } from "@/components/ui/border-button"
 
 export default function SpotlightNewDemo() {
   return (
-    <div className="h-[100vh] w-full rounded-md flex md:items-center md:justify-center bg-white dark:bg-black/[0.96] antialiased bg-grid-black/[0.02] dark:bg-grid-white/[0.02] relative overflow-hidden">
+    <div
+      className="
+        /* ⇣  changed line ⇣ */
+        min-h-[calc(100vh-4rem)]   /* fills viewport minus 64-px header */
+        w-full
+        flex flex-col items-center justify-center  /* fill + center on all breakpoints */
+        bg-white dark:bg-black/[0.96]
+        antialiased relative overflow-hidden
+      "
+    >
+      {/* Grid background */}
+      <div className="absolute inset-0 bg-grid-black/[0.02] dark:bg-grid-white/[0.02]" />
+
+      {/* Radial fade */}
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] dark:bg-black" />
+
       <Spotlight />
-      <div className="p-4 max-w-7xl mx-auto relative z-10 w-full pt-20 md:pt-0 flex flex-col items-center justify-center">
-        <h1 className="text-4xl md:text-7xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-b from-black dark:from-neutral-50 to-black/70 dark:to-neutral-400 bg-opacity-50 font-geist tracking-tight">
+
+      {/* Content */}
+      <div className="relative z-10 w-full max-w-7xl px-4 text-center">
+        <h1 className="text-4xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-black dark:from-neutral-50 to-black/70 dark:to-neutral-400 tracking-tight font-geist">
           beautiful. <span className="text-magenta">intriguing.</span> relentless.
         </h1>
-        <p className="mt-8 font-normal text-base md:text-lg text-black/80 dark:text-neutral-300 max-w-3xl text-center mx-auto font-geist">
-          Celebrating 13 years of business, crafting mobile applications, video games, and currently treading the
-          frontier with generative AI. We are the leaders in the Lehigh Valley - just ask. AI is our specialty.
+
+        <p className="mt-8 text-base md:text-lg text-black/80 dark:text-neutral-300 max-w-3xl mx-auto font-geist">
+          Celebrating 13 years of business crafting mobile applications, video games, and currently
+          treading the frontier with generative AI. We are the leaders in the Lehigh Valley – just
+          ask.
         </p>
-        <div className="mt-10 flex flex-col sm:flex-row gap-4">
-          <button className="px-6 py-3 rounded-md bg-magenta text-white font-medium font-geist hover:bg-opacity-90 transition-all">
-            Our Work
-          </button>
-          <button className="px-6 py-3 rounded-md border border-black/20 dark:border-white/20 text-black dark:text-white font-medium font-geist hover:bg-black/5 dark:hover:bg-white/10 transition-all">
-            Get in Touch
-          </button>
+
+        <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+          <BorderButton>Our Work</BorderButton>
+          <BorderButton>Get in Touch</BorderButton>
         </div>
       </div>
     </div>

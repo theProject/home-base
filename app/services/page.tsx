@@ -1,6 +1,8 @@
 import Header from "@/components/header"
 import Footer from "@/components/footer"
 import { Smartphone, Gamepad, Cpu, Code, Palette, BarChart } from "lucide-react"
+import { BorderButton } from "@/components/ui/border-button"
+import Link from "next/link"
 
 const services = [
   {
@@ -62,7 +64,8 @@ export default function ServicesPage() {
               >
                 <div className="mb-4">{service.icon}</div>
                 <h3 className="text-xl font-bold text-black dark:text-white mb-3 font-geist">{service.title}</h3>
-                <p className="text-black/70 dark:text-white/70">{service.description}</p>
+                <p className="text-black/70 dark:text-white/70 mb-4">{service.description}</p>
+                <BorderButton size="sm">Learn More</BorderButton>
               </div>
             ))}
           </div>
@@ -115,6 +118,12 @@ export default function ServicesPage() {
                   We ensure a smooth launch and provide ongoing support to keep your product running optimally.
                 </p>
               </div>
+            </div>
+
+            <div className="mt-12 text-center">
+              <Link href="/contact">
+                <BorderButton size="lg">Get Started</BorderButton>
+              </Link>
             </div>
           </div>
         </div>

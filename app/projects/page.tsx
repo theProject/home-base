@@ -3,6 +3,7 @@ import Footer from "@/components/footer"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
+import { BorderButton } from "@/components/ui/border-button"
 
 const projects = [
   {
@@ -90,9 +91,13 @@ export default function ProjectsPage() {
                       {project.title}
                     </h3>
                     <p className="text-black/70 dark:text-white/70 mt-2">{project.description}</p>
-                    <div className="mt-4 flex items-center text-magenta font-medium">
-                      <span>View Project</span>
-                      <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+                    <div className="mt-4">
+                      <BorderButton size="sm">
+                        <span className="flex items-center">
+                          View Project
+                          <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+                        </span>
+                      </BorderButton>
                     </div>
                   </div>
                 </Link>

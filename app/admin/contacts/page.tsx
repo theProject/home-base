@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { format } from "date-fns"
+import { BorderButton } from "@/components/ui/border-button"
 
 type Contact = {
   id: number
@@ -79,9 +80,9 @@ export default function AdminContactsPage() {
                       {format(new Date(contact.created_at), "MMM d, yyyy h:mm a")}
                     </td>
                     <td className="py-3 px-4">
-                      <button className="text-magenta hover:underline" onClick={() => setSelectedContact(contact)}>
+                      <BorderButton size="sm" onClick={() => setSelectedContact(contact)}>
                         View
-                      </button>
+                      </BorderButton>
                     </td>
                   </tr>
                 ))}
@@ -118,12 +119,9 @@ export default function AdminContactsPage() {
                   </div>
                 </div>
                 <div className="mt-6 flex justify-end">
-                  <button
-                    className="px-4 py-2 bg-magenta text-white rounded-md hover:bg-magenta/90"
-                    onClick={() => setSelectedContact(null)}
-                  >
+                  <BorderButton onClick={() => setSelectedContact(null)} size="sm">
                     Close
-                  </button>
+                  </BorderButton>
                 </div>
               </div>
             </div>

@@ -1,16 +1,26 @@
-import { ServerClient } from "postmark"
+// Replace Postmark with Brevo
+import nodemailer from "nodemailer"
 
-// Initialize Postmark client
-const client = new ServerClient(process.env.POSTMARK_API_TOKEN || "")
-const fromEmail = process.env.POSTMARK_FROM_EMAIL || "tjsmith@theproject.com"
+// Initialize Brevo transporter
+const transporter = nodemailer.createTransport({
+  host: "smtp-relay.brevo.com",
+  port: 587,
+  secure: false, // true for 465, false for other ports
+  auth: {
+    user: process.env.BREVO_SMTP_USER || "",
+    pass: process.env.BREVO_SMTP_PASSWORD || "",
+  },
+})
+
+const fromEmail = process.env.BREVO_FROM_EMAIL || "contact@theproject.com"
 
 // Send an email to the site admin
 export async function sendAdminNotification(name: string, email: string, subject: string, message: string) {
-  return await client.sendEmail({
-    From: fromEmail,
-    To: fromEmail, // Send to yourself
-    Subject: `New Contact Form Submission: ${subject}`,
-    HtmlBody: `
+  return await transporter.sendMail({
+    from: `"theProject Contact" <${fromEmail}>`,
+    to: fromEmail, // Send to yourself
+    subject: `New Contact Form Submission: ${subject}`,
+    html: `
       <h2>New Contact Form Submission</h2>
       <p><strong>Name:</strong> ${name}</p>
       <p><strong>Email:</strong> ${email}</p>
@@ -20,7 +30,7 @@ export async function sendAdminNotification(name: string, email: string, subject
         ${message.replace(/\n/g, "<br>")}
       </div>
     `,
-    TextBody: `
+    text: `
       New Contact Form Submission
       
       Name: ${name}
@@ -30,24 +40,23 @@ export async function sendAdminNotification(name: string, email: string, subject
       Message:
       ${message}
     `,
-    MessageStream: "outbound",
   })
 }
 
 // Send a confirmation email to the user
 export async function sendUserConfirmation(name: string, email: string) {
-  return await client.sendEmail({
-    From: fromEmail,
-    To: email,
-    Subject: "Thank you for contacting theProject",
-    HtmlBody: `
+  return await transporter.sendMail({
+    from: `"theProject" <${fromEmail}>`,
+    to: email,
+    subject: "Thank you for contacting theProject",
+    html: `
       <h2>Thank you for reaching out!</h2>
       <p>Hello ${name},</p>
       <p>We've received your message and appreciate your interest in theProject. Our team will review your inquiry and get back to you as soon as possible.</p>
       <p>In the meantime, feel free to explore our <a href="https://theproject.com/projects">projects</a> and <a href="https://theproject.com/blog">blog</a> to learn more about our work.</p>
       <p>Best regards,<br>The theProject Team</p>
     `,
-    TextBody: `
+    text: `
       Thank you for reaching out!
       
       Hello ${name},
@@ -59,6 +68,5 @@ export async function sendUserConfirmation(name: string, email: string) {
       Best regards,
       The theProject Team
     `,
-    MessageStream: "outbound",
   })
 }

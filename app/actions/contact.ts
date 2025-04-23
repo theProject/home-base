@@ -23,7 +23,7 @@ export async function sendContactEmail(formData: FormData) {
     // Store the submission in the database
     await insertContactSubmission(name, email, subject, message)
 
-    // Send email notifications
+    // Send email notifications using Brevo
     await Promise.all([sendAdminNotification(name, email, subject, message), sendUserConfirmation(name, email)])
 
     return {

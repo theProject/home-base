@@ -4,6 +4,7 @@ import { getPost } from "@/lib/sanity"
 import { format } from "date-fns"
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
+import { BorderButton } from "@/components/ui/border-button"
 
 export default async function BlogPostPage({ params }: { params: { slug: string } }) {
   // In a real implementation, this would fetch from Sanity
@@ -47,12 +48,13 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
       <Header />
       <main className="container mx-auto px-4 pt-24 pb-16">
         <div className="max-w-3xl mx-auto">
-          <Link
-            href="/blog"
-            className="inline-flex items-center text-black/70 dark:text-white/70 hover:text-magenta mb-8"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to all posts
+          <Link href="/blog" className="inline-block mb-8">
+            <BorderButton size="sm">
+              <span className="flex items-center">
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back to all posts
+              </span>
+            </BorderButton>
           </Link>
 
           <h1 className="text-3xl md:text-4xl font-bold text-black dark:text-white mb-4 font-geist">{post.title}</h1>
