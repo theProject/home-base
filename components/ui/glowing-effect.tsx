@@ -28,7 +28,7 @@ const GlowingEffect = memo(
     glow = false,
     className,
     movementDuration = 2,
-    borderWidth = 1,
+    borderWidth = 2, // Increased from 1 to 2
     disabled = true,
   }: GlowingEffectProps) => {
     const containerRef = useRef<HTMLDivElement>(null)
@@ -116,7 +116,7 @@ const GlowingEffect = memo(
       <>
         <div
           className={cn(
-            "pointer-events-none absolute -inset-px hidden rounded-[inherit] border opacity-0 transition-opacity",
+            "pointer-events-none absolute -inset-px hidden rounded-[inherit] border-2 opacity-0 transition-opacity", // Changed border to border-2
             glow && "opacity-100",
             variant === "white" && "border-white",
             disabled && "!block",

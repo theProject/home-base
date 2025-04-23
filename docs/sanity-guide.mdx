@@ -1,0 +1,83 @@
+# Sanity CMS Guide for theProject
+
+This guide will help you understand how to use Sanity CMS to manage your blog content.
+
+## What is Sanity?
+
+Sanity is a headless CMS that stores your content in a cloud-based backend. Your website fetches this content using the Sanity API. This separation allows you to manage content independently from your website's code.
+
+## Accessing Sanity Studio
+
+1. Go to https://www.sanity.io/login
+2. Log in with your credentials
+3. Select your project (named "theProject" or similar)
+4. You'll be taken to Sanity Studio, where you can manage your content
+
+## Managing Blog Posts
+
+### Creating a New Post
+
+1. In Sanity Studio, click on "Posts" in the left sidebar
+2. Click the "Create new" button
+3. Fill in the following fields:
+   - **Title**: The title of your blog post
+   - **Slug**: A URL-friendly version of the title (auto-generated, but you can edit it)
+   - **Author**: Select an author from the dropdown
+   - **Categories**: Select one or more categories
+   - **Main Image**: Upload a featured image
+   - **Excerpt**: A short summary of the post
+   - **Body**: The main content of your post using the rich text editor
+
+4. Click "Publish" when you're ready to make the post live
+
+### Editing Existing Posts
+
+1. In Sanity Studio, click on "Posts" in the left sidebar
+2. Find the post you want to edit and click on it
+3. Make your changes
+4. Click "Publish" to update the post
+
+### Using the Rich Text Editor
+
+The body field uses a rich text editor that supports:
+
+- **Formatting**: Bold, italic, underline, etc.
+- **Headings**: H1, H2, H3, etc.
+- **Lists**: Bulleted and numbered lists
+- **Links**: Internal and external links
+- **Images**: Insert images within your content
+- **Code blocks**: For code snippets
+
+## Managing Authors and Categories
+
+### Adding a New Author
+
+1. Click on "Authors" in the left sidebar
+2. Click "Create new"
+3. Fill in the name and upload an image
+4. Click "Publish"
+
+### Adding a New Category
+
+1. Click on "Categories" in the left sidebar
+2. Click "Create new"
+3. Fill in the title and description
+4. Click "Publish"
+
+## Technical Details
+
+Your website is configured to use the following Sanity project:
+
+- **Project ID**: `process.env.NEXT_PUBLIC_SANITY_PROJECT_ID`
+- **Dataset**: `process.env.NEXT_PUBLIC_SANITY_DATASET` (usually "production")
+- **API Version**: "2023-05-03"
+
+Content is fetched using the Sanity client in `lib/sanity.ts`.
+
+## Getting Help
+
+If you encounter any issues with Sanity, you can:
+
+1. Check the [Sanity documentation](https://www.sanity.io/docs)
+2. Contact your website developer for assistance
+3. Reach out to Sanity support at [help.sanity.io](https://help.sanity.io)

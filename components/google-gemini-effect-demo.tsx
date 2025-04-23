@@ -24,8 +24,8 @@ export default function GoogleGeminiEffectDemo() {
     >
       <GoogleGeminiEffect
         pathLengths={[pathLengthFirst, pathLengthSecond, pathLengthThird, pathLengthFourth, pathLengthFifth]}
-        title="Try out the Google Treadmill - We love putting parralax effects to the test!"
-        description="Scroll to explore see this awesome effect run right into footer!"
+        title="Innovate with theProject."
+        description="Scroll to explore our approach to mobile applications, video games, and generative AI solutions."
       />
     </div>
   )

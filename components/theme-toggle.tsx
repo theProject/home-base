@@ -1,30 +1,39 @@
-/* components/theme-toggle.tsx */
-"use client";
+// components/theme-toggle.tsx
+"use client"
 
-import { useTheme } from "next-themes";
-import { Sun, Moon } from "lucide-react";
+import { useTheme } from "next-themes"
+import { useEffect, useState } from "react"
+import { Sun, Moon } from "lucide-react"
 
-export function ThemeToggle() {
-  const { resolvedTheme, setTheme } = useTheme();          // “resolved” works with system ↔ manual
-  const isDark = resolvedTheme === "dark";
+export default function ThemeToggle() {
+  const { theme, setTheme, systemTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  // ✅ Reveal once the client is ready
+  useEffect(() => setMounted(true), [])
+
+  // Placeholder that keeps markup stable (suppress warning just in case)
+  if (!mounted) {
+    return (
+      <button
+        aria-label="Toggle colour scheme"
+        className="flex h-9 w-9 items-center justify-center rounded-md"
+        suppressHydrationWarning
+      >
+        <Sun className="h-6 w-6 opacity-0" />
+      </button>
+    )
+  }
+
+  const current = theme === "system" ? systemTheme : theme
 
   return (
     <button
-      aria-label="Toggle colour theme"
-      onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="
-        flex h-9 w-9 items-center justify-center rounded-full
-        transition-opacity hover:opacity-80
-        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
-      "
+      aria-label="Toggle colour scheme"
+      className="flex h-9 w-9 items-center justify-center rounded-md"
+      onClick={() => setTheme(current === "dark" ? "light" : "dark")}
     >
-      {isDark ? (
-        /* dark-mode → show moon */
-        <Moon className="h-6 w-6 text-yellow-400" />
-      ) : (
-        /* light-mode → show sun */
-        <Sun className="h-6 w-6 text-orange-500" />
-      )}
+      {current === "dark" ? <Moon className="h-6 w-6 text-yellow-400" /> : <Sun className="h-6 w-6 text-orange-500" />}
     </button>
-  );
+  )
 }

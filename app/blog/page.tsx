@@ -3,6 +3,7 @@ import Footer from "@/components/footer"
 import { getPosts } from "@/lib/sanity"
 import Link from "next/link"
 import { formatDistanceToNow } from "date-fns"
+import { BorderButton } from "@/components/ui/border-button"
 
 export default async function BlogPage() {
   // In a real implementation, this would fetch from Sanity
@@ -55,18 +56,16 @@ export default async function BlogPage() {
                 key={post._id}
                 className="border border-gray-200 dark:border-gray-800 rounded-lg p-6 hover:shadow-md transition-shadow"
               >
-                <Link href={`/blog/${post.slug.current}`}>
-                  <h2 className="text-2xl font-bold text-black dark:text-white mb-2 font-geist hover:text-magenta transition-colors">
-                    {post.title}
-                  </h2>
-                </Link>
+                <h2 className="text-2xl font-bold text-black dark:text-white mb-2 font-geist hover:text-magenta transition-colors">
+                  {post.title}
+                </h2>
                 <div className="flex items-center text-sm text-black/60 dark:text-white/60 mb-4">
                   <span>{post.author.name}</span>
                   <span className="mx-2">•</span>
                   <span>{formatDistanceToNow(new Date(post.publishedAt), { addSuffix: true })}</span>
                 </div>
                 <p className="text-black/80 dark:text-white/80 mb-4">{post.excerpt}</p>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 mb-4">
                   {post.categories.map((category) => (
                     <span
                       key={category}
@@ -76,6 +75,9 @@ export default async function BlogPage() {
                     </span>
                   ))}
                 </div>
+                <Link href={`/blog/${post.slug.current}`}>
+                  <BorderButton size="sm">Read More</BorderButton>
+                </Link>
               </article>
             ))}
           </div>
