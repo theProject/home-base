@@ -24,8 +24,8 @@ export default function GoogleGeminiEffectDemo() {
     >
       <GoogleGeminiEffect
         pathLengths={[pathLengthFirst, pathLengthSecond, pathLengthThird, pathLengthFourth, pathLengthFifth]}
-        title="Innovate with theProject."
-        description="Scroll to explore our approach to mobile applications, video games, and generative AI solutions."
+        title="We bring the best."
+        description="Knowledge and networking are the keys to success. We have both, the word Relentless means something to us."
       />
     </div>
   )

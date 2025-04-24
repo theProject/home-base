@@ -9,13 +9,13 @@ export default function ContainerScrollDemo() {
           <>
             <h1 className="text-4xl font-semibold text-black dark:text-white font-geist">
               Crafting <span className="text-magenta">Digital</span> Experiences <br />
-              <span className="text-4xl md:text-[6rem] font-bold mt-1 leading-none">Since 2010</span>
+              <span className="text-4xl md:text-[6rem] font-bold mt-1 leading-none">Since 2012</span>
             </h1>
           </>
         }
       >
         <img
-          src={`/ipad-screen.webp`}
+          src={`/testConcept.png`}
           alt="iPad showing theProject app interface"
           height={720}
           width={1400}

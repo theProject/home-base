@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { ArrowUp } from "lucide-react"
+import { ArrowUpToLine} from "lucide-react"
 import { BorderButton } from "@/components/ui/border-button"
 
 export default function BackToTop() {
@@ -37,10 +37,10 @@ export default function BackToTop() {
     >
       <BorderButton
         onClick={scrollToTop}
-        className="rounded-full p-3 bg-magenta hover:bg-magenta/90 transition-colors"
+        className="rounded-lg p-1 bg-teal-300 hover:bg-magenta/90 transition-colors"
         aria-label="Back to top"
       >
-        <ArrowUp className="h-5 w-5 text-white" />
+        <ArrowUpToLine className="h-8 w-6 text-white" />
       </BorderButton>
     </div>
   )

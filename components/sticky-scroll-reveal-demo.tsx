@@ -5,10 +5,10 @@ const content = [
   {
     title: "Meet Hello, Friend",
     description:
-      "Hello, Friend is an AI companion that understands your needs and helps you navigate your digital life. With advanced natural language processing, it learns your preferences and adapts to your unique style.",
+      "Hello, Friend is very secret but close to beta - area will update soon, as we does our PR to the world. For beta, it is limited to USA and Canadian residents - we are working on strict data controls around the world.  It is an AI companion that understands your needs and helps you navigate your digital life. With advanced natural language processing, it learns your preferences and adapts to your unique style.",
     content: (
       <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(to_bottom_right,#06b6d4,#10b981)] text-white">
-        <span className="text-xl font-bold">Hello, Friend AI</span>
+        <span className="text-xl font-bold">Hello, Friend.</span>
       </div>
     ),
   },

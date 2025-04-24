@@ -10,9 +10,9 @@ interface GlowingButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const GlowingButton = forwardRef<HTMLButtonElement, GlowingButtonProps>(
   ({ className, variant = "default", size = "default", glowColor = "magenta", children, ...props }, ref) => {
     const glowStyles = {
-      magenta: "bg-[conic-gradient(from_90deg_at_50%_50%,#e20074_0%,#ff66b8_50%,#e20074_100%)]",
-      blue: "bg-[conic-gradient(from_90deg_at_50%_50%,#3b82f6_0%,#93c5fd_50%,#3b82f6_100%)]",
-      teal: "bg-[conic-gradient(from_90deg_at_50%_50%,#14b8a6_0%,#5eead4_50%,#14b8a6_100%)]",
+      magenta: "bg-[conic-gradient(from_90deg_at_50%_50%,#e20074_100%,#e20074_50%,#e20074_100%)]",
+      blue: "bg-[conic-gradient(from_90deg_at_50%_50%,#e20074_0%,#e20074_50%,#e20074_100%)]",
+      teal: "bg-[conic-gradient(from_90deg_at_50%_50%,#e20074_50%,#e20074_100%,#e20074_100%)]",
     }
 
     const variantStyles = {
@@ -38,13 +38,13 @@ const GlowingButton = forwardRef<HTMLButtonElement, GlowingButtonProps>(
         {...props}
       >
         {/* Glow effect behind the button */}
-        <span className={cn("absolute inset-0 -z-10 animate-[spin_4s_linear_infinite]", glowStyles[glowColor])} />
+        <span className={cn("absolute inset-0 -z-10", glowStyles[glowColor])} />
 
         {/* Button background */}
         <span
           className={cn(
             "absolute inset-[1px] -z-5 rounded-[4px]",
-            variant === "default" ? "bg-magenta" : "bg-white dark:bg-black",
+            variant === "default" ? "bg-magenta/70" : "bg-white/70 dark:bg-black/70",
           )}
         ></span>
 

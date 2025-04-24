@@ -33,7 +33,7 @@ export default function ThemeToggle() {
       className="flex h-9 w-9 items-center justify-center rounded-md"
       onClick={() => setTheme(current === "dark" ? "light" : "dark")}
     >
-      {current === "dark" ? <Moon className="h-6 w-6 text-yellow-400" /> : <Sun className="h-6 w-6 text-orange-500" />}
+      {current === "dark" ? <Moon className="h-6 w-6 text-teal-300" /> : <Sun className="h-6 w-6 text-magenta" />}
     </button>
   )
 }

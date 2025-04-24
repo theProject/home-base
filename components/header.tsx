@@ -34,7 +34,7 @@ export default function Header() {
               <style>{`
       .cls-1 { fill: #e20074; }     /* magenta – always */
       .cls-2 { fill: #000000; stroke: #000; stroke-miterlimit: 10; stroke-width: .75px; }
-      .dark .cls-2 { fill: #00E26E; }  /* green in dark mode */
+      .dark .cls-2 { fill: #01F9C6; }  /* green in dark mode */
     `}</style>
             </defs>
             <g id="cubeLayer">

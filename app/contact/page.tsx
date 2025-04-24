@@ -151,15 +151,15 @@ export default function ContactPage() {
                   <div className="flex items-start">
                     <Mail className="w-5 h-5 text-magenta mr-3 mt-0.5" />
                     <div>
-                      <p className="text-sm font-medium text-black dark:text-white">Email</p>
-                      <p className="text-black/70 dark:text-white/70">hello@theproject.com</p>
+                      <p className="text-sm font-medium text-black dark:text-white">Email - don't spam.  We will find you.</p>
+                      <p className="text-black/70 dark:text-white/70">devops@theproject.com</p>
                     </div>
                   </div>
                   <div className="flex items-start">
                     <Phone className="w-5 h-5 text-magenta mr-3 mt-0.5" />
                     <div>
-                      <p className="text-sm font-medium text-black dark:text-white">Phone</p>
-                      <p className="text-black/70 dark:text-white/70">(555) 123-4567</p>
+                      <p className="text-sm font-medium text-black dark:text-white">Phone - For Clients, no Cold Calls</p>
+                      <p className="text-black/70 dark:text-white/70">(484) 894-2519</p>
                     </div>
                   </div>
                   <div className="flex items-start">
@@ -167,9 +167,9 @@ export default function ContactPage() {
                     <div>
                       <p className="text-sm font-medium text-black dark:text-white">Location</p>
                       <p className="text-black/70 dark:text-white/70">
-                        123 Innovation Way
+                        theProject. HQ
                         <br />
-                        Lehigh Valley, PA 18000
+                        Hellertown, PA 18055
                       </p>
                     </div>
                   </div>
@@ -181,15 +181,15 @@ export default function ContactPage() {
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-black/70 dark:text-white/70">Monday - Friday</span>
-                    <span className="text-black dark:text-white">9:00 AM - 6:00 PM</span>
+                    <span className="text-black dark:text-white">9:00 AM - 8:00 PM</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-black/70 dark:text-white/70">Saturday</span>
-                    <span className="text-black dark:text-white">10:00 AM - 2:00 PM</span>
+                    <span className="text-black dark:text-white">10:00 AM - 4:00 PM</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-black/70 dark:text-white/70">Sunday</span>
-                    <span className="text-black dark:text-white">Closed</span>
+                    <span className="text-black dark:text-white">Closed - We have families!</span>
                   </div>
                 </div>
               </div>

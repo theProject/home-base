@@ -5,17 +5,41 @@ import Link from "next/link"
 import { formatDistanceToNow } from "date-fns"
 import { BorderButton } from "@/components/ui/border-button"
 
+interface Post {
+  _id: string
+  title: string
+  slug: { current: string }
+  publishedAt: string
+  excerpt: string
+  author: { name: string }
+  categories: string[]
+}
+
+
 export default async function BlogPage() {
   // In a real implementation, this would fetch from Sanity
   // For now, we'll use placeholder data
-  const posts = await getPosts().catch(() => [
-    {
+  const posts: Post[] = await getPosts().catch((): Post[] => [
+  {
+    _id: "1",
+    title: "Getting Started with Mobile App Development - FIller / Not Real",
+    slug: { current: "getting-started-with-mobile-app-development" },
+    publishedAt: new Date().toISOString(),
+    excerpt: "Learn the fundamentals of building mobile applications with our comprehensive guide.",
+    author: { name: "Tristan Smith" },
+    categories: ["Mobile Development", "Tutorials"],
+  },
+  // ... rest of your mock posts
+])
+
+    {const posts: Post[] = await getPosts().catch((): Post[] => [
+      {
       _id: "1",
-      title: "Getting Started with Mobile App Development",
+      title: "Getting Started with Mobile App Development - FIller / Not Real",
       slug: { current: "getting-started-with-mobile-app-development" },
       publishedAt: new Date().toISOString(),
       excerpt: "Learn the fundamentals of building mobile applications with our comprehensive guide.",
-      author: { name: "John Doe" },
+      author: { name: "Tristan Smith" },
       categories: ["Mobile Development", "Tutorials"],
     },
     {
@@ -24,7 +48,7 @@ export default async function BlogPage() {
       slug: { current: "the-future-of-generative-ai" },
       publishedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
       excerpt: "Explore how generative AI is transforming industries and what to expect in the coming years.",
-      author: { name: "Jane Smith" },
+      author: { name: "Aeris Smith" },
       categories: ["AI", "Technology Trends"],
     },
     {
@@ -33,7 +57,7 @@ export default async function BlogPage() {
       slug: { current: "video-game-development-from-concept-to-launch" },
       publishedAt: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(),
       excerpt: "A step-by-step guide to creating your own video game, covering all stages of development.",
-      author: { name: "Mike Johnson" },
+      author: { name: "Tristan and Carrie Smith" },
       categories: ["Game Development", "Project Management"],
     },
   ])
@@ -86,4 +110,4 @@ export default async function BlogPage() {
       <Footer />
     </div>
   )
-}
+}}

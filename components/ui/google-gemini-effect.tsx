@@ -23,16 +23,15 @@ export const GoogleGeminiEffect = ({
   return (
     <div className={cn("sticky top-80", className)}>
       <p className="text-lg md:text-7xl font-normal pb-4 text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-900 to-neutral-600 dark:from-neutral-100 dark:to-neutral-300">
-        {title || `Build with Aceternity UI`}
+        {title || `Google and Gemini are great.`}
       </p>
       <p className="text-xs md:text-xl font-normal text-center text-neutral-700 dark:text-neutral-400 mt-4 max-w-lg mx-auto">
         {description ||
-          `Scroll this component and see the bottom SVG come to life wow this
-        works!`}
+          `Keep scrolling - Google released this with Gemini, great can appreciate great.`}
       </p>
       <div className="w-full h-[890px] -top-60 md:-top-40 flex items-center justify-center bg-red-transparent absolute ">
         <button className="font-bold bg-white dark:bg-black border border-black/10 dark:border-white/10 rounded-full md:px-4 md:py-2 px-2 py-1 md:mt-24 mt-8 z-30 md:text-base text-black dark:text-white text-xs w-fit mx-auto ">
-          theProject.com
+          relentless.  connected.
         </button>
       </div>
       <svg
