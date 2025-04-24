@@ -54,7 +54,7 @@ const BorderButton = forwardRef<HTMLButtonElement, BorderButtonProps>(
         ref={ref}
         className={cn(
           'group relative inline-flex overflow-hidden rounded-md p-[2px]',
-          'focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-black',
+          'focus:outline-hidden focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-black',
           className,
         )}
         {...props}

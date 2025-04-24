@@ -19,7 +19,7 @@ export default function SpotlightNewDemo() {
 
       {/* hero content */}
       <div className="relative z-10 w-full max-w-7xl px-4 text-center">
-        <h1 className="text-4xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-black dark:from-neutral-50 to-black/70 dark:to-neutral-400 tracking-tight font-geist">
+        <h1 className="text-4xl md:text-7xl font-bold bg-clip-text text-transparent bg-linear-to-b from-black dark:from-neutral-50 to-black/70 dark:to-neutral-400 tracking-tight font-geist">
           beautiful. <span className="text-magenta">intriguing.</span> relentless.
         </h1>
 

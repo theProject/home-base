@@ -18,7 +18,7 @@ export default function Header() {
   }
 
   return (
-    <header className="sticky top-0 left-0 z-50 w-full bg-white/80 backdrop-blur-sm dark:bg-black/80">
+    <header className="sticky top-0 left-0 z-50 w-full bg-white/80 backdrop-blur-xs dark:bg-black/80">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* ─────── Brand ─────── */}
         <div className="flex items-center gap-2">
@@ -103,7 +103,7 @@ export default function Header() {
 
       {/* Mobile menu */}
       <div
-        className={`fixed inset-0 top-16 z-40 transform bg-white/95 dark:bg-black/95 backdrop-blur-sm transition-transform duration-300 ease-in-out md:hidden ${
+        className={`fixed inset-0 top-16 z-40 transform bg-white/95 dark:bg-black/95 backdrop-blur-xs transition-transform duration-300 ease-in-out md:hidden ${
           mobileMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >

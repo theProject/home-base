@@ -31,7 +31,7 @@ const GlowingButton = forwardRef<HTMLButtonElement, GlowingButtonProps>(
       <button
         ref={ref}
         className={cn(
-          "group relative overflow-hidden rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-magenta/50 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-black",
+          "group relative overflow-hidden rounded-md font-medium transition-colors focus:outline-hidden focus:ring-2 focus:ring-magenta/50 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-black",
           sizeStyles[size],
           className,
         )}

@@ -65,7 +65,7 @@ export default function PrivacyPage() {
               <li><b>User Uploaded Profile &amp; Other User Provided Profile Options</b></li>
             </ul>
             <br />
-            <p className="!mt-1 text-sm">
+            <p className="mt-1! text-sm">
               Used to create and secure your account, send notices you consent
               to and respond to support requests.
             </p>
@@ -75,7 +75,7 @@ export default function PrivacyPage() {
               <li><b>IP address &amp; device data</b> (browser, OS, time-zone)</li>
               <li><b>Interaction data</b> (pages visited, feature usage, crash logs)</li>
             </ul>
-            <p className="!mt-1 text-sm">
+            <p className="mt-1! text-sm">
               Collected via first-party analytics to keep our platform secure,
               detect fraud and improve performance. <b>Analytics cookies are
               opt-in only.</b>

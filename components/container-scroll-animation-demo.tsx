@@ -15,7 +15,7 @@ export default function ContainerScrollDemo() {
         }
       >
         <img
-          src={`/testConcept.png`}
+          src={`./testConcept.png`}
           alt="iPad showing theProject app interface"
           height={720}
           width={1400}
