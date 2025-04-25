@@ -10,7 +10,7 @@ export default function SpotlightNewDemo() {
                  bg-white dark:bg-black/[0.96] antialiased relative overflow-hidden"
     >
       {/* grid background */}
-      <div className="absolute inset-0 bg-grid-black/[0.02] dark:bg-grid-white/[0.02]" />
+      <div className="absolute inset-0 bg-grid-black/[0.1] dark:bg-grid-white/[0.02]" />
 
       {/* radial fade */}
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] dark:bg-black" />
@@ -24,22 +24,18 @@ export default function SpotlightNewDemo() {
         </h1>
 
         <p className="mt-8 text-base md:text-lg text-black/80 dark:text-neutral-300 max-w-3xl mx-auto font-geist">
-          theProject is the story of fleeting hope, the darkest nightmares, and the relentless pursuit of a dream.  
-          It has been thirteen years since I founded theProject. I'm ready to share that story, and share something
-          so personal, so raw - that I hope it helps you celebrate this thirteenth year in business with me.  We are a
-          creative studio, well versed in the world of design, development, and digital marketing.  But we can also help
-          you fix your phone or computer, tutor in CS, rebrand your business or consult on your next big tech move. But
-          we are also available to support Saucon Valley and it's many projects - Hellertown has a well kept secret, and
-          I can't wait to share what we can do for you. It's finally time to share theProject with the world.
+        Thirteen years in the shadows. Juice turned to eleven.
+        Ready to power your design, development & consulting needs—no limits.
           <br />
            
           <br />
-          <span className="text-magenta">Tristan Smith</span> - Founder and <span className="text-teal-300">CEO</span> (how cool is <span className="text-magenta">that</span>?)
+          {/*<span className="text-magenta">Tristan Smith</span> - Founder and <span className="text-teal-300">CEO</span> (how cool is <span className="text-magenta">that</span>?) */}
           
  
                   </p>
 
-        <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+        {/*<div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center"> */}
+        <div className="flex flex-col sm:flex-row items-center gap-4 justify-center">
           <BorderButton>Our Work</BorderButton>
           <BorderButton>Get in Touch</BorderButton>
         </div>

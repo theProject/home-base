@@ -59,15 +59,31 @@ const BorderButton = forwardRef<HTMLButtonElement, BorderButtonProps>(
         )}
         {...props}
       >
-        {/* ─── animated gradient border ───────────────────────── */}
-        <span
-          className="absolute inset-[-200%] -z-10
-                     animate-[spin_4s_linear_infinite]
-                     bg-[conic-gradient(from_90deg_at_50%_50%,#e20074_0%,#e20074_25%,#01F9C6_50%,#01F9C6_75%,#e20074_100%)]
-                     opacity-70 group-hover:opacity-100"
-          style={{ animationDelay: delay }}
-          suppressHydrationWarning               /* prevents mismatch error */
-        />
+      {/* ─── animated gradient border ───────────────────────── */}
+      <span
+  className={cn(
+    // 1) clip to the border-width of 2px
+    "absolute inset-0 m-[-2px] -z-10",
+
+    // 2) keep the background anchored to this span
+    "bg-local",
+
+    // 3) spin animation
+    "animate-[spin_4s_linear_infinite]",
+
+    // 4) WebKit fallback (must come before the standard)
+    "[background-image:-webkit-conic-gradient(from_90deg_at_50%_50%,#e20074_0%,#e20074_25%,#01F9C6_50%,#01F9C6_75%,#e20074_100%)]",
+
+    // 5) standard conic
+    "bg-[conic-gradient(from_90deg_at_50%_50%,#e20074_0%,#e20074_25%,#01F9C6_50%,#01F9C6_75%,#e20074_100%)]",
+
+    // 6) hover opacity
+    "opacity-70 group-hover:opacity-100"
+  )}
+  style={{ animationDelay: delay }}
+  suppressHydrationWarning
+/>
+
 
         {/* ─── subtle fade overlay ───────────────────────────── */}
         <span
