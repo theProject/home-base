@@ -5,7 +5,7 @@ import Link from "next/link"
 import dynamic from "next/dynamic"
 import { X, Menu } from "lucide-react"
 
-// ⬇️  render ThemeToggle only in the browser
+// ⬇️ render ThemeToggle only in the browser
 const ThemeToggle = dynamic(() => import("@/components/theme-toggle"), {
   ssr: false,
 })
@@ -27,14 +27,19 @@ export default function Header() {
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 2160 2160"
             xmlSpace="preserve"
-            className="h-16 w-auto"
+            className="h-10 w-auto"
           >
-            <path
-              d="m1251.37 977.89-315 530h630zm-2.29 122.88 204.75 344.5h-409.5z"
-              opacity="0.851"
-              fill="#05f2af"
-            />
             <defs>
+              {/* Thicken everything by dilating 2px */}
+              <filter id="bolder" x="-10%" y="-10%" width="120%" height="120%">
+                <feMorphology in="SourceAlpha" operator="dilate" radius="2" result="thick" />
+                <feMerge>
+                  <feMergeNode in="thick" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+
+              {/* Your existing gradient */}
               <linearGradient
                 id="a"
                 gradientUnits="userSpaceOnUse"
@@ -44,22 +49,31 @@ export default function Header() {
                 y2="1542.881"
               >
                 <stop offset="0" stopColor="#e30075" />
-                <stop offset=".04" stopColor="#bb2c80" />
-                <stop offset=".084" stopColor="#955589" />
-                <stop offset=".133" stopColor="#727b92" />
-                <stop offset=".186" stopColor="#549b9a" />
-                <stop offset=".246" stopColor="#3cb7a1" />
-                <stop offset=".313" stopColor="#27cda6" />
-                <stop offset=".391" stopColor="#18deaa" />
-                <stop offset=".488" stopColor="#0de9ad" />
-                <stop offset=".623" stopColor="#07f0af" />
+                <stop offset="0.04" stopColor="#bb2c80" />
+                <stop offset="0.084" stopColor="#955589" />
+                <stop offset="0.133" stopColor="#727b92" />
+                <stop offset="0.186" stopColor="#549b9a" />
+                <stop offset="0.246" stopColor="#3cb7a1" />
+                <stop offset="0.313" stopColor="#27cda6" />
+                <stop offset="0.391" stopColor="#18deaa" />
+                <stop offset="0.488" stopColor="#0de9ad" />
+                <stop offset="0.623" stopColor="#07f0af" />
                 <stop offset="1" stopColor="#05f2af" />
               </linearGradient>
             </defs>
-            <path
-              d="m1030 562.17-545.26 945.72h339.29l385.26-647.48zm-239.91 882.26-209.81 1.83 457.53-770.15 100.84 175.52z"
-              fill="url(#a)"
-            />
+
+            {/* Wrap all your paths in this group to apply the filter */}
+            <g filter="url(#bolder)">
+              <path
+                d="m1251.37 977.89-315 530h630zm-2.29 122.88 204.75 344.5h-409.5z"
+                opacity="0.851"
+                fill="#05f2af"
+              />
+              <path
+                d="m1030 562.17-545.26 945.72h339.29l385.26-647.48zm-239.91 882.26-209.81 1.83 457.53-770.15 100.84 175.52z"
+                fill="url(#a)"
+              />
+            </g>
           </svg>
 
           <span className="font-geist text-xl md:text-2xl font-bold text-black dark:text-white">
