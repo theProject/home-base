@@ -27,12 +27,12 @@ export default function Header() {
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 2160 2160"
             xmlSpace="preserve"
-            className="h-10 w-auto"
+            className="h-14 w-auto"
           >
             <defs>
               {/* Thicken everything by dilating 2px */}
               <filter id="bolder" x="-10%" y="-10%" width="120%" height="120%">
-                <feMorphology in="SourceAlpha" operator="dilate" radius="2" result="thick" />
+                <feMorphology in="SourceAlpha" operator="dilate" radius="6" result="thick" />
                 <feMerge>
                   <feMergeNode in="thick" />
                   <feMergeNode in="SourceGraphic" />
