@@ -27,7 +27,7 @@ export default function Header() {
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 2160 2160"
             xmlSpace="preserve"
-            className="h-10 w-auto"
+            className="h-16 w-auto"
           >
             <path
               d="m1251.37 977.89-315 530h630zm-2.29 122.88 204.75 344.5h-409.5z"
