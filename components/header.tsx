@@ -31,7 +31,7 @@ export default function Header() {
           >
             <defs>
               {/* Thicken everything by dilating 2px */}
-              <filter id="bolder" x="-10%" y="-10%" width="120%" height="120%">
+              <filter id="bolder" x="-10%" y="-10%" width="160%" height="120%">
                 <feMorphology in="SourceAlpha" operator="dilate" radius="6" result="thick" />
                 <feMerge>
                   <feMergeNode in="thick" />
