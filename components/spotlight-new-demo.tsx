@@ -1,7 +1,7 @@
 "use client"
 
 import { Spotlight } from "@/components/ui/spotlight-new"
-import { BorderButton } from "@/components/ui/border-button"
+import { Button } from "@/components/ui/button"
 
 export default function SpotlightNewDemo() {
   return (
@@ -36,8 +36,8 @@ export default function SpotlightNewDemo() {
 
         {/*<div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center"> */}
         <div className="flex flex-col sm:flex-row items-center gap-4 justify-center">
-          <BorderButton>Our Work</BorderButton>
-          <BorderButton>Get in Touch</BorderButton>
+          <Button>Our Work</Button>
+          <Button>Get in Touch</Button>
         </div>
       </div>
     </div>
