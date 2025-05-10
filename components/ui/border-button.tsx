@@ -62,7 +62,7 @@ const BorderButton = forwardRef<HTMLButtonElement, BorderButtonProps>(
             "bg-local",
 
             // 3) spin animation
-            "animate-[spin_4s_linear_infinite]",
+            "animate-spin-medium",
 
             // 4) WebKit fallback (must come before the standard)
             "[background-image:-webkit-conic-gradient(from_90deg_at_50%_50%,#e20074_0%,#e20074_25%,#01F9C6_50%,#01F9C6_75%,#e20074_100%)]",

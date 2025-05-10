@@ -46,7 +46,7 @@ export default function PrivacyPage() {
             </p>
           </section>
 
-          <hr className="my-12 border-t-2 border-[#e20074]" />
+          <hr className="my-12 border-t-2 border-magenta" />
 
           {/* ================================================================= */}
           {/* 2. What We Collect & Why                                         */}
@@ -94,7 +94,7 @@ export default function PrivacyPage() {
             </p>
           </section>
 
-          <hr className="my-12 border-t-2 border-[#e20074]" />
+          <hr className="my-12 border-t-2 border-magenta" />
 
           {/* ================================================================= */}
           {/* 3. Special Note: “Hello, Friend.” Our Breakthrough Product                     */}
@@ -132,7 +132,7 @@ export default function PrivacyPage() {
             </ul>
           </section>
 
-          <hr className="my-12 border-t-2 border-[#e20074]" />
+          <hr className="my-12 border-t-2 border-magenta" />
 
           {/* ================================================================= */}
           {/* 4. Your Control Panel                                            */}
@@ -153,7 +153,7 @@ export default function PrivacyPage() {
             </ul>
           </section>
 
-          <hr className="my-12 border-t-2 border-[#e20074]" />
+          <hr className="my-12 border-t-2 border-magenta" />
 
           {/* ================================================================= */}
           {/* 5. Lawful Bases                                                  */}
@@ -177,7 +177,7 @@ export default function PrivacyPage() {
             </ul>
           </section>
 
-          <hr className="my-12 border-t-2 border-[#e20074]" />
+          <hr className="my-12 border-t-2 border-magenta" />
 
           {/* ================================================================= */}
           {/* 6. Security                                                      */}
@@ -193,7 +193,7 @@ export default function PrivacyPage() {
             </ul>
           </section>
 
-          <hr className="my-12 border-t-2 border-[#e20074]" />
+          <hr className="my-12 border-t-2 border-magenta" />
 
           {/* ================================================================= */}
           {/* 7. Retention & Deletion                                          */}
@@ -208,7 +208,7 @@ export default function PrivacyPage() {
             </p>
           </section>
 
-          <hr className="my-12 border-t-2 border-[#e20074]" />
+          <hr className="my-12 border-t-2 border-magenta" />
 
           {/* ================================================================= */}
           {/* 8. International Compliance                                      */}
@@ -222,7 +222,7 @@ export default function PrivacyPage() {
             </p>
           </section>
 
-          <hr className="my-12 border-t-2 border-[#e20074]" />
+          <hr className="my-12 border-t-2 border-magenta" />
 
           {/* ================================================================= */}
           {/* 9. Children & COPPA                                              */}
@@ -238,7 +238,7 @@ export default function PrivacyPage() {
             </p>
           </section>
 
-          <hr className="my-12 border-t-2 border-[#e20074]" />
+          <hr className="my-12 border-t-2 border-magenta" />
 
           {/* ================================================================= */}
           {/*10. Your Rights                                                   */}
@@ -254,7 +254,7 @@ export default function PrivacyPage() {
             </ul>
           </section>
 
-          <hr className="my-12 border-t-2 border-[#e20074]" />
+          <hr className="my-12 border-t-2 border-magenta" />
 
           {/* ================================================================= */}
           {/*11. Contact                                                      */}

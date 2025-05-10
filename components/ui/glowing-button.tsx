@@ -43,7 +43,7 @@ const GlowingButton = forwardRef<HTMLButtonElement, GlowingButtonProps>(
         {/* Button background */}
         <span
           className={cn(
-            "absolute inset-[1px] -z-5 rounded-[4px]",
+            "absolute inset-px -z-5 rounded-[4px]",
             variant === "default" ? "bg-magenta/70" : "bg-white/70 dark:bg-black/70",
           )}
         ></span>

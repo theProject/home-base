@@ -7,7 +7,7 @@ import { GlowingEffect } from "@/components/ui/glowing-effect"
 
 export default function GlowingEffectDemo() {
   return (
-    <ul className="grid grid-cols-1 grid-rows-none gap-4 md:grid-cols-12 md:grid-rows-3 lg:gap-4 xl:max-h-[34rem] xl:grid-rows-2">
+    <ul className="grid grid-cols-1 grid-rows-none gap-4 md:grid-cols-12 md:grid-rows-3 lg:gap-4 xl:max-h-136 xl:grid-rows-2">
       <GridItem
         area="md:[grid-area:1/1/2/7] xl:[grid-area:1/1/2/5]"
         icon={<Box className="h-4 w-4 text-black dark:text-neutral-400" />}
@@ -55,7 +55,7 @@ interface GridItemProps {
 
 const GridItem = ({ area, icon, title, description }: GridItemProps) => {
   return (
-    <li className={`min-h-[14rem] list-none ${area}`}>
+    <li className={`min-h-56 list-none ${area}`}>
       <div className="relative h-full rounded-2xl border border-gray-300 dark:border-gray-700 p-2 md:rounded-3xl md:p-3">
         <GlowingEffect spread={40} glow={true} disabled={false} proximity={64} inactiveZone={0.01} />
         <div className="relative flex h-full flex-col justify-between gap-6 overflow-hidden rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-black p-6 md:p-6 shadow-lg dark:shadow-[0px_0px_27px_0px_#2D2D2D]">

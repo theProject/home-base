@@ -36,7 +36,7 @@ export const Card = React.memo(
             hovered === index ? "opacity-100" : "opacity-0",
           )}
         >
-          <div className="text-xl md:text-2xl font-medium bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-200">
+          <div className="text-xl md:text-2xl font-medium bg-clip-text text-transparent bg-linear-to-b from-neutral-50 to-neutral-200">
             {card.title}
           </div>
           {card.description && <p className="text-sm text-white/80 mt-2 line-clamp-3">{card.description}</p>}

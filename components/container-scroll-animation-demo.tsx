@@ -19,7 +19,7 @@ export default function ContainerScrollDemo() {
           alt="iPad showing theProject app interface"
           height={720}
           width={1400}
-          className="mx-auto rounded-2xl object-cover h-full object-left-top"
+          className="mx-auto rounded-2xl object-cover h-full object-top-left"
           draggable={false}
         />
       </ContainerScroll>

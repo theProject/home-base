@@ -140,7 +140,7 @@ export default function Header() {
               className="group flex w-full justify-left items-center gap-2 px-4 py-4 transition-colors hover:text-magenta dark:hover:text-magenta bg-white/80 backdrop-blur-xs dark:bg-black/80"
               onClick={() => setMobileMenuOpen(false)}
             >
-              <Icon className="h-5 w-5 flex-shrink-0" />
+              <Icon className="h-5 w-5 shrink-0" />
               {label}
             </Link>
           ))}
