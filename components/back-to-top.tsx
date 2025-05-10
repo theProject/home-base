@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { ArrowUpToLine} from "lucide-react"
+import { ArrowUpToLine } from "lucide-react"
 import { BorderButton } from "@/components/ui/border-button"
 
 export default function BackToTop() {

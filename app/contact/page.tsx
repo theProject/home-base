@@ -151,14 +151,18 @@ export default function ContactPage() {
                   <div className="flex items-start">
                     <Mail className="w-5 h-5 text-magenta mr-3 mt-0.5" />
                     <div>
-                      <p className="text-sm font-medium text-black dark:text-white">Email - don't spam.  We will find you.</p>
+                      <p className="text-sm font-medium text-black dark:text-white">
+                        Email - don't spam. We will find you.
+                      </p>
                       <p className="text-black/70 dark:text-white/70">devops@theproject.com</p>
                     </div>
                   </div>
                   <div className="flex items-start">
                     <Phone className="w-5 h-5 text-magenta mr-3 mt-0.5" />
                     <div>
-                      <p className="text-sm font-medium text-black dark:text-white">Phone - For Clients, no Cold Calls</p>
+                      <p className="text-sm font-medium text-black dark:text-white">
+                        Phone - For Clients, no Cold Calls
+                      </p>
                       <p className="text-black/70 dark:text-white/70">(484) 894-2519</p>
                     </div>
                   </div>

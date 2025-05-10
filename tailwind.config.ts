@@ -55,47 +55,46 @@ const config = {
         },
         magenta: {
           DEFAULT: "#e20074",
-         },
+        },
         seafoam: {
-          DEFAULT: "#01f9c6", 
-         },
-        
+          DEFAULT: "#01f9c6",
         },
       },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+    },
+    borderRadius: {
+      lg: "var(--radius)",
+      md: "calc(var(--radius) - 2px)",
+      sm: "calc(var(--radius) - 4px)",
+    },
+    keyframes: {
+      "accordion-down": {
+        from: { height: "0" },
+        to: { height: "var(--radix-accordion-content-height)" },
       },
-      keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
+      "accordion-up": {
+        from: { height: "var(--radix-accordion-content-height)" },
+        to: { height: "0" },
+      },
+      spin: {
+        to: {
+          transform: "rotate(360deg)",
         },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
+      },
+      shimmer: {
+        from: {
+          backgroundPosition: "0 0",
         },
-        spin: {
-          to: {
-            transform: "rotate(360deg)",
-          },
+        to: {
+          backgroundPosition: "-200% 0",
         },
-        shimmer: {
-          from: {
-            backgroundPosition: "0 0",
-          },
-          to: {
-            backgroundPosition: "-200% 0",
-          },
-        },
-    
+      },
+
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        'spin-slow'  : 'spin 8s linear infinite',
-        'spin-medium': 'spin 4s linear infinite',
-        'spin-fast'  : 'spin 1.5s linear infinite',
+        "spin-slow": "spin 8s linear infinite",
+        "spin-medium": "spin 4s linear infinite",
+        "spin-fast": "spin 1.5s linear infinite",
         shimmer: "shimmer 2s linear infinite",
       },
     },

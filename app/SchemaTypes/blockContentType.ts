@@ -1,18 +1,18 @@
 export const blockContentType = {
-  name: 'blockContent',
-  title: 'Block Content',
-  type: 'array',
+  name: "blockContent",
+  title: "Block Content",
+  type: "array",
   of: [
     {
-      type: 'block',
+      type: "block",
     },
     {
-      type: 'image',
+      type: "image",
       fields: [
         {
-          name: 'caption',
-          title: 'Caption',
-          type: 'string',
+          name: "caption",
+          title: "Caption",
+          type: "string",
         },
       ],
     },

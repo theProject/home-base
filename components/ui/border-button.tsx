@@ -1,13 +1,7 @@
-'use client'
+"use client"
 
-import {
-  forwardRef,
-  useState,
-  useEffect,
-  type ReactNode,
-  type ButtonHTMLAttributes,
-} from 'react'
-import { cn } from '@/lib/utils'
+import { forwardRef, useState, useEffect, type ReactNode, type ButtonHTMLAttributes } from "react"
+import { cn } from "@/lib/utils"
 
 /* helper ───────────────────────────────────── */
 function randomDelay(duration = 8) {
@@ -16,10 +10,9 @@ function randomDelay(duration = 8) {
 }
 
 /* types ────────────────────────────────────── */
-interface BorderButtonProps
-  extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'default' | 'outline' | 'ghost'
-  size?: 'sm' | 'default' | 'lg'
+interface BorderButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: "default" | "outline" | "ghost"
+  size?: "sm" | "default" | "lg"
   children: ReactNode
 }
 
@@ -28,15 +21,15 @@ const BorderButton = forwardRef<HTMLButtonElement, BorderButtonProps>(
   (
     {
       className,
-      variant = 'default', // ← ready for future use
-      size = 'default',
+      variant = "default", // ← ready for future use
+      size = "default",
       children,
       ...props
     },
     ref,
   ) => {
     /* 1 ▸ animationDelay = 0 s on server, randomised after mount */
-    const [delay, setDelay] = useState('0s')
+    const [delay, setDelay] = useState("0s")
 
     useEffect(() => {
       setDelay(randomDelay(8))
@@ -44,46 +37,45 @@ const BorderButton = forwardRef<HTMLButtonElement, BorderButtonProps>(
 
     /* 2 ▸ padding by size */
     const sizeClasses = {
-      sm: 'px-3 py-1.5 text-sm',
-      default: 'px-4 py-2',
-      lg: 'px-6 py-3 text-lg',
+      sm: "px-3 py-1.5 text-sm",
+      default: "px-4 py-2",
+      lg: "px-6 py-3 text-lg",
     } as const
 
     return (
       <button
         ref={ref}
         className={cn(
-          'group relative inline-flex overflow-hidden rounded-md p-[2px]',
-          'focus:outline-hidden focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-black',
+          "group relative inline-flex overflow-hidden rounded-md p-[2px]",
+          "focus:outline-hidden focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-black",
           className,
         )}
         {...props}
       >
-      {/* ─── animated gradient border ───────────────────────── */}
-      <span
-  className={cn(
-    // 1) clip to the border-width of 2px
-    "absolute inset-0 m-[-2px] -z-10",
+        {/* ─── animated gradient border ───────────────────────── */}
+        <span
+          className={cn(
+            // 1) clip to the border-width of 2px
+            "absolute inset-0 m-[-2px] -z-10",
 
-    // 2) keep the background anchored to this span
-    "bg-local",
+            // 2) keep the background anchored to this span
+            "bg-local",
 
-    // 3) spin animation
-    "animate-[spin_4s_linear_infinite]",
+            // 3) spin animation
+            "animate-[spin_4s_linear_infinite]",
 
-    // 4) WebKit fallback (must come before the standard)
-    "[background-image:-webkit-conic-gradient(from_90deg_at_50%_50%,#e20074_0%,#e20074_25%,#01F9C6_50%,#01F9C6_75%,#e20074_100%)]",
+            // 4) WebKit fallback (must come before the standard)
+            "[background-image:-webkit-conic-gradient(from_90deg_at_50%_50%,#e20074_0%,#e20074_25%,#01F9C6_50%,#01F9C6_75%,#e20074_100%)]",
 
-    // 5) standard conic
-    "bg-[conic-gradient(from_90deg_at_50%_50%,#e20074_0%,#e20074_25%,#01F9C6_50%,#01F9C6_75%,#e20074_100%)]",
+            // 5) standard conic
+            "bg-[conic-gradient(from_90deg_at_50%_50%,#e20074_0%,#e20074_25%,#01F9C6_50%,#01F9C6_75%,#e20074_100%)]",
 
-    // 6) hover opacity
-    "opacity-70 group-hover:opacity-100"
-  )}
-  style={{ animationDelay: delay }}
-  suppressHydrationWarning
-/>
-
+            // 6) hover opacity
+            "opacity-70 group-hover:opacity-100",
+          )}
+          style={{ animationDelay: delay }}
+          suppressHydrationWarning
+        />
 
         {/* ─── subtle fade overlay ───────────────────────────── */}
         <span
@@ -96,7 +88,7 @@ const BorderButton = forwardRef<HTMLButtonElement, BorderButtonProps>(
         {/* ─── button face ───────────────────────────────────── */}
         <span
           className={cn(
-            'relative z-10 inline-flex items-center justify-center rounded-[5px] bg-black text-white backdrop-blur-3xl',
+            "relative z-10 inline-flex items-center justify-center rounded-[5px] bg-black text-white backdrop-blur-3xl",
             sizeClasses[size],
           )}
         >
@@ -107,5 +99,5 @@ const BorderButton = forwardRef<HTMLButtonElement, BorderButtonProps>(
   },
 )
 
-BorderButton.displayName = 'BorderButton'
+BorderButton.displayName = "BorderButton"
 export { BorderButton }

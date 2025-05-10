@@ -5,7 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 export const metadata = {
   title: "theProject.",
   description: "Celebrating 13 years of business crafting mobile applications, video games, and generative AI.",
-    generator: 'v0.dev'
+  generator: "v0.dev",
 }
 
 export default function RootLayout({

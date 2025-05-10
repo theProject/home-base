@@ -2,6 +2,7 @@
 
 import { Spotlight } from "@/components/ui/spotlight-new"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export default function SpotlightNewDemo() {
   return (
@@ -24,20 +25,21 @@ export default function SpotlightNewDemo() {
         </h1>
 
         <p className="mt-8 text-base md:text-lg text-black/80 dark:text-neutral-300 max-w-3xl mx-auto font-geist">
-        Thirteen years in the shadows. Juice turned to eleven.
-        Ready to power your design, development & consulting needs—no limits.
+          Thirteen years in the shadows. Juice turned to eleven. Ready to power your design, development & consulting
+          needs—no limits.
           <br />
-           
           <br />
           {/*<span className="text-magenta">Tristan Smith</span> - Founder and <span className="text-teal-300">CEO</span> (how cool is <span className="text-magenta">that</span>?) */}
-          
- 
-                  </p>
+        </p>
 
         {/*<div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center"> */}
-        <div className="flex flex-col sm:flex-row items-center gap-4 justify-center">
-          <Button>Our Work</Button>
-          <Button>Get in Touch</Button>
+        <div className="mt-10 flex flex-col sm:flex-row items-center gap-4 justify-center">
+          <Link href="/projects">
+            <Button>Our Work</Button>
+          </Link>
+          <Link href="/contact">
+            <Button>Get in Touch</Button>
+          </Link>
         </div>
       </div>
     </div>
