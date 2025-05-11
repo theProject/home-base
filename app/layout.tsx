@@ -1,5 +1,5 @@
 import type React from "react"
-import "../app/glboal.css"
+import "../app/globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/next"
