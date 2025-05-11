@@ -19,12 +19,12 @@ export default function GoogleGeminiEffectDemo() {
 
   return (
     <div
-      className="h-[200vh] bg-white dark:bg-black w-full dark:border dark:border-white/[0.1] rounded-md relative pt-40 overflow-clip"
+      className="h-[100vh] bg-white dark:bg-black w-full dark:border dark:border-white/[0.1] rounded-md relative pt-40 overflow-clip"
       ref={ref}
     >
       <GoogleGeminiEffect
         pathLengths={[pathLengthFirst, pathLengthSecond, pathLengthThird, pathLengthFourth, pathLengthFifth]}
-        title="We bring the best."
+        title="Look at this cool thing. Thank you Google Gemini!"
         description="Knowledge and networking are the keys to success. We have both, the word Relentless means something to us."
       />
     </div>
