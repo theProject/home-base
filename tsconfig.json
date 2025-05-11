@@ -1,17 +1,18 @@
 {
   "compilerOptions": {
+    "baseUrl": ".", // Explicitly set baseUrl to the project root for clarity with paths
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
-    "target": "ES6",
+    "target": "ES6", // This is okay, but for newer Next.js projects, "ES2020" or "esnext" is more common. Not critical for the current issue.
     "skipLibCheck": true,
     "strict": true,
-    "noEmit": true,
+    "noEmit": true, // Next.js handles transpilation, so true is correct
     "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "bundler", // Good, modern choice for Next.js
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "preserve", // Correct for Next.js
     "incremental": true,
     "plugins": [
       {
@@ -19,9 +20,14 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./app/*"] // Corrected: @/* now resolves paths starting from the 'app' directory
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts" // This line is important for Next.js generated types
+  ],
   "exclude": ["node_modules"]
 }

@@ -6,7 +6,7 @@ import Footer from "@/components/footer"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Mail, Phone, MapPin, CheckCircle, AlertCircle } from "lucide-react"
-import { sendContactEmail } from "@/app/actions/contact"
+import { sendContactEmail } from "@/actions/contact"
 import { BorderButton } from "@/components/ui/border-button"
 
 export default function ContactPage() {
@@ -152,7 +152,7 @@ export default function ContactPage() {
                     <Mail className="w-5 h-5 text-magenta mr-3 mt-0.5" />
                     <div>
                       <p className="text-sm font-medium text-black dark:text-white">
-                        Email - don't spam. We will find you.
+                        Email - For Clients/Partners | don't spam. we will find you.
                       </p>
                       <p className="text-black/70 dark:text-white/70">devops@theproject.com</p>
                     </div>
@@ -161,9 +161,7 @@ export default function ContactPage() {
                     <Phone className="w-5 h-5 text-magenta mr-3 mt-0.5" />
                     <div>
                       <p className="text-sm font-medium text-black dark:text-white">
-                        Phone - For Clients, no Cold Calls
-                      </p>
-                      <p className="text-black/70 dark:text-white/70">(484) 894-2519</p>
+                        Phone - For Clients | no cold calls, see above. </p>
                     </div>
                   </div>
                   <div className="flex items-start">
@@ -171,7 +169,9 @@ export default function ContactPage() {
                     <div>
                       <p className="text-sm font-medium text-black dark:text-white">Location</p>
                       <p className="text-black/70 dark:text-white/70">
-                        theProject. HQ
+                        theProject.
+                        <br/>
+                        Castle in the Sky
                         <br />
                         Hellertown, PA 18055
                       </p>
@@ -189,11 +189,11 @@ export default function ContactPage() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-black/70 dark:text-white/70">Saturday</span>
-                    <span className="text-black dark:text-white">10:00 AM - 4:00 PM</span>
+                    <span className="text-black dark:text-white">10:00 AM - 6:00 PM</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-black/70 dark:text-white/70">Sunday</span>
-                    <span className="text-black dark:text-white">Closed - We have families!</span>
+                    <span className="text-black dark:text-white">Closed - Enjoy your families! Can book however!</span>
                   </div>
                 </div>
               </div>
