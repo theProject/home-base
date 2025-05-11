@@ -1,11 +1,12 @@
 import type React from "react"
 import "@/app/globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
+import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/next"
 
 export const metadata = {
   title: "theProject.",
   description: "Celebrating 13 years of business crafting mobile applications, video games, and generative AI.",
-  generator: "v0.dev",
 }
 
 export default function RootLayout({
@@ -24,6 +25,8 @@ export default function RootLayout({
         />
       </head>
       <body>
+        <Analytics/>
+        <SpeedInsights/>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           {children}
         </ThemeProvider>

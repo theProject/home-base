@@ -22,7 +22,7 @@ export default function Page() {
         </div>
       </section>
       <section className="w-full bg-white dark:bg-black">
-        <GoogleGeminiEffectDemo />
+       
       </section>
       <StickyScrollRevealDemo />
       <BackToTop />

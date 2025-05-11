@@ -9,6 +9,8 @@
       {
         "list": "off"
       }
-    ]
+    ],
+    "meta-viewport": "off",
+    "typescript-config/consistent-casing": "off"
   }
 }
