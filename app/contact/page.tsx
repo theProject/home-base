@@ -193,7 +193,7 @@ export default function ContactPage() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-black/70 dark:text-white/70">Sunday</span>
-                    <span className="text-black dark:text-white">Closed - Enjoy your families! Can book however!</span>
+                    <span className="text-black dark:text-white">Appointments only</span>
                   </div>
                 </div>
               </div>
