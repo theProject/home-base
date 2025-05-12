@@ -1,4 +1,4 @@
-// Replace Postmark with Brevo
+// Using Brevo
 import nodemailer from "nodemailer"
 
 // Initialize Brevo transporter
