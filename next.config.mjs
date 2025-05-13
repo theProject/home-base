@@ -17,7 +17,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  transpilePackages: ['framer-motion'],
+  transpilePackages: ['framer-motion', 'payload', '@payloadcms/richtext-lexical'],
   webpack(config) {
     config.resolve.alias = {
       ...config.resolve.alias,
@@ -27,6 +27,13 @@ const nextConfig = {
         'node_modules/framer-motion/dist/cjs/index.js'
       ),
     }
+    
+    // Add this for Payload CMS
+    config.experiments = {
+      ...config.experiments,
+      topLevelAwait: true,
+    }
+    
     return config
   },
 }
