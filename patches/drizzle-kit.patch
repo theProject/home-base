@@ -1,0 +1,10 @@
+diff --git a/bin.cjs b/bin.cjs
+index 0ece5826332b872aeaab5d037f9222ee32070826..8cbffc4e69cf60e8d9991fdc012ae8be13ef4f2d 100644
+--- a/bin.cjs
++++ b/bin.cjs
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env node
++#!/usr/bin/env -S npx tsx
+ "use strict";
+ var __create = Object.create;
+ var __defProp = Object.defineProperty;
