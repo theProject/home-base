@@ -1,10 +1,12 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": ".", // This is important for paths to work correctly
     "paths": {
       "@/*": [
         "./app/*"
-      ]
+      ],
+      // Add this line for Payload config:
+      "@payload-config": ["./payload.config.ts"]
     },
     "lib": [
       "dom",
@@ -27,13 +29,14 @@
         "name": "next"
       }
     ],
-    "target": "esnext"
+    "target": "ES2022" // Added this based on common Next.js setups, adjust if needed
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "payload.config.ts" // Good to explicitly include your payload config here too
   ],
   "exclude": [
     "node_modules"
