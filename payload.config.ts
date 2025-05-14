@@ -65,7 +65,7 @@ export default buildConfig({
 
   // Define custom root paths for Payload's services
   routes: {
-    admin: '/manage-blog', // THIS IS KEY for your admin panel URL
+    admin: '/admin', // THIS IS KEY for your admin panel URL
     api: '/api/payload',   // Optional: if you want to prefix Payload's API
   },
 });
