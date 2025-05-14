@@ -4,24 +4,22 @@ import type { CollectionConfig, AccessArgs } from 'payload';
 const Users: CollectionConfig = {
   slug: 'users',
 
-  // Enable Payload's built-in authentication routes
+  // Enable the full suite of auth routes (register, login, forgot-password, reset-password, etc.)
   auth: true,
 
   // Access control: only allow a user to see or change their own record
   access: {
-    read: ({ req: { user } }: AccessArgs): boolean => {
-      return Boolean(user);
+    read:   ({ req: { user } }: AccessArgs) => {
+      return user ? Boolean(user) : false;
     },
-    update: ({ req: { user }, id }: AccessArgs): boolean => {
-      if (!user) return false;
-      return user.id === id;
+    update: ({ req: { user }, id }: AccessArgs) => {
+      return user ? Boolean(user) && user.id === id : false;
     },
-    delete: ({ req: { user }, id }: AccessArgs): boolean => {
-      if (!user) return false;
-      return user.id === id;
+    delete: ({ req: { user }, id }: AccessArgs) => {
+      return Boolean(user && user.id === id);
     },
-    // Control who can see the Users list in the Admin UI
-    admin: ({ req: { user } }: AccessArgs): boolean => {
+    // Control who can see the “Users” list in the Admin UI
+    admin:  ({ req: { user } }: AccessArgs) => {
       return Boolean(user);
     },
   },
@@ -31,13 +29,13 @@ const Users: CollectionConfig = {
   },
 
   fields: [
-    // `email` & `password` fields are injected by `auth: true`
+    // email & password are injected by auth:true
     {
-      name: 'name',
-      type: 'text',
+      name:     'name',
+      type:     'text',
       required: true,
     },
-    // Add additional profile fields here
+    // add more profile fields here as needed
   ],
 };
 
