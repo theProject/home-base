@@ -6,7 +6,8 @@
         "./app/*"
       ],
       // Add this line for Payload config:
-      "@payload-config": ["./payload.config.ts"]
+      "@payload-config": ["./payload.config.ts"],
+      "@payload-types": ["./payload-types.ts"]
     },
     "lib": [
       "dom",

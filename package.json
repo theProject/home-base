@@ -2,11 +2,13 @@
   "name": "the-project-hq",
   "version": "0.8.0",
   "private": true,
+  "type":"module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate:types": "PAYLOAD_CONFIG_PATH=./payload.config.ts payload generate:types"
   },
   "dependencies": {
     "@emotion/is-prop-valid": "latest",
