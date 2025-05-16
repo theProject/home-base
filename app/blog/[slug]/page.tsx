@@ -1,6 +1,6 @@
 // app/blog/[slug]/page.tsx
 import { notFound } from 'next/navigation'
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 import { RichText } from '@/components/RichText/RichText'
 
 type Params = { slug: string }
@@ -10,25 +10,28 @@ export const metadata: Metadata = {
 }
 
 export async function generateStaticParams() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_PAYLOAD_API_URL}/api/posts?depth=0`,
-    { next: { revalidate: 60 } }
-  )
-  if (!res.ok) return []
-  const { docs }: { docs: { slug: string }[] } = await res.json()
-  return docs.map((doc) => ({ slug: doc.slug }))
+  const baseUrl = process.env.NEXT_PUBLIC_PAYLOAD_API_URL
+  if (!baseUrl) return []
+  try {
+    const res = await fetch(
+      `${baseUrl}/api/posts?depth=0`,
+      { next: { revalidate: 60 } }
+    )
+    if (!res.ok) return []
+    const { docs }: { docs: { slug: string }[] } = await res.json()
+    return docs.map((doc) => ({ slug: doc.slug }))
+  } catch {
+    return []
+  }
 }
 
-export default async function PostPage({
-  params,
-}: {
-  params: Promise<Params>
-}) {
-  // Await params in Next.js 15+
-  const { slug } = await params
+export default async function PostPage({ params }: { params: Params }) {
+  const { slug } = params
+  const baseUrl = process.env.NEXT_PUBLIC_PAYLOAD_API_URL
+  if (!baseUrl) notFound()
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_PAYLOAD_API_URL}/api/posts?where[slug][equals]=${slug}&depth=2`,
+    `${baseUrl}/api/posts?where[slug][equals]=${slug}&depth=2`,
     { next: { revalidate: 60 } }
   )
   if (!res.ok) notFound()
@@ -43,6 +46,27 @@ export default async function PostPage({
       <p className="text-gray-500 mb-8">
         {new Date(post.publishedAt).toLocaleDateString()}
       </p>
+
+      {/* Hero Image & Caption */}
+      {post.heroImage?.url && (
+        <figure className="mb-8">
+          <img
+            src={`${baseUrl}${post.heroImage.url}`}
+            alt={post.heroImage.alt || ''}
+            width={post.heroImage.width}
+            height={post.heroImage.height}
+            className="w-full rounded"
+          />
+          {post.heroImage.caption && (
+            <RichText
+              data={post.heroImage.caption}
+              className="prose text-sm text-gray-500 mt-2"
+            />
+          )}
+        </figure>
+      )}
+
+      {/* Main Content */}
       <RichText
         data={post.content}
         className="prose lg:prose-xl dark:prose-invert"
