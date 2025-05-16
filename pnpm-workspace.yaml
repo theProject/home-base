@@ -1,7 +1,2 @@
 onlyBuiltDependencies:
   - '@tailwindcss/oxide'
-  - '@vercel/speed-insights'
-  - esbuild
-  - sharp
-patchedDependencies:
-  drizzle-kit: patches/drizzle-kit.patch
