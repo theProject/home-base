@@ -6,17 +6,26 @@ import {
   LinkJSXConverter,
 } from '@payloadcms/richtext-lexical/react'
 
+import { RichText } from '@/components/RichText/RichText'
 import { internalDocToHref } from './internalLink'
 import { headingConverter } from './headingConverter'
 
 import BannerBlock from '@/components/BannerBlock'
 import CodeBlock   from '@/components/CodeBlock'
-import MediaBlock  from '@/components/MediaBlock'
+// Note: We keep MediaBlock import if needed for fallback, but we now render <picture>
+// import MediaBlock  from '@/components/MediaBlock'
 
-// Exact field shapes:
+// Define exact field shapes
 type BannerFields = { headline?: string; backgroundImage?: string }
 type CodeFields   = { language?: string; code?: string }
-type MediaFields  = { src: string; alt?: string; width?: number; height?: number }
+type MediaFields  = {
+  url: string
+  alt?: string
+  width?: number
+  height?: number
+  sizes?: Record<string, { url: string }>
+  caption?: any
+}
 
 // Union of your custom block props
 type BlockProps =
@@ -24,7 +33,7 @@ type BlockProps =
   | { type: 'code';       fields: CodeFields }
   | { type: 'mediaBlock'; fields: MediaFields }
 
-// Our node types include the defaults plus our blocks:
+// NodeTypes include core plus blocks
 type NodeTypes =
   | DefaultNodeTypes
   | SerializedBlockNode<BannerFields>
@@ -33,36 +42,70 @@ type NodeTypes =
 
 export const jsxConverter: JSXConvertersFunction<NodeTypes> =
   ({ defaultConverters }) => ({
-    // 1. Core text nodes, lists, quotes, etc.
+    // Core text, lists, quotes, etc.
     ...defaultConverters,
-
-    // 2. Internal & external links
+    // Links
     ...LinkJSXConverter({ internalDocToHref }),
-
-    // 3. Heading anchor tweaks
+    // Headings
     ...headingConverter,
-
-    // 4. Our custom blocks
+    // Blocks
     blocks: {
       ...defaultConverters.blocks,
 
-      // Banner: render with its children already converted
       banner: ({ node, children }: any) => (
         <BannerBlock {...(node.fields as BannerFields)}>
           {children}
         </BannerBlock>
       ),
 
-      // Code block: render only with code & language fields
       code: ({ node }: any) => {
         const { code, language } = node.fields as CodeFields
         return <CodeBlock code={code} language={language} />
       },
 
-      // Media: just render the image
-      mediaBlock: ({ node }: any) => {
-        const { src, alt, width, height } = node.fields as MediaFields
-        return <MediaBlock src={src} alt={alt} width={width} height={height} />
+      mediaBlock: ({ node, children }: any) => {
+        // Custom picture rendering with captions
+        const {
+          url,
+          alt,
+          width,
+          height,
+          sizes,
+          caption,
+        } = node.fields as MediaFields
+        const baseUrl = process.env.NEXT_PUBLIC_PAYLOAD_API_URL || ''
+        return (
+          <figure className="mb-8">
+            <picture className="media-block">
+              {/* Responsive sources */}
+              {sizes?.thumbnail && (
+                <source
+                  srcSet={baseUrl + sizes.thumbnail.url}
+                  media="(max-width: 640px)"
+                />
+              )}
+              {sizes?.medium && (
+                <source
+                  srcSet={baseUrl + sizes.medium.url}
+                  media="(min-width: 641px)"
+                />
+              )}
+              {/* Fallback image */}
+              <img
+                src={baseUrl + url}
+                alt={alt || ''}
+                width={width}
+                height={height}
+                className="w-full rounded"
+              />
+            </picture>
+            {caption && (
+              <figcaption className="text-sm text-gray-500 mt-2">
+                <RichText data={caption} className="prose text-sm" />
+              </figcaption>
+            )}
+          </figure>
+        )
       },
     },
   })
