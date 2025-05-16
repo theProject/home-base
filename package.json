@@ -71,6 +71,7 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.16",
     "@types/express": "^5.0.1",
     "@types/node": "^22",
     "@types/nodemailer": "^6.4.17",

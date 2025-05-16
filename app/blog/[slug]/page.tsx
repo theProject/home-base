@@ -1,7 +1,7 @@
 // app/blog/[slug]/page.tsx
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
-import LexicalRenderer from '../../components/LexicalRenderer'
+import { RichText } from '@/components/RichText/RichText'
 
 type Params = { slug: string }
 
@@ -24,7 +24,7 @@ export default async function PostPage({
 }: {
   params: Promise<Params>
 }) {
-  // ⚠️ Must await params in Next.js 15+ ─ otherwise you get the "params should be awaited" error :contentReference[oaicite:0]{index=0}
+  // Await params in Next.js 15+
   const { slug } = await params
 
   const res = await fetch(
@@ -38,12 +38,15 @@ export default async function PostPage({
   if (!post) notFound()
 
   return (
-    <article className="prose lg:prose-xl mx-auto py-12">
-      <h1>{post.title}</h1>
-      <p className="text-gray-500">
+    <article className="mx-auto max-w-3xl px-4 py-12">
+      <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
+      <p className="text-gray-500 mb-8">
         {new Date(post.publishedAt).toLocaleDateString()}
       </p>
-      <LexicalRenderer data={post.content} />
+      <RichText
+        data={post.content}
+        className="prose lg:prose-xl dark:prose-invert"
+      />
     </article>
   )
 }

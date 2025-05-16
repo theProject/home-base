@@ -9,12 +9,11 @@ import {
 import { internalDocToHref } from './internalLink'
 import { headingConverter } from './headingConverter'
 
-// These should point at the components you created under /components
 import BannerBlock from '@/components/BannerBlock'
 import CodeBlock   from '@/components/CodeBlock'
 import MediaBlock  from '@/components/MediaBlock'
 
-// Define the exact field shapes for each block type:
+// Exact field shapes:
 type BannerFields = { headline?: string; backgroundImage?: string }
 type CodeFields   = { language?: string; code?: string }
 type MediaFields  = { src: string; alt?: string; width?: number; height?: number }
@@ -25,7 +24,7 @@ type BlockProps =
   | { type: 'code';       fields: CodeFields }
   | { type: 'mediaBlock'; fields: MediaFields }
 
-// NodeTypes include all core nodes plus your blocks
+// Our node types include the defaults plus our blocks:
 type NodeTypes =
   | DefaultNodeTypes
   | SerializedBlockNode<BannerFields>
@@ -34,31 +33,33 @@ type NodeTypes =
 
 export const jsxConverter: JSXConvertersFunction<NodeTypes> =
   ({ defaultConverters }) => ({
-    // 1. All built-in converters
+    // 1. Core text nodes, lists, quotes, etc.
     ...defaultConverters,
-    // 2. Internal links support
+
+    // 2. Internal & external links
     ...LinkJSXConverter({ internalDocToHref }),
-    // 3. Heading tweaks
+
+    // 3. Heading anchor tweaks
     ...headingConverter,
-    // 4. Override your custom block renderers
+
+    // 4. Our custom blocks
     blocks: {
       ...defaultConverters.blocks,
 
-      banner: ({ node, nodesToJSX }: any) => {
-        const { headline, backgroundImage } = node.fields as BannerFields
-        const children = nodesToJSX({ nodes: node.children })
-        return (
-          <BannerBlock headline={headline} backgroundImage={backgroundImage}>
-            {children}
-          </BannerBlock>
-        )
-      },
+      // Banner: render with its children already converted
+      banner: ({ node, children }: any) => (
+        <BannerBlock {...(node.fields as BannerFields)}>
+          {children}
+        </BannerBlock>
+      ),
 
+      // Code block: render only with code & language fields
       code: ({ node }: any) => {
         const { code, language } = node.fields as CodeFields
         return <CodeBlock code={code} language={language} />
       },
 
+      // Media: just render the image
       mediaBlock: ({ node }: any) => {
         const { src, alt, width, height } = node.fields as MediaFields
         return <MediaBlock src={src} alt={alt} width={width} height={height} />

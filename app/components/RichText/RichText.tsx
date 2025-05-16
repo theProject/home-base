@@ -1,3 +1,4 @@
+// app/components/RichText/RichText.tsx
 'use client'
 
 import { RichText as RichTextConverter } from '@payloadcms/richtext-lexical/react'
@@ -11,10 +12,11 @@ type Props = {
 
 export function RichText({ data, className }: Props) {
   return (
-    <RichTextConverter
-      data={data}
-      className={className}
-      converters={jsxConverter}
-    />
+    <div className={className}>
+      <RichTextConverter
+        data={data}
+        converters={jsxConverter}
+      />
+    </div>
   )
 }

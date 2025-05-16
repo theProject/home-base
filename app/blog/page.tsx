@@ -14,8 +14,15 @@ export const metadata: Metadata = {
 }
 
 export default async function BlogPage() {
+  const baseUrl = process.env.NEXT_PUBLIC_PAYLOAD_API_URL
+  if (!baseUrl) {
+    throw new Error(
+      'Missing NEXT_PUBLIC_PAYLOAD_API_URL – make sure .env.local is set and you restarted the server'
+    )
+  }
+
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_PAYLOAD_API_URL}/api/posts?depth=0`,
+    `${baseUrl}/api/posts?depth=0`,
     { next: { revalidate: 60 } }
   )
   if (!res.ok) throw new Error('Failed to fetch posts')
@@ -23,18 +30,18 @@ export default async function BlogPage() {
   const { docs }: { docs: PostSummary[] } = await res.json()
 
   return (
-    <main className="max-w-3xl mx-auto py-12">
-      <h1 className="text-4xl font-bold mb-8">Blog</h1>
-      <ul className="space-y-6">
+    <main className="mx-auto max-w-3xl px-4 py-12 prose lg:prose-xl dark:prose-invert">
+      <h1>Blog</h1>
+      <ul className="list-none space-y-6 p-0">
         {docs.map((post) => (
           <li key={post.id}>
             <Link
               href={`/blog/${post.slug}`}
-              className="text-2xl text-blue-600 hover:underline"
+              className="text-pink-700 hover:underline"
             >
               {post.title}
             </Link>
-            <p className="text-gray-500">
+            <p className="mt-1 text-gray-500">
               {new Date(post.publishedAt).toLocaleDateString()}
             </p>
           </li>
