@@ -16,6 +16,13 @@ const nextConfig = {
   },
   images: {
     unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'admin.bytheproject.com',
+        pathname: '/uploads/**',
+      },
+    ],
   },
   transpilePackages: ['framer-motion'],
   webpack(config) {

@@ -2,7 +2,7 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { RichText } from '@/components/RichText/RichText'
+import { RichText } from '@/components/RichText'
 
 // Define types for your post data
 interface Author { id: string; name: string }

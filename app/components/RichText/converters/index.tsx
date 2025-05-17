@@ -6,7 +6,7 @@ import {
   LinkJSXConverter,
 } from '@payloadcms/richtext-lexical/react'
 
-import { RichText } from '@/components/RichText/RichText'
+import { RichText } from '@/components/RichText'
 import { internalDocToHref } from './internalLink'
 import { headingConverter } from './headingConverter'
 
