@@ -3,11 +3,26 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { RichText } from '@/components/RichText'
+import fs from 'fs/promises'
+import path from 'path'
 
 // Define types for your post data
-interface Author { id: string; name: string }
-interface MediaImage { url: string; alt?: string; width?: number; height?: number; caption?: any }
-interface RelatedPost { id: string; title: string; slug: string }
+interface Author {
+  id: string
+  name: string
+}
+interface MediaImage {
+  url: string
+  alt?: string
+  width?: number
+  height?: number
+  caption?: any
+}
+interface RelatedPost {
+  id: string
+  title: string
+  slug: string
+}
 
 interface Post {
   title: string
@@ -42,13 +57,19 @@ export default async function PostPage({ params }: { params: Promise<Params> }) 
   const baseUrl = process.env.NEXT_PUBLIC_PAYLOAD_API_URL
   if (!baseUrl) notFound()
 
-  const res = await fetch(
-    baseUrl + '/api/posts?where[slug][equals]=' + slug + '&depth=2',
+  // Fetch the post JSON from Payload
+  const response = await fetch(
+    `${baseUrl}/api/posts?where[slug][equals]=${slug}&depth=2`,
     { next: { revalidate: 60 } }
   )
-  if (!res.ok) notFound()
+  if (!response.ok) notFound()
 
-  const { docs }: { docs: Post[] } = await res.json()
+  // Parse JSON and write to file for inspection
+  const raw = await response.json()
+  const debugPath = path.join(process.cwd(), `payload-debug-${slug}.json`)
+  await fs.writeFile(debugPath, JSON.stringify(raw, null, 2), 'utf8')
+
+  const { docs }: { docs: Post[] } = raw
   const post = docs[0]
   if (!post) notFound()
 
