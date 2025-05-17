@@ -1,4 +1,3 @@
-// app/components/RichText/converters/index.tsx
 'use client'
 
 import React from 'react'
@@ -20,8 +19,10 @@ type JsonObject = Record<string, unknown>
 
 // Define exact field shapes for each custom block
 export interface BannerFields extends JsonObject {
-  headline?: string
-  backgroundImage?: string
+  /** Toast variant: 'success' | 'error' */
+  variant?: 'success' | 'error'
+  /** RichText content for banner */
+  content?: DefaultTypedEditorState
 }
 export interface CodeFields extends JsonObject {
   language?: string
@@ -34,53 +35,68 @@ export interface MediaFields extends JsonObject {
   width?: number
   height?: number
   sizes?: Record<string, { url: string }>
-  // Serialized Lexical editor state for captions
   caption?: DefaultTypedEditorState
   updatedAt?: string
 }
 
-// Block node type
+// Block node type helper
 type BlockNode<T extends JsonObject> = SerializedBlockNode<T>
+
+// Combined NodeTypes for converter
 type NodeTypes =
   | DefaultNodeTypes
   | BlockNode<BannerFields>
   | BlockNode<CodeFields>
   | BlockNode<MediaFields>
 
-// Map Payload block types to React components
+// JSX converter mapping block types to React components
 export const jsxConverter: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) => ({
-  // Include all default serializers (paragraph, list, etc.)
+  // Core converters (paragraph, list, etc.)
   ...defaultConverters,
-  // Support internal document links in Payload
+  // Link converter for internal docs
   ...LinkJSXConverter({ internalDocToHref }),
-  // Custom heading conversions
+  // Custom heading overrides
   ...headingConverter,
-  // Override block rendering
+  // Custom block renderers
   blocks: {
     ...defaultConverters.blocks,
 
-    banner: ({ node, children }: any) => {
-      const { headline, backgroundImage } = node.fields as BannerFields
-      const bgUrl = backgroundImage ? getMediaUrl(backgroundImage) : undefined
+    // Banner (toast) block
+    banner: ({ node }: any) => {
+      const { variant, content } = node.fields as BannerFields
+      const bgClass =
+        variant === 'error' ? 'bg-red-600' :
+        variant === 'success' ? 'bg-green-600' :
+        'bg-pink-400'
+      const textClass = 'text-white'
+
       return (
-        <BannerBlock headline={headline} backgroundImage={bgUrl}>
-          {children}
-        </BannerBlock>
+        <div className={`${bgClass} ${textClass} w-full p-4`}>
+          <BannerBlock>
+            {content && (
+              <RichText
+                data={content}
+                className="prose text-center text-lg text-white"
+              />
+            )}
+          </BannerBlock>
+        </div>
       )
     },
 
+    // Code block
     code: ({ node }: any) => {
       const { code, language } = node.fields as CodeFields
       return <CodeBlock code={code} language={language} />
     },
 
+    // Media block (images)
     mediaBlock: ({ node }: any) => {
       const media = (node.fields as any).media as MediaFields
       const { url, alt, width, height, sizes, caption, updatedAt } = media
-
       return (
-        <figure className="mb-8">
-          <picture className="media-block">
+        <figure className="mb-8 text-center">
+          <picture className="media-block mx-auto block">
             {sizes?.thumbnail?.url && (
               <source
                 srcSet={getMediaUrl(sizes.thumbnail.url, updatedAt)}

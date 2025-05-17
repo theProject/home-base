@@ -182,13 +182,105 @@
               "direction": "ltr"
             },
             {
+              "type": "paragraph",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "children": [],
+              "direction": "ltr",
+              "textStyle": "",
+              "textFormat": 0
+            },
+            {
               "tag": "h1",
               "type": "heading",
               "format": "",
               "indent": 0,
               "version": 1,
               "children": [],
-              "direction": "ltr"
+              "direction": null
+            },
+            {
+              "type": "paragraph",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "children": [],
+              "direction": null,
+              "textStyle": "",
+              "textFormat": 0
+            },
+            {
+              "type": "block",
+              "fields": {
+                "id": "682819b7144dabdc9013494a",
+                "style": "success",
+                "content": {
+                  "root": {
+                    "type": "root",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "type": "paragraph",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "mode": "normal",
+                            "text": "YOU ARE BEING HACKED!  Just kidding - Warning Test.",
+                            "type": "text",
+                            "style": "",
+                            "detail": 0,
+                            "format": 1,
+                            "version": 1
+                          }
+                        ],
+                        "direction": "ltr",
+                        "textStyle": "",
+                        "textFormat": 1
+                      },
+                      {
+                        "type": "paragraph",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "mode": "normal",
+                            "text": "or ",
+                            "type": "text",
+                            "style": "",
+                            "detail": 0,
+                            "format": 3,
+                            "version": 1
+                          },
+                          {
+                            "mode": "normal",
+                            "text": "was it.....",
+                            "type": "text",
+                            "style": "",
+                            "detail": 0,
+                            "format": 0,
+                            "version": 1
+                          }
+                        ],
+                        "direction": "ltr",
+                        "textStyle": "",
+                        "textFormat": 3
+                      }
+                    ],
+                    "direction": "ltr",
+                    "textFormat": 3
+                  }
+                },
+                "blockName": "Joke",
+                "blockType": "banner"
+              },
+              "format": "",
+              "version": 2
             },
             {
               "type": "paragraph",
@@ -305,8 +397,8 @@
               "fields": {
                 "id": "6827bc63051630532d71ba44",
                 "media": {
-                  "id": 10,
-                  "alt": "Project Damocles Icon",
+                  "id": 12,
+                  "alt": "They are afraid of us - but we are the liberators",
                   "caption": {
                     "root": {
                       "type": "root",
@@ -319,20 +411,19 @@
                           "format": "",
                           "indent": 0,
                           "version": 1,
-                          "children": [],
-                          "direction": null,
-                          "textStyle": "",
-                          "textFormat": 0
-                        },
-                        {
-                          "type": "paragraph",
-                          "format": "",
-                          "indent": 0,
-                          "version": 1,
                           "children": [
                             {
                               "mode": "normal",
-                              "text": "Following the modern trend, a minimalist icon screams “I am bold”",
+                              "text": "HACK ",
+                              "type": "text",
+                              "style": "",
+                              "detail": 0,
+                              "format": 1,
+                              "version": 1
+                            },
+                            {
+                              "mode": "normal",
+                              "text": "the Planet! Project Phoenix is the big bang for theProject, honored to have the mythical beast as part of our sigil.",
                               "type": "text",
                               "style": "",
                               "detail": 0,
@@ -342,31 +433,32 @@
                           ],
                           "direction": "ltr",
                           "textStyle": "",
-                          "textFormat": 0
+                          "textFormat": 1
                         }
                       ],
-                      "direction": "ltr"
+                      "direction": "ltr",
+                      "textFormat": 1
                     }
                   },
-                  "updatedAt": "2025-05-16T23:23:00.732Z",
-                  "createdAt": "2025-05-16T22:22:04.501Z",
-                  "url": "/api/media/file/IMG_0822.png",
-                  "thumbnailURL": "/api/media/file/IMG_0822-300x281.png",
-                  "filename": "IMG_0822.png",
+                  "updatedAt": "2025-05-17T05:23:08.688Z",
+                  "createdAt": "2025-05-17T05:23:08.372Z",
+                  "url": "/api/media/file/phoenixDragon.png",
+                  "thumbnailURL": "/api/media/file/phoenixDragon-300x300.png",
+                  "filename": "phoenixDragon.png",
                   "mimeType": "image/png",
-                  "filesize": 1404,
-                  "width": 309,
-                  "height": 289,
+                  "filesize": 194735,
+                  "width": 300,
+                  "height": 300,
                   "focalX": 50,
                   "focalY": 50,
                   "sizes": {
                     "thumbnail": {
-                      "url": "/api/media/file/IMG_0822-300x281.png",
+                      "url": "/api/media/file/phoenixDragon-300x300.png",
                       "width": 300,
-                      "height": 281,
+                      "height": 300,
                       "mimeType": "image/png",
-                      "filesize": 2869,
-                      "filename": "IMG_0822-300x281.png"
+                      "filesize": 271608,
+                      "filename": "phoenixDragon-300x300.png"
                     },
                     "square": {
                       "url": null,
@@ -589,12 +681,32 @@
                         "direction": "ltr",
                         "textStyle": "",
                         "textFormat": 0
+                      },
+                      {
+                        "type": "paragraph",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "mode": "normal",
+                            "text": "Testing our banner system.  Seems some CSS is in order.  Payload - the engineers CMS - love the control!~",
+                            "type": "text",
+                            "style": "",
+                            "detail": 0,
+                            "format": 0,
+                            "version": 1
+                          }
+                        ],
+                        "direction": "ltr",
+                        "textStyle": "",
+                        "textFormat": 0
                       }
                     ],
                     "direction": "ltr"
                   }
                 },
-                "blockName": "",
+                "blockName": "FunError",
                 "blockType": "banner"
               },
               "format": "",
@@ -1133,7 +1245,7 @@
       ],
       "slug": "welcome-to-theproject",
       "slugLock": true,
-      "updatedAt": "2025-05-16T23:43:09.794Z",
+      "updatedAt": "2025-05-17T05:25:16.754Z",
       "createdAt": "2025-05-16T22:20:05.024Z",
       "_status": "published"
     }
