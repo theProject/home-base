@@ -59,9 +59,15 @@ export const jsxConverter: JSXConvertersFunction<NodeTypes> = ({ defaultConverte
   blocks: {
     ...defaultConverters.blocks,
 
-    banner: ({ node, children }: any) => (
-      <BannerBlock {...(node.fields as BannerFields)}>{children}</BannerBlock>
-    ),
+    banner: ({ node, children }: any) => {
+      const { headline, backgroundImage } = node.fields as BannerFields
+      const bgUrl = backgroundImage ? getMediaUrl(backgroundImage) : undefined
+      return (
+        <BannerBlock headline={headline} backgroundImage={bgUrl}>
+          {children}
+        </BannerBlock>
+      )
+    },
 
     code: ({ node }: any) => {
       const { code, language } = node.fields as CodeFields
