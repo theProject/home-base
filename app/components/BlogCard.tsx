@@ -30,10 +30,10 @@ export function BlogCard({ post }: BlogCardProps) {
     <Link
       href={`/blog/${post.slug}`}
       className={cn(
-        "group/card block rounded-md overflow-hidden shadow-md transition-transform duration-200 hover:scale-105 focus:scale-105",
-        "border-2",
-        "dark:border-[#e20074]",
-        "light:border-[#05F2AF]"
+        "group/card block rounded-lg overflow-hidden shadow-md transition-transform duration-200 hover:scale-105 focus:scale-105",
+        "border-",
+        "dark:border-[#05f2af]",
+        "light:border-[#e20074]"
       )}
     >
       <div className="relative aspect-video w-full">
