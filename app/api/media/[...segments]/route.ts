@@ -1,7 +1,13 @@
 // app/api/media/[...segments]/route.ts
 export const runtime = 'nodejs'  // use Node so we can fetch binary data
 
-export async function GET(request: Request, { params: { segments } }: { params: { segments: string[] } }) {
+export async function GET(
+  request: Request,
+  { params }: { params: Promise<{ segments: string[] }> }
+) {
+  // Await the dynamic params before using them
+  const { segments } = await params
+
   // Reconstruct the path you’d have hit on Payload:
   const upstreamUrl = `https://admin.bytheproject.com/${segments.join('/')}`
 

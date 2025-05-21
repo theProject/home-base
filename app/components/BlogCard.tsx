@@ -1,3 +1,4 @@
+// components/BlogCard.tsx
 "use client";
 import { cn } from "@/lib/utils";
 import Link from 'next/link';
@@ -27,15 +28,7 @@ export function BlogCard({ post }: BlogCardProps) {
   const author = post.authors?.[0];
 
   return (
-    <Link
-      href={`/blog/${post.slug}`}
-      className={cn(
-        "group/card block rounded-lg overflow-hidden shadow-md transition-transform duration-200 hover:scale-105 focus:scale-105",
-        "border-",
-        "dark:border-[#05f2af]",
-        "light:border-[#e20074]"
-      )}
-    >
+    <Link href={`/blog/${post.slug}`} className="group/card block rounded-md overflow-hidden shadow-md transition-shadow hover:shadow-lg">
       <div className="relative aspect-video w-full">
         {post.heroImage?.url && (
           <Image
