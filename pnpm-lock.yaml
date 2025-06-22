@@ -149,6 +149,9 @@ importers:
       pg:
         specifier: ^8.16.0
         version: 8.16.0
+      prismjs:
+        specifier: ^1.30.0
+        version: 1.30.0
       react:
         specifier: ^19.1.0
         version: 19.1.0
