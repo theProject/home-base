@@ -9,7 +9,7 @@ import BackToTop from '@/components/back-to-top'
 import { CalendarDays, ChevronLeft, ChevronRight, Clock, Search } from 'lucide-react'
 import { BorderButton } from '@/components/ui/border-button'
 import { cn } from '@/lib/utils'
-import { BlogCard } from '@/components/BlogCard'; // Ensure the path to BlogCard.tsx is correct
+import { BlogCard } from '@/components/BlogCard'; // Ensure the path to BlogCard.tsx is correct..wow
 
 // Types
 interface Author { id: string; name: string; avatar?: { url: string; alt?: string } }
