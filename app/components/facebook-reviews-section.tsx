@@ -1,9 +1,9 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { ReviewCard } from "@/components/review-card" // Assuming ReviewCard is in this path
-import type { AppReview } from "@/api/reviews/facebook/route" // Import the AppReview type
-import { Loader2, AlertTriangle } from "lucide-react"
+import { ReviewCard } from "@/components/review-card"
+import type { AppReview } from "@/api/reviews/facebook/route"
+import { Loader2, AlertTriangle, Facebook } from "lucide-react"
 
 export function FacebookReviewsSection() {
   const [reviews, setReviews] = useState<AppReview[]>([])
@@ -70,8 +70,12 @@ export function FacebookReviewsSection() {
           rating={review.rating}
           reviewText={review.reviewText}
           source={review.source}
-          sourceIcon={review.sourceIcon}
-          // You might want to format the timestamp or pass it to ReviewCard
+          sourceIcon={
+            review.source === "Facebook" ? (
+              <Facebook className="w-4 h-4 text-[#1877F2]" />
+            ) : null
+          }
+          // Add timestamp={review.timestamp} if needed
         />
       ))}
     </div>
