@@ -1,4 +1,9 @@
-import path from "path"
+import { fileURLToPath } from "url";
+import path from "path";
+
+/** Fix for __dirname in ESM */
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -12,16 +17,14 @@ const nextConfig = {
     unoptimized: true,
   },
   webpack(config) {
-    // existing customisations … (if any)
-
-    // NEW -- let the bundler resolve "@/components/*"
+    // Allow "@/components/*" imports
     config.resolve.alias = {
       ...(config.resolve.alias || {}),
       "@/components": path.join(__dirname, "app/components"),
-    }
+    };
 
-    return config
+    return config;
   },
-}
+};
 
-export default nextConfig
+export default nextConfig;
