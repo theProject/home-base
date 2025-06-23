@@ -411,3 +411,98 @@ html {
 }
 
 @plugin "@tailwindcss/typography";
+
+/* Synthwave Specific Styles */
+.synthwave-bg-dots {
+  background-color: #1a0e2d; /* Deep purple */
+  background-image: radial-gradient(circle at 1px 1px, rgba(236, 72, 153, 0.2) 1px, transparent 0), /* Magenta dots */
+    radial-gradient(circle at 10px 10px, rgba(59, 130, 246, 0.1) 1px, transparent 0); /* Blueish dots */
+  background-size: 20px 20px;
+}
+
+.synthwave-aurora {
+  /* Customization for Aurora on this page */
+  --aurora-color-one: theme("colors.primary.DEFAULT"); /* Magenta */
+  --aurora-color-two: theme("colors.cyan.500"); /* Cyan - ensure cyan is in tailwind.config */
+  opacity: 0.2 !important; /* More subtle for synthwave */
+}
+
+.dark .synthwave-aurora::before {
+  background: radial-gradient(circle, var(--aurora-color-one), transparent 70%);
+  filter: blur(120px); /* Softer blur */
+}
+
+.dark .synthwave-aurora::after {
+  background: radial-gradient(circle, var(--aurora-color-two), transparent 70%);
+  filter: blur(120px); /* Softer blur */
+}
+
+.synthwave-title {
+  font-family: theme("fontFamily.mono"); /* Or a specific retro font if added */
+  text-shadow: 0 0 5px theme("colors.primary.DEFAULT"), 0 0 10px theme("colors.primary.DEFAULT"), 0 0 15px
+    theme("colors.primary.DEFAULT"), 0 0 20px #fff;
+}
+
+.synthwave-subtitle {
+  font-family: theme("fontFamily.mono");
+  color: theme("colors.gray.100");
+  text-shadow: 0 0 3px theme("colors.primary.light"), 0 0 6px theme("colors.primary.DEFAULT");
+}
+
+.synthwave-text-glow {
+  text-shadow: 0 0 8px theme("colors.primary.DEFAULT"), 0 0 12px theme("colors.primary.DEFAULT");
+}
+
+.synthwave-icon-glow {
+  filter: drop-shadow(0 0 5px theme("colors.primary.DEFAULT"));
+}
+.synthwave-divider-glow {
+  box-shadow: 0 0 8px theme("colors.primary.DEFAULT"), 0 0 12px theme("colors.primary.DEFAULT");
+}
+
+.synthwave-card-bg {
+  background-color: rgba(26, 14, 45, 0.6); /* Dark translucent purple */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid theme("colors.primary.DEFAULT / 0.3");
+}
+
+.interactive-glow-card.synthwave-card-bg:hover {
+  border-color: theme("colors.primary.DEFAULT / 0.7");
+  box-shadow: 0 0 20px 5px theme("colors.primary.DEFAULT / 0.5"), 0 0 30px 10px theme("colors.primary.DEFAULT / 0.3");
+}
+
+.synthwave-grid-glow {
+  box-shadow: 0 0 15px 0px theme("colors.primary.DEFAULT / 0.3"), inset 0 0 15px 0px
+    theme("colors.primary.DEFAULT / 0.2");
+}
+
+.synthwave-form-bg {
+  background-color: rgba(26, 14, 45, 0.7); /* Slightly more opaque for form readability */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.synthwave-input {
+  @apply bg-gray-800/50 border-primary/40 text-gray-200 placeholder-gray-500 caret-primary;
+  @apply focus:border-primary focus:ring-primary focus:ring-1;
+}
+.synthwave-input:focus {
+  box-shadow: 0 0 10px theme("colors.primary.DEFAULT / 0.5");
+}
+
+.synthwave-button {
+  @apply bg-primary text-primary-foreground hover:bg-primary/90 border border-primary;
+  @apply focus:ring-2 focus:ring-primary/70 focus:ring-offset-2 focus:ring-offset-gray-900;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 10px theme("colors.primary.DEFAULT / 0.4"), inset 0 -2px 0px theme("colors.primary.DEFAULT / 0.6");
+  transition: all 0.2s ease-out;
+}
+.synthwave-button:hover {
+  box-shadow: 0 4px 15px theme("colors.primary.DEFAULT / 0.6"), inset 0 -1px 0px theme("colors.primary.DEFAULT / 0.5");
+  transform: translateY(-1px);
+}
+.synthwave-button:active {
+  transform: translateY(0px);
+  box-shadow: 0 2px 5px theme("colors.primary.DEFAULT / 0.4"), inset 0 -1px 0px theme("colors.primary.DEFAULT / 0.6");
+}

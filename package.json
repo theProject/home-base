@@ -78,7 +78,7 @@
     "vaul": "latest",
     "vue": "latest",
     "vue-router": "latest",
-    "zod": "^3.24.1"
+    "zod": "latest"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.16",
