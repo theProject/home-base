@@ -7,13 +7,15 @@ import Link from "next/link"
 import Image from "next/image"
 import { format } from "date-fns"
 import BackToTop from "@/components/back-to-top"
-import { CalendarDays, ChevronLeft, ChevronRight, Clock, Search, UserCircle, Rss, Users } from "lucide-react"
+import { CalendarDays, ChevronLeft, ChevronRight, Clock, Search, UserCircle, Rss, Users, Newspaper } from "lucide-react"
 import { BorderButton } from "@/components/ui/border-button"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { BlogCard, type Post as PostSummary } from "@/components/BlogCard" // Ensure Post type is exported
+import { BlogCard, type Post as PostSummary } from "@/components/BlogCard"
 import { AuthorCard, type AuthorProfile } from "@/components/author-card"
 import { Badge } from "@/components/ui/badge"
+import { TechNewsCard, type TechNewsCardProps } from "@/components/tech-news-card"
+import { ArticlePipelineSection } from "@/components/article-pipeline-section"
 
 // Types (PostSummary is now imported from BlogCard)
 interface Category {
@@ -61,6 +63,33 @@ const mockAuthors: AuthorProfile[] = [
   },
 ]
 
+const techNewsData: TechNewsCardProps[] = [
+  {
+    sourceName: "TechCrunch",
+    logoUrl: "/logos/news/techcrunch-logo.png",
+    feedUrl: "https://techcrunch.com/feed/",
+    description: "Startup and technology news, reviews, and analysis.",
+  },
+  {
+    sourceName: "The Verge",
+    logoUrl: "/logos/news/theverge-logo.png",
+    feedUrl: "https://www.theverge.com/rss/index.xml",
+    description: "Covering the intersection of technology, science, art, and culture.",
+  },
+  {
+    sourceName: "Ars Technica",
+    logoUrl: "/logos/news/arstechnica-logo.png",
+    feedUrl: "https://arstechnica.com/feed/",
+    description: "In-depth technology news, analysis, and reviews for IT professionals and enthusiasts.",
+  },
+  {
+    sourceName: "Wired",
+    logoUrl: "/logos/news/wired-logo.png",
+    feedUrl: "https://www.wired.com/feed/rss",
+    description: "How technology is changing every aspect of our lives—from culture to business.",
+  },
+]
+
 export default function BlogPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [allPosts, setAllPosts] = useState<PostSummary[]>([])
@@ -68,19 +97,17 @@ export default function BlogPage() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [categories, setCategories] = useState<Category[]>([])
   const [searchQuery, setSearchQuery] = useState("")
-  const postsPerPage = 9 // Adjusted for a 3-column layout
+  const postsPerPage = 9
 
   useEffect(() => {
     async function fetchData() {
       setIsLoading(true)
       try {
-        const res = await fetch("/api/posts?depth=2") // depth=2 to fetch author/category details
+        const res = await fetch("/api/posts?depth=2")
         if (!res.ok) throw new Error(`Fetch failed: ${res.status}`)
         const data = await res.json()
         const fetchedPosts: PostSummary[] = data.docs || []
-
         setAllPosts(fetchedPosts)
-
         const uniqueCategories: Record<string, Category> = {}
         fetchedPosts.forEach((p) =>
           p.categories?.forEach((c) => {
@@ -90,7 +117,6 @@ export default function BlogPage() {
         setCategories(Object.values(uniqueCategories))
       } catch (err) {
         console.error("Error fetching blog posts:", err)
-        // Optionally, set an error state here to display to the user
       } finally {
         setIsLoading(false)
       }
@@ -119,7 +145,7 @@ export default function BlogPage() {
   }, [filteredPosts, currentPage, postsPerPage])
 
   useEffect(() => {
-    setCurrentPage(1) // Reset to first page when filters change
+    setCurrentPage(1)
   }, [selectedCategory, searchQuery])
 
   const formatDate = (dateString: string) => format(new Date(dateString), "MMMM d, yyyy")
@@ -141,7 +167,7 @@ export default function BlogPage() {
       <Header />
       <main className="flex-grow">
         {/* Hero Section - Blog Intro */}
-        <section className="py-16 md:py-24 bg-gradient-to-b from-background to-neutral-50 dark:from-neutral-900 dark:to-neutral-800/70 border-b border-border">
+        <section className="py-16 md:py-24 bg-gradient-to-b from-background to-neutral-50 dark:from-neutral-900 dark:to-neutral-800/70 border-b border-border dark:border-neutral-800">
           <div className="container mx-auto px-4 text-center">
             <Rss className="w-16 h-16 text-magenta mx-auto mb-6" />
             <h1 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">Tech Insights & Innovations</h1>
@@ -161,7 +187,7 @@ export default function BlogPage() {
               </h2>
               <Link
                 href={`/blog/${featuredPost.slug}`}
-                className="block group/featured-card rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 border border-border dark:border-neutral-700"
+                className="block group/featured-card rounded-xl overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-magenta/20 transition-all duration-300 border border-border dark:border-neutral-700 hover:border-magenta/50"
               >
                 <div className="md:flex">
                   {featuredPost.heroImage?.url && (
@@ -177,7 +203,10 @@ export default function BlogPage() {
                   )}
                   <div className="md:w-1/2 lg:w-2/5 p-6 md:p-8 flex flex-col justify-center bg-card">
                     {featuredPost.categories?.[0] && (
-                      <Badge variant="outline" className="mb-3 self-start border-magenta text-magenta">
+                      <Badge
+                        variant="outline"
+                        className="mb-3 self-start border-magenta text-magenta hover:bg-magenta/10 transition-colors"
+                      >
                         {featuredPost.categories[0].name}
                       </Badge>
                     )}
@@ -221,7 +250,6 @@ export default function BlogPage() {
         {/* Main Content: Filters, Search, and Posts Grid */}
         <section className="py-12 md:py-16">
           <div className="container mx-auto px-4">
-            {/* Filters + Search */}
             <div className="mb-10 p-4 bg-neutral-50 dark:bg-neutral-800/50 rounded-lg shadow-sm border border-border dark:border-neutral-700/50">
               <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6">
                 <div className="flex flex-wrap items-center gap-2">
@@ -232,8 +260,8 @@ export default function BlogPage() {
                     className={cn(
                       "transition-all",
                       !selectedCategory
-                        ? "bg-magenta text-white border-magenta"
-                        : "border-border hover:border-magenta hover:text-magenta",
+                        ? "bg-magenta text-white border-magenta hover:bg-magenta/90"
+                        : "border-border hover:border-magenta hover:text-magenta dark:hover:border-magenta dark:hover:text-magenta",
                     )}
                   >
                     All
@@ -246,8 +274,8 @@ export default function BlogPage() {
                       className={cn(
                         "transition-all",
                         selectedCategory === cat.slug
-                          ? "bg-magenta text-white border-magenta"
-                          : "border-border hover:border-magenta hover:text-magenta",
+                          ? "bg-magenta text-white border-magenta hover:bg-magenta/90"
+                          : "border-border hover:border-magenta hover:text-magenta dark:hover:border-magenta dark:hover:text-magenta",
                       )}
                     >
                       {cat.name}
@@ -258,7 +286,7 @@ export default function BlogPage() {
                   <Search className="absolute top-1/2 left-3 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <input
                     type="text"
-                    className="w-full bg-background border border-border dark:border-neutral-700 text-foreground rounded-md pl-10 pr-3 py-2 text-sm focus:border-magenta focus:ring-magenta placeholder:text-muted-foreground"
+                    className="w-full bg-background border border-border dark:border-neutral-700 text-foreground rounded-md pl-10 pr-3 py-2 text-sm focus:border-magenta focus:ring-1 focus:ring-magenta placeholder:text-muted-foreground"
                     placeholder="Search articles, authors..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
@@ -267,7 +295,6 @@ export default function BlogPage() {
               </div>
             </div>
 
-            {/* Grid of Blog Cards */}
             {paginatedPosts.length > 0 ? (
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-12">
                 {paginatedPosts.map((post) => (
@@ -282,7 +309,6 @@ export default function BlogPage() {
               </div>
             )}
 
-            {/* Pagination */}
             {totalPages > 1 && (
               <div className="flex justify-center items-center space-x-2">
                 <Button
@@ -291,6 +317,7 @@ export default function BlogPage() {
                   onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
                   disabled={currentPage === 1}
                   aria-label="Previous page"
+                  className="hover:border-magenta hover:text-magenta dark:hover:border-magenta dark:hover:text-magenta transition-colors"
                 >
                   <ChevronLeft className="w-5 h-5" />
                 </Button>
@@ -303,7 +330,7 @@ export default function BlogPage() {
                     className={cn(
                       currentPage === i + 1
                         ? "bg-magenta text-white hover:bg-magenta/90"
-                        : "hover:border-magenta hover:text-magenta",
+                        : "hover:border-magenta hover:text-magenta dark:hover:border-magenta dark:hover:text-magenta transition-colors",
                     )}
                   >
                     {i + 1}
@@ -315,6 +342,7 @@ export default function BlogPage() {
                   onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
                   disabled={currentPage === totalPages}
                   aria-label="Next page"
+                  className="hover:border-magenta hover:text-magenta dark:hover:border-magenta dark:hover:text-magenta transition-colors"
                 >
                   <ChevronRight className="w-5 h-5" />
                 </Button>
@@ -323,8 +351,26 @@ export default function BlogPage() {
           </div>
         </section>
 
+        {/* Tech News Feeds Section */}
+        <section className="py-16 md:py-24 bg-neutral-50 dark:bg-neutral-900/70 border-t border-b border-border dark:border-neutral-800">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-foreground flex items-center justify-center">
+              <Newspaper className="w-10 h-10 mr-4 text-magenta" />
+              Latest <span className="text-magenta ml-2">Tech News</span> Feeds
+            </h2>
+            <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+              Stay updated with headlines from leading technology news sources.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+              {techNewsData.map((newsItem) => (
+                <TechNewsCard key={newsItem.sourceName} {...newsItem} />
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Writing Team Section */}
-        <section className="py-16 md:py-24 bg-neutral-50 dark:bg-neutral-900/70 border-t border-border">
+        <section className="py-16 md:py-24 bg-background border-b border-border dark:border-neutral-800">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-foreground flex items-center justify-center">
               <Users className="w-10 h-10 mr-4 text-magenta" />
@@ -340,6 +386,9 @@ export default function BlogPage() {
             </div>
           </div>
         </section>
+
+        {/* Article Pipeline Section */}
+        <ArticlePipelineSection />
       </main>
       <BackToTop />
       <Footer />
