@@ -8,6 +8,7 @@ import { PlatformCard } from "@/components/platform-card"
 import { FeaturedBlogPostCard } from "@/components/featured-blog-post-card"
 import { MissionStatementSection } from "@/components/mission-statement-section"
 import { ScriptShareCard } from "@/components/script-share-card"
+import { ReviewCard } from "@/components/review-card" // New import
 import BackToTop from "@/components/back-to-top"
 import {
   Gamepad2,
@@ -25,10 +26,11 @@ import {
   TerminalSquare,
   FileText,
   GitMerge,
+  Facebook,
 } from "lucide-react"
-import type { Post } from "@/components/BlogCard" // Assuming BlogCard.tsx exports this type
+import type { Post } from "@/components/BlogCard"
 
-// Android icon as an SVG string (simple version)
+// Android icon as an SVG string
 const AndroidIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
     <path d="M17.25 8H6.75C5.7835 8 5 8.7835 5 9.75V16.25C5 17.2165 5.7835 18 6.75 18H17.25C18.2165 18 19 17.2165 19 16.25V9.75C19 8.7835 18.2165 8 17.25 8ZM7 10H8V11H7V10ZM16 11H17V10H16V11ZM8.25 5C8.25 4.58579 7.91421 4.25 7.5 4.25C7.08579 4.25 6.75 4.58579 6.75 5V7H8.25V5ZM15.75 5V7H17.25V5C17.25 4.58579 16.9142 4.25 16.5 4.25C16.0858 4.25 15.75 4.58579 15.75 5Z" />
@@ -138,7 +140,6 @@ export default function Page() {
     },
   ]
 
-  // Mock featured blog post data
   const mockFeaturedPost: Post = {
     id: "1",
     title: "The Future of AI in Game Development: A Deep Dive",
@@ -146,8 +147,8 @@ export default function Page() {
     publishedAt: new Date().toISOString(),
     description:
       "Explore how artificial intelligence is revolutionizing game design, storytelling, and player experiences. We break down the latest trends and predict what's next.",
-    heroImage: { url: "/ai-gaming-concept.png", alt: "AI in Gaming" }, // Make sure this image exists or use a placeholder
-    authors: [{ id: "1", name: "Dr. Evo Lex", avatar: { url: "/author-avatar.png" } }], // Make sure this image exists
+    heroImage: { url: "/ai-gaming-concept.png", alt: "AI in Gaming" },
+    authors: [{ id: "1", name: "Dr. Evo Lex", avatar: { url: "/author-avatar.png" } }],
     categories: [{ id: "1", name: "AI & Tech", slug: "ai-tech" }],
     readTime: 8,
   }
@@ -159,7 +160,7 @@ export default function Page() {
         "A Python script that sorts files in a directory into subfolders based on file type. Keep your downloads tidy!",
       icon: <FileText className="w-8 h-8" />,
       tags: ["Python", "Automation", "Utility"],
-      ctaLink: "#", // Link to script or Gist
+      ctaLink: "#",
     },
     {
       title: "CLI Project Starter",
@@ -184,6 +185,39 @@ export default function Page() {
       icon: <Code2 className="w-8 h-8" />,
       tags: ["Node.js", "React", "Frontend"],
       ctaLink: "#",
+    },
+  ]
+
+  const mockReviews = [
+    {
+      id: "review1",
+      name: "Alex Nova",
+      avatarUrl: "/alex-nova-avatar.png",
+      rating: 5,
+      reviewText:
+        "Absolutely blown away by the innovation and quality! DarkFrost JRPG is a masterpiece. Can't wait to see what they come up with next.",
+      source: "Facebook",
+      sourceIcon: <Facebook className="w-4 h-4" />,
+    },
+    {
+      id: "review2",
+      name: "Jamie Byte",
+      avatarUrl: "/jamie-byte-avatar.png",
+      rating: 5,
+      reviewText:
+        "Hello, Friend AI has become an indispensable part of my workflow. It's intuitive, powerful, and respects my privacy. Highly recommended!",
+      source: "Facebook",
+      sourceIcon: <Facebook className="w-4 h-4" />,
+    },
+    {
+      id: "review3",
+      name: "Casey Pixel",
+      avatarUrl: "/casey-pixel-avatar.png",
+      rating: 5,
+      reviewText:
+        "The attention to detail in their games is incredible. The Realms of Ambiguity is shaping up to be something truly special. The team is clearly passionate.",
+      source: "Facebook",
+      sourceIcon: <Facebook className="w-4 h-4" />,
     },
   ]
 
@@ -238,6 +272,31 @@ export default function Page() {
 
           {/* Mission Statement Section */}
           <MissionStatementSection />
+
+          {/* Reviews Section */}
+          <section className="py-16 sm:py-24 bg-background/30 dark:bg-black/30 backdrop-blur-sm">
+            <div className="container mx-auto px-4">
+              <h2 className="text-3xl sm:text-4xl font-bold text-foreground font-geist text-center mb-4">
+                Loved by Our <span className="text-primary">Community</span>
+              </h2>
+              <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+                Hear what people are saying about our projects and our passion for innovation.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                {mockReviews.map((review) => (
+                  <ReviewCard
+                    key={review.id}
+                    name={review.name}
+                    avatarUrl={review.avatarUrl}
+                    rating={review.rating}
+                    reviewText={review.reviewText}
+                    source={review.source}
+                    sourceIcon={review.sourceIcon}
+                  />
+                ))}
+              </div>
+            </div>
+          </section>
 
           {/* Bento Grid Projects Section */}
           <section className="container mx-auto px-4 pt-20 pb-16">
