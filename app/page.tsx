@@ -8,8 +8,8 @@ import { PlatformCard } from "@/components/platform-card"
 import { FeaturedBlogPostCard } from "@/components/featured-blog-post-card"
 import { MissionStatementSection } from "@/components/mission-statement-section"
 import { ScriptShareCard } from "@/components/script-share-card"
-// import { ReviewCard } from "@/components/review-card"; // Remove this if only used by FacebookReviewsSection
-import { FacebookReviewsSection } from "@/components/facebook-reviews-section" // New import
+import { FacebookReviewsSection } from "@/components/facebook-reviews-section"
+import { GitHubProfileSection } from "@/components/github-profile-section" // New import
 import BackToTop from "@/components/back-to-top"
 import {
   Gamepad2,
@@ -188,9 +188,6 @@ export default function Page() {
     },
   ]
 
-  // Remove mockReviews array as it's now handled by FacebookReviewsSection
-  // const mockReviews = [ ... ];
-
   return (
     <AuroraBackground>
       <div className="relative z-10 min-h-screen bg-transparent flex flex-col">
@@ -243,7 +240,7 @@ export default function Page() {
           {/* Mission Statement Section */}
           <MissionStatementSection />
 
-          {/* Reviews Section - Now using FacebookReviewsSection */}
+          {/* Reviews Section */}
           <section className="py-16 sm:py-24 bg-background/30 dark:bg-black/30 backdrop-blur-sm">
             <div className="container mx-auto px-4">
               <h2 className="text-3xl sm:text-4xl font-bold text-foreground font-geist text-center mb-4">
@@ -252,7 +249,7 @@ export default function Page() {
               <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
                 Hear what people are saying about our projects and our passion for innovation.
               </p>
-              <FacebookReviewsSection /> {/* Use the new component here */}
+              <FacebookReviewsSection />
             </div>
           </section>
 
@@ -299,6 +296,9 @@ export default function Page() {
               </div>
             </div>
           </section>
+
+          {/* GitHub Profile Section */}
+          <GitHubProfileSection username="theProject" profileUrl="https://github.com/theProject" />
 
           {/* Interactive Roadmap Section */}
           <InteractiveRoadmap />
