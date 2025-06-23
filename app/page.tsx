@@ -8,7 +8,8 @@ import { PlatformCard } from "@/components/platform-card"
 import { FeaturedBlogPostCard } from "@/components/featured-blog-post-card"
 import { MissionStatementSection } from "@/components/mission-statement-section"
 import { ScriptShareCard } from "@/components/script-share-card"
-import { ReviewCard } from "@/components/review-card" // New import
+// import { ReviewCard } from "@/components/review-card"; // Remove this if only used by FacebookReviewsSection
+import { FacebookReviewsSection } from "@/components/facebook-reviews-section" // New import
 import BackToTop from "@/components/back-to-top"
 import {
   Gamepad2,
@@ -26,7 +27,6 @@ import {
   TerminalSquare,
   FileText,
   GitMerge,
-  Facebook,
 } from "lucide-react"
 import type { Post } from "@/components/BlogCard"
 
@@ -188,38 +188,8 @@ export default function Page() {
     },
   ]
 
-  const mockReviews = [
-    {
-      id: "review1",
-      name: "Alex Nova",
-      avatarUrl: "/alex-nova-avatar.png",
-      rating: 5,
-      reviewText:
-        "Absolutely blown away by the innovation and quality! DarkFrost JRPG is a masterpiece. Can't wait to see what they come up with next.",
-      source: "Facebook",
-      sourceIcon: <Facebook className="w-4 h-4" />,
-    },
-    {
-      id: "review2",
-      name: "Jamie Byte",
-      avatarUrl: "/jamie-byte-avatar.png",
-      rating: 5,
-      reviewText:
-        "Hello, Friend AI has become an indispensable part of my workflow. It's intuitive, powerful, and respects my privacy. Highly recommended!",
-      source: "Facebook",
-      sourceIcon: <Facebook className="w-4 h-4" />,
-    },
-    {
-      id: "review3",
-      name: "Casey Pixel",
-      avatarUrl: "/casey-pixel-avatar.png",
-      rating: 5,
-      reviewText:
-        "The attention to detail in their games is incredible. The Realms of Ambiguity is shaping up to be something truly special. The team is clearly passionate.",
-      source: "Facebook",
-      sourceIcon: <Facebook className="w-4 h-4" />,
-    },
-  ]
+  // Remove mockReviews array as it's now handled by FacebookReviewsSection
+  // const mockReviews = [ ... ];
 
   return (
     <AuroraBackground>
@@ -273,7 +243,7 @@ export default function Page() {
           {/* Mission Statement Section */}
           <MissionStatementSection />
 
-          {/* Reviews Section */}
+          {/* Reviews Section - Now using FacebookReviewsSection */}
           <section className="py-16 sm:py-24 bg-background/30 dark:bg-black/30 backdrop-blur-sm">
             <div className="container mx-auto px-4">
               <h2 className="text-3xl sm:text-4xl font-bold text-foreground font-geist text-center mb-4">
@@ -282,19 +252,7 @@ export default function Page() {
               <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
                 Hear what people are saying about our projects and our passion for innovation.
               </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                {mockReviews.map((review) => (
-                  <ReviewCard
-                    key={review.id}
-                    name={review.name}
-                    avatarUrl={review.avatarUrl}
-                    rating={review.rating}
-                    reviewText={review.reviewText}
-                    source={review.source}
-                    sourceIcon={review.sourceIcon}
-                  />
-                ))}
-              </div>
+              <FacebookReviewsSection /> {/* Use the new component here */}
             </div>
           </section>
 
