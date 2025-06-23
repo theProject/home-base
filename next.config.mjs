@@ -1,10 +1,4 @@
-// next.config.mjs
-import path from 'path'
-import { fileURLToPath } from 'url'
-import { dirname } from 'path'
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+import path from "path"
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -16,24 +10,16 @@ const nextConfig = {
   },
   images: {
     unoptimized: true,
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'admin.bytheproject.com',
-        pathname: '/uploads/**',
-      },
-    ],
   },
-  transpilePackages: ['framer-motion'],
   webpack(config) {
+    // existing customisations … (if any)
+
+    // NEW -- let the bundler resolve "@/components/*"
     config.resolve.alias = {
-      ...config.resolve.alias,
-      // Alias "framer-motion" imports to the actual CJS file path
-      'framer-motion$': path.resolve(
-        __dirname,
-        'node_modules/framer-motion/dist/cjs/index.js'
-      ),
+      ...(config.resolve.alias || {}),
+      "@/components": path.join(__dirname, "app/components"),
     }
+
     return config
   },
 }
