@@ -37,6 +37,7 @@
   --glow-color-light: hsla(var(--primary), 0.5);
   --glow-color-dark: hsla(var(--primary), 0.7);
   --hover-glow-color: hsla(var(--primary), 0.8); /* More intense magenta for hover */
+  --hover-glow-color-rgb: var(--primary-rgb); /* For box-shadow */
 
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
@@ -323,7 +324,6 @@ html {
 
 /* Enhanced Glass Card for Bento Grid & Script Share */
 .interactive-glow-card {
-  /* Renamed for broader use */
   @apply rounded-2xl p-6 transition-all duration-300 ease-in-out relative overflow-hidden;
   background: rgba(255, 255, 255, 0.05); /* Base for light mode */
   -webkit-backdrop-filter: blur(12px);
@@ -344,7 +344,7 @@ html {
 
 .interactive-glow-card:hover {
   transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 0 25px 8px var(--hover-glow-color), 0 12px 40px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 25px 8px var(--hover-glow-color), 0 12px 40px 0 rgba(var(--hover-glow-color-rgb), 0.2);
 }
 
 .interactive-glow-card::before {
@@ -371,7 +371,7 @@ html {
 }
 
 .interactive-glow-card:hover::before {
-  opacity: 0.7; /* Initial opacity on hover */
+  opacity: 0.8; /* Increased opacity for more visible magenta border */
   background: conic-gradient(
     /* Magenta dominant on hover */
     from 180deg at 50% 50%,

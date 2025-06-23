@@ -146,8 +146,8 @@ export default function Page() {
     publishedAt: new Date().toISOString(),
     description:
       "Explore how artificial intelligence is revolutionizing game design, storytelling, and player experiences. We break down the latest trends and predict what's next.",
-    heroImage: { url: "/ai-gaming-concept.png", alt: "AI in Gaming" },
-    authors: [{ id: "1", name: "Dr. Evo Lex", avatar: { url: "/author-avatar.png" } }],
+    heroImage: { url: "/ai-gaming-concept.png", alt: "AI in Gaming" }, // Make sure this image exists or use a placeholder
+    authors: [{ id: "1", name: "Dr. Evo Lex", avatar: { url: "/author-avatar.png" } }], // Make sure this image exists
     categories: [{ id: "1", name: "AI & Tech", slug: "ai-tech" }],
     readTime: 8,
   }
