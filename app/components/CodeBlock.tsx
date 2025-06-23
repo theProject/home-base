@@ -1,5 +1,7 @@
 // components/CodeBlock.tsx
 import React from 'react'
+import 'prismjs/components/prism-jsx'
+import 'prismjs/components/prism-tsx'
 
 type CodeProps = {
   language?: string
