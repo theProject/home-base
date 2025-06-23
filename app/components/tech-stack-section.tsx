@@ -1,45 +1,45 @@
 import Image from "next/image"
 import { SkillRadialChart } from "./skill-radial-chart"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Code, Database, Cloud, Palette, Brain, Bot, Wand2, BarChart3, GitMerge, TerminalSquare } from "lucide-react"
+import { Database, Cloud, Palette, Brain, Wand2, BarChart3 } from "lucide-react" // Keep some for categories or fallbacks
 
 const techStackData = [
   {
     category: "Frontend Development",
     icon: <Palette className="h-6 w-6 text-primary" />,
     skills: [
-      { name: "Next.js", proficiency: 95, color: "hsl(var(--primary))", icon: <TerminalSquare /> },
-      { name: "React", proficiency: 90, color: "hsl(200 100% 60%)", icon: <Code /> },
-      { name: "Tailwind CSS", proficiency: 85, color: "hsl(180 100% 40%)", icon: <Palette /> },
-      { name: "TypeScript", proficiency: 90, color: "hsl(220 100% 60%)", icon: <Code /> },
+      { name: "Next.js", proficiency: 95, color: "hsl(var(--primary))", iconSrc: "/logos/nextjs.png" },
+      { name: "React", proficiency: 90, color: "hsl(200 100% 60%)", iconSrc: "/logos/react.png" },
+      { name: "Tailwind CSS", proficiency: 85, color: "hsl(180 100% 40%)", iconSrc: "/logos/tailwindcss.png" },
+      { name: "TypeScript", proficiency: 90, color: "hsl(220 100% 60%)", iconSrc: "/logos/typescript.png" },
     ],
   },
   {
     category: "Backend & Databases",
     icon: <Database className="h-6 w-6 text-primary" />,
     skills: [
-      { name: "Node.js", proficiency: 80, color: "hsl(120 60% 50%)", icon: <GitMerge /> },
-      { name: "Python", proficiency: 75, color: "hsl(45 100% 50%)", icon: <Bot /> },
-      { name: "PostgreSQL", proficiency: 70, color: "hsl(210 80% 60%)", icon: <Database /> },
-      { name: "Supabase", proficiency: 85, color: "hsl(150 70% 50%)", icon: <Database /> },
+      { name: "Node.js", proficiency: 80, color: "hsl(120 60% 50%)", iconSrc: "/logos/nodejs.png" },
+      { name: "Python", proficiency: 75, color: "hsl(45 100% 50%)", iconSrc: "/logos/python.png" },
+      { name: "PostgreSQL", proficiency: 70, color: "hsl(210 80% 60%)", iconSrc: "/logos/postgresql.png" },
+      { name: "Supabase", proficiency: 85, color: "hsl(150 70% 50%)", iconSrc: "/logos/supabase.png" },
     ],
   },
   {
     category: "AI & Machine Learning",
     icon: <Brain className="h-6 w-6 text-primary" />,
     skills: [
-      { name: "Generative AI", proficiency: 88, color: "hsl(var(--primary))", icon: <Wand2 /> },
-      { name: "LLMs", proficiency: 82, color: "hsl(270 70% 65%)", icon: <Brain /> },
-      { name: "Data Analysis", proficiency: 70, color: "hsl(30 100% 60%)", icon: <BarChart3 /> },
+      { name: "Generative AI", proficiency: 88, color: "hsl(var(--primary))", icon: <Wand2 className="w-6 h-6" /> }, // Keeping Lucide for abstract
+      { name: "LLMs", proficiency: 82, color: "hsl(270 70% 65%)", icon: <Brain className="w-6 h-6" /> }, // Keeping Lucide for abstract
+      { name: "Data Analysis", proficiency: 70, color: "hsl(30 100% 60%)", icon: <BarChart3 className="w-6 h-6" /> }, // Keeping Lucide for abstract
     ],
   },
   {
     category: "DevOps & Cloud",
     icon: <Cloud className="h-6 w-6 text-primary" />,
     skills: [
-      { name: "Vercel", proficiency: 92, color: "hsl(0 0% 80%)", icon: <Cloud /> },
-      { name: "Docker", proficiency: 65, color: "hsl(205 90% 55%)", icon: <TerminalSquare /> },
-      { name: "GitHub Actions", proficiency: 78, color: "hsl(0 0% 50%)", icon: <GitMerge /> },
+      { name: "Vercel", proficiency: 92, color: "hsl(0 0% 80%)", iconSrc: "/logos/vercel.png" },
+      { name: "Docker", proficiency: 65, color: "hsl(205 90% 55%)", iconSrc: "/logos/docker.png" },
+      { name: "GitHub Actions", proficiency: 78, color: "hsl(0 0% 50%)", iconSrc: "/logos/githubactions.png" },
     ],
   },
 ]
@@ -48,7 +48,6 @@ const teamMembers = [
   { name: "Alex Nova", avatar: "/alex-nova-avatar.png", role: "Lead Developer / AI Specialist" },
   { name: "Jamie Byte", avatar: "/jamie-byte-avatar.png", role: "Frontend Wizard / UI/UX" },
   { name: "Casey Pixel", avatar: "/casey-pixel-avatar.png", role: "Backend Architect / Data" },
-  // Add more team members if you have them
   { name: "The Project", avatar: "/placeholder.svg?width=100&height=100", role: "Collective Brainpower" },
 ]
 
@@ -69,7 +68,7 @@ export function TechStackSection() {
           {teamMembers.map((member) => (
             <div key={member.name} className="flex flex-col items-center text-center group">
               <Image
-                src={member.avatar || "/placeholder.svg"}
+                src={member.avatar || "/placeholder.svg?width=100&height=100&query=avatar"}
                 alt={member.name}
                 width={100}
                 height={100}
@@ -98,7 +97,8 @@ export function TechStackSection() {
                       skillName={skill.name}
                       proficiency={skill.proficiency}
                       color={skill.color}
-                      icon={skill.icon}
+                      iconSrc={skill.iconSrc} // Pass iconSrc
+                      icon={skill.icon} // Pass Lucide icon as fallback or for abstract ones
                       size={120}
                     />
                   ))}
