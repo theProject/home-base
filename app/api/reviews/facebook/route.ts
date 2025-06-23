@@ -94,8 +94,7 @@ export async function GET() {
           avatarUrl: getProfilePictureUrl(review.reviewer.id),
           rating: review.rating,
           reviewText: review.review_text,
-          source: "Facebook",
-          sourceIcon: <Facebook className="w-4 h-4 text-[#1877F2]" />, // Facebook brand color
+          source: "Facebook", // Facebook brand color
           timestamp: review.created_time,
         }
       })
