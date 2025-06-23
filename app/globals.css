@@ -13,6 +13,7 @@
 
   --color-primary: hsl(var(--primary));
   --color-primary-foreground: hsl(var(--primary-foreground));
+  --primary-rgb: 330, 100%, 45%; /* Added for rgba() usage */
 
   --color-secondary: hsl(var(--secondary));
   --color-secondary-foreground: hsl(var(--secondary-foreground));
@@ -32,7 +33,7 @@
   --color-card: hsl(var(--card));
   --color-card-foreground: hsl(var(--card-foreground));
 
-  --color-magenta: #e20074; /* Existing magenta, can be used or overridden */
+  --color-magenta: #e20074;
   --glow-color-light: hsla(var(--primary), 0.5);
   --glow-color-dark: hsla(var(--primary), 0.7);
 
@@ -117,6 +118,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.9%;
     --primary: 330 100% 45%; /* Magenta-like color */
+    --primary-rgb: 330, 100%, 45%; /* For rgba shadows */
     --primary-foreground: 0 0% 98%;
     --secondary: 0 0% 96.1%;
     --secondary-foreground: 0 0% 9%;
@@ -345,7 +347,6 @@ html {
   box-shadow: 0 0 20px 5px var(--current-glow-color), 0 12px 40px 0 rgba(0, 0, 0, 0.15);
 }
 
-/* Optional: Inner glow effect or edge highlight */
 .bento-glow-card::before {
   content: "";
   position: absolute;
