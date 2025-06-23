@@ -1,65 +1,96 @@
-'use client'
+"use client"
 
-import { useState, useEffect } from 'react'
-import Header from '@/components/header'
-import Footer from '@/components/footer'
-import Link from 'next/link'
-import { format } from 'date-fns'
-import BackToTop from '@/components/back-to-top'
-import { CalendarDays, ChevronLeft, ChevronRight, Clock, Search } from 'lucide-react'
-import { BorderButton } from '@/components/ui/border-button'
-import { cn } from '@/lib/utils'
-import { BlogCard } from '@/components/BlogCard'; // Ensure the path to BlogCard.tsx is correct
+import { useState, useEffect, useMemo } from "react"
+import Header from "@/components/header"
+import Footer from "@/components/footer"
+import Link from "next/link"
+import Image from "next/image"
+import { format } from "date-fns"
+import BackToTop from "@/components/back-to-top"
+import { CalendarDays, ChevronLeft, ChevronRight, Clock, Search, UserCircle, Rss, Users } from "lucide-react"
+import { BorderButton } from "@/components/ui/border-button"
+import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
+import { BlogCard, type Post as PostSummary } from "@/components/BlogCard" // Ensure Post type is exported
+import { AuthorCard, type AuthorProfile } from "@/components/author-card"
+import { Badge } from "@/components/ui/badge"
 
-// Types
-interface Author { id: string; name: string; avatar?: { url: string; alt?: string } }
-interface Category { id: string; name: string; slug: string }
-interface PostSummary {
+// Types (PostSummary is now imported from BlogCard)
+interface Category {
   id: string
-  title: string
+  name: string
   slug: string
-  publishedAt: string
-  description?: string
-  heroImage?: { url: string; alt?: string }
-  authors?: Author[]
-  categories?: Category[]
-  featured?: boolean
-  readTime?: number
 }
+
+const mockAuthors: AuthorProfile[] = [
+  {
+    id: "1",
+    name: "Alex Writer",
+    title: "Senior Technology Analyst",
+    avatarUrl: "/avatars/alex-writer.png",
+    bio: "Alex dives deep into the latest tech trends, offering insightful analysis and practical advice for navigating the digital landscape.",
+    tags: ["AI/ML", "Software Dev", "Cybersecurity"],
+    socialLinks: { linkedin: "#", twitter: "#", website: "#" },
+  },
+  {
+    id: "2",
+    name: "Maria Editor",
+    title: "Lead Editor & Content Strategist",
+    avatarUrl: "/avatars/maria-editor.png",
+    bio: "Maria ensures every piece of content is polished, engaging, and valuable, shaping the voice of our publication.",
+    tags: ["Content Strategy", "Editing", "UX Writing"],
+    socialLinks: { linkedin: "#", twitter: "#" },
+  },
+  {
+    id: "3",
+    name: "David Analyst",
+    title: "Emerging Tech Specialist",
+    avatarUrl: "/avatars/david-analyst.png",
+    bio: "David explores the cutting edge, from quantum computing to Web3, breaking down complex topics for our readers.",
+    tags: ["Quantum", "Web3", "Futurism"],
+    socialLinks: { linkedin: "#", website: "#" },
+  },
+  {
+    id: "4",
+    name: "Chloe Strategist",
+    title: "Community & Growth Manager",
+    avatarUrl: "/avatars/chloe-strategist.png",
+    bio: "Chloe connects with our audience, fostering a vibrant community and ensuring our content reaches those who need it most.",
+    tags: ["Community", "Marketing", "Growth Hacking"],
+    socialLinks: { linkedin: "#", twitter: "#" },
+  },
+]
 
 export default function BlogPage() {
   const [isLoading, setIsLoading] = useState(true)
-  const [posts, setPosts] = useState<PostSummary[]>([])
-  const [featuredPost, setFeaturedPost] = useState<PostSummary | null>(null)
+  const [allPosts, setAllPosts] = useState<PostSummary[]>([])
   const [currentPage, setCurrentPage] = useState(1)
-  const [totalPages, setTotalPages] = useState(1)
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [categories, setCategories] = useState<Category[]>([])
-  const [searchQuery, setSearchQuery] = useState('')
-  const [relatedPosts, setRelatedPosts] = useState<PostSummary[]>([])
-  const postsPerPage = 6
+  const [searchQuery, setSearchQuery] = useState("")
+  const postsPerPage = 9 // Adjusted for a 3-column layout
 
-  // Fetch via proxy
   useEffect(() => {
     async function fetchData() {
+      setIsLoading(true)
       try {
-        const res = await fetch('/api/posts?depth=1')
+        const res = await fetch("/api/posts?depth=2") // depth=2 to fetch author/category details
         if (!res.ok) throw new Error(`Fetch failed: ${res.status}`)
         const data = await res.json()
-        const all: PostSummary[] = data.docs || []
+        const fetchedPosts: PostSummary[] = data.docs || []
 
-        setPosts(all)
-        setFeaturedPost(all.find(p => p.featured) ?? all[0] ?? null)
+        setAllPosts(fetchedPosts)
 
-        // Extract unique categories
-        const uniq: Record<string, Category> = {}
-        all.forEach(p => p.categories?.forEach(c => { uniq[c.id] = c }))
-        setCategories(Object.values(uniq))
-
-        setTotalPages(Math.ceil(all.length / postsPerPage))
-        setRelatedPosts(all.slice(0, 3))
+        const uniqueCategories: Record<string, Category> = {}
+        fetchedPosts.forEach((p) =>
+          p.categories?.forEach((c) => {
+            uniqueCategories[c.id] = c
+          }),
+        )
+        setCategories(Object.values(uniqueCategories))
       } catch (err) {
-        console.error(err)
+        console.error("Error fetching blog posts:", err)
+        // Optionally, set an error state here to display to the user
       } finally {
         setIsLoading(false)
       }
@@ -67,137 +98,248 @@ export default function BlogPage() {
     fetchData()
   }, [])
 
-  // Filter + Paginate
-  const filtered = posts.filter(p => {
-    const byCat = !selectedCategory || p.categories?.some(c => c.slug === selectedCategory)
-    const byText = !searchQuery ||
-      p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (p.description?.toLowerCase().includes(searchQuery.toLowerCase()) ?? false)
-    return byCat && byText
-  })
-  const paginated = filtered.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage)
+  const featuredPost = useMemo(() => allPosts.find((p) => p.featured) || allPosts[0] || null, [allPosts])
+  const nonFeaturedPosts = useMemo(() => allPosts.filter((p) => p.id !== featuredPost?.id), [allPosts, featuredPost])
+
+  const filteredPosts = useMemo(() => {
+    return nonFeaturedPosts.filter((p) => {
+      const byCategory = !selectedCategory || p.categories?.some((c) => c.slug === selectedCategory)
+      const bySearch =
+        !searchQuery ||
+        p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (p.description?.toLowerCase().includes(searchQuery.toLowerCase()) ?? false) ||
+        (p.authors?.some((a) => a.name.toLowerCase().includes(searchQuery.toLowerCase())) ?? false)
+      return byCategory && bySearch
+    })
+  }, [nonFeaturedPosts, selectedCategory, searchQuery])
+
+  const totalPages = useMemo(() => Math.ceil(filteredPosts.length / postsPerPage), [filteredPosts, postsPerPage])
+  const paginatedPosts = useMemo(() => {
+    return filteredPosts.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage)
+  }, [filteredPosts, currentPage, postsPerPage])
 
   useEffect(() => {
-    setTotalPages(Math.ceil(filtered.length / postsPerPage))
-    setCurrentPage(1)
-  }, [filtered.length, selectedCategory, searchQuery])
+    setCurrentPage(1) // Reset to first page when filters change
+  }, [selectedCategory, searchQuery])
 
-  const formatDate = (d: string) => format(new Date(d), 'MMM d, yyyy') // Updated format for consistency
+  const formatDate = (dateString: string) => format(new Date(dateString), "MMMM d, yyyy")
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background text-foreground flex flex-col">
+        <Header />
+        <main className="flex-grow container mx-auto px-4 pt-24 pb-16 flex items-center justify-center">
+          <div className="h-12 w-12 border-4 border-t-transparent border-magenta rounded-full animate-spin" />
+        </main>
+        <Footer />
+      </div>
+    )
+  }
 
   return (
-    <div className="min-h-screen bg-white text-black dark:bg-black dark:text-white">
+    <div className="min-h-screen bg-background text-foreground flex flex-col">
       <Header />
-      <main className="container mx-auto px-4 pt-24 pb-16">
-        {/* Loading */}
-        {isLoading ? (
-          <div className="flex justify-center py-16">
-            <div className="h-8 w-8 border-4 border-t-transparent border-magenta rounded-full animate-spin" />
+      <main className="flex-grow">
+        {/* Hero Section - Blog Intro */}
+        <section className="py-16 md:py-24 bg-gradient-to-b from-background to-neutral-50 dark:from-neutral-900 dark:to-neutral-800/70 border-b border-border">
+          <div className="container mx-auto px-4 text-center">
+            <Rss className="w-16 h-16 text-magenta mx-auto mb-6" />
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">Tech Insights & Innovations</h1>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+              Your premier source for deep dives into technology, software development, and the future of digital.
+            </p>
           </div>
-        ) : (
-          <>
-            {/* Featured Post */}
-            {featuredPost && (
-              <section className="mb-16">
-                <h2 className="flex items-center text-2xl font-bold mb-6">
-                  <span className="mr-2 w-1.5 h-6 bg-magenta rounded-full" />
-                  Featured Post
-                </h2>
-                <Link href={`/blog/${featuredPost.slug}`} className="block group/featured">
-                  <div
-                    className="relative overflow-hidden rounded-lg shadow-lg h-[400px] md:h-[500px] bg-cover bg-center"
-                    style={
-                      featuredPost.heroImage
-                        ? { backgroundImage: `url(/api/media/${featuredPost.heroImage.url.replace(/^\//, '')})` }
-                        : undefined
-                    }
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
-                    <div className="absolute bottom-0 p-6 z-10 text-white">
-                      <h3 className="text-3xl font-bold mb-2">{featuredPost.title}</h3>
-                      <p className="text-sm mb-4">{featuredPost.description}</p>
-                      <div className="flex items-center space-x-4 text-sm">
-                        <span className="flex items-center"><CalendarDays className="w-4 h-4 mr-1" />{formatDate(featuredPost.publishedAt)}</span>
-                        {featuredPost.readTime && <span className="flex items-center"><Clock className="w-4 h-4 mr-1" />{featuredPost.readTime} min read</span>}
-                      </div>
+        </section>
+
+        {/* Featured Post Section */}
+        {featuredPost && (
+          <section className="py-12 md:py-16">
+            <div className="container mx-auto px-4">
+              <h2 className="text-3xl font-bold mb-8 text-center md:text-left flex items-center justify-center md:justify-start">
+                <span className="mr-3 w-2 h-8 bg-magenta rounded-full" />
+                Spotlight Article
+              </h2>
+              <Link
+                href={`/blog/${featuredPost.slug}`}
+                className="block group/featured-card rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 border border-border dark:border-neutral-700"
+              >
+                <div className="md:flex">
+                  {featuredPost.heroImage?.url && (
+                    <div className="md:w-1/2 lg:w-3/5 relative aspect-video md:aspect-auto">
+                      <Image
+                        src={`/api/media/${featuredPost.heroImage.url.replace(/^\//, "")}`}
+                        alt={featuredPost.heroImage.alt || featuredPost.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        className="object-cover transition-transform duration-300 group-hover/featured-card:scale-105"
+                      />
+                    </div>
+                  )}
+                  <div className="md:w-1/2 lg:w-2/5 p-6 md:p-8 flex flex-col justify-center bg-card">
+                    {featuredPost.categories?.[0] && (
+                      <Badge variant="outline" className="mb-3 self-start border-magenta text-magenta">
+                        {featuredPost.categories[0].name}
+                      </Badge>
+                    )}
+                    <h3 className="text-2xl lg:text-3xl font-bold mb-3 text-foreground group-hover/featured-card:text-magenta transition-colors">
+                      {featuredPost.title}
+                    </h3>
+                    <p className="text-muted-foreground mb-4 line-clamp-3">{featuredPost.description}</p>
+                    <div className="flex items-center text-sm text-muted-foreground mb-1">
+                      {featuredPost.authors?.[0]?.avatar?.url ? (
+                        <Image
+                          src={`/api/media/${featuredPost.authors[0].avatar.url.replace(/^\//, "")}`}
+                          alt={featuredPost.authors[0].name}
+                          width={24}
+                          height={24}
+                          className="rounded-full mr-2 object-cover"
+                        />
+                      ) : (
+                        <UserCircle className="w-6 h-6 mr-2" />
+                      )}
+                      <span>{featuredPost.authors?.[0]?.name || "Anonymous"}</span>
+                    </div>
+                    <div className="flex items-center space-x-4 text-sm text-muted-foreground">
+                      <span className="flex items-center">
+                        <CalendarDays className="w-4 h-4 mr-1.5" />
+                        {formatDate(featuredPost.publishedAt)}
+                      </span>
+                      {featuredPost.readTime && (
+                        <span className="flex items-center">
+                          <Clock className="w-4 h-4 mr-1.5" />
+                          {featuredPost.readTime} min read
+                        </span>
+                      )}
                     </div>
                   </div>
-                </Link>
-              </section>
-            )}
+                </div>
+              </Link>
+            </div>
+          </section>
+        )}
 
+        {/* Main Content: Filters, Search, and Posts Grid */}
+        <section className="py-12 md:py-16">
+          <div className="container mx-auto px-4">
             {/* Filters + Search */}
-            <div className="mb-10 flex flex-wrap items-center gap-4">
-              <BorderButton
-                onClick={() => setSelectedCategory(null)}
-                size="sm"
-                className={!selectedCategory ? 'bg-magenta text-white' : ''}
-              >
-                All Posts
-              </BorderButton>
-              {categories.map(cat => (
-                <BorderButton
-                  key={cat.id}
-                  onClick={() => setSelectedCategory(cat.slug)}
-                  size="sm"
-                  className={selectedCategory === cat.slug ? 'bg-magenta text-white' : ''}
-                >
-                  {cat.name}
-                </BorderButton>
-              ))}
-              <div className="relative ml-auto w-full md:w-64">
-                <Search className="absolute top-1/2 left-3 -translate-y-1/2 text-gray-400" />
-                <input
-                  type="text"
-                  className="w-full bg-neutral-100 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 text-black dark:text-white rounded-lg pl-10 py-2 text-sm focus:border-magenta"
-                  placeholder="Search articles…"
-                  value={searchQuery}
-                  onChange={e => setSearchQuery(e.target.value)}
-                />
+            <div className="mb-10 p-4 bg-neutral-50 dark:bg-neutral-800/50 rounded-lg shadow-sm border border-border dark:border-neutral-700/50">
+              <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="font-medium text-sm mr-2 text-muted-foreground">Categories:</span>
+                  <BorderButton
+                    onClick={() => setSelectedCategory(null)}
+                    size="sm"
+                    className={cn(
+                      "transition-all",
+                      !selectedCategory
+                        ? "bg-magenta text-white border-magenta"
+                        : "border-border hover:border-magenta hover:text-magenta",
+                    )}
+                  >
+                    All
+                  </BorderButton>
+                  {categories.map((cat) => (
+                    <BorderButton
+                      key={cat.id}
+                      onClick={() => setSelectedCategory(cat.slug)}
+                      size="sm"
+                      className={cn(
+                        "transition-all",
+                        selectedCategory === cat.slug
+                          ? "bg-magenta text-white border-magenta"
+                          : "border-border hover:border-magenta hover:text-magenta",
+                      )}
+                    >
+                      {cat.name}
+                    </BorderButton>
+                  ))}
+                </div>
+                <div className="relative w-full md:w-auto md:ml-auto md:max-w-xs">
+                  <Search className="absolute top-1/2 left-3 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <input
+                    type="text"
+                    className="w-full bg-background border border-border dark:border-neutral-700 text-foreground rounded-md pl-10 pr-3 py-2 text-sm focus:border-magenta focus:ring-magenta placeholder:text-muted-foreground"
+                    placeholder="Search articles, authors..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                </div>
               </div>
             </div>
 
-         {/* Grid of Blog Cards */}
-<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-16">
-  {paginated.map(post => (
-    <BlogCard key={post.id} post={post} />
-  ))}
-  {paginated.length === 0 && (
-    <div className="col-span-full py-20 text-center text-gray-500 dark:text-gray-400">No posts found</div>
-  )}
-</div>
-
-            {/* Pagination */}
-            {totalPages > 1 && (
-              <div className="flex justify-center mb-16">
-                <button onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} disabled={currentPage === 1} aria-label="Previous page" className="p-2 rounded border border-neutral-800 disabled:opacity-50 hover:border-magenta transition">
-                  <ChevronLeft className="w-5 h-5" />
-                </button>
-                {Array.from({ length: totalPages }, (_, i) => (
-                  <button key={i} onClick={() => setCurrentPage(i + 1)} className={`mx-1 w-8 h-8 rounded flex items-center justify-center transition ${currentPage === i + 1 ? 'bg-magenta text-white' : 'border border-neutral-800 hover:border-magenta'}`}>{i + 1}</button>
+            {/* Grid of Blog Cards */}
+            {paginatedPosts.length > 0 ? (
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-12">
+                {paginatedPosts.map((post) => (
+                  <BlogCard key={post.id} post={post} />
                 ))}
-                <button onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages} aria-label="Next page" className="p-2 rounded border border-neutral-800 disabled:opacity-50 hover:border-magenta transition">
-                  <ChevronRight className="w-5 h-5" />
-                </button>
+              </div>
+            ) : (
+              <div className="col-span-full py-20 text-center text-muted-foreground">
+                <Search className="w-16 h-16 mx-auto mb-4 text-neutral-400 dark:text-neutral-500" />
+                <h3 className="text-xl font-semibold mb-2">No Posts Found</h3>
+                <p>Try adjusting your search or category filters.</p>
               </div>
             )}
 
-            {/* Related Posts */}
-            <section className="mb-16">
-              <h2 className="text-2xl font-bold mb-6">Related Posts</h2>
-              <div className="grid gap-6 md:grid-cols-3">
-                {relatedPosts.map(post => (
-                  <Link key={post.id} href={`/blog/${post.slug}`}>
-                    <div className="p-4 bg-neutral-900 dark:bg-neutral-700 rounded-lg hover:bg-neutral-800 transition">
-                      <h3 className="font-bold text-white mb-2">{post.title}</h3>
-                      <p className="text-sm text-gray-400 mb-2 line-clamp-2">{post.description}</p>
-                      <span className="text-xs text-gray-500">{formatDate(post.publishedAt)}</span>
-                    </div>
-                  </Link>
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div className="flex justify-center items-center space-x-2">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                  disabled={currentPage === 1}
+                  aria-label="Previous page"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </Button>
+                {Array.from({ length: totalPages }, (_, i) => (
+                  <Button
+                    key={i}
+                    variant={currentPage === i + 1 ? "default" : "outline"}
+                    size="icon"
+                    onClick={() => setCurrentPage(i + 1)}
+                    className={cn(
+                      currentPage === i + 1
+                        ? "bg-magenta text-white hover:bg-magenta/90"
+                        : "hover:border-magenta hover:text-magenta",
+                    )}
+                  >
+                    {i + 1}
+                  </Button>
                 ))}
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                  disabled={currentPage === totalPages}
+                  aria-label="Next page"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </Button>
               </div>
-            </section>
-          </>
-        )}
+            )}
+          </div>
+        </section>
+
+        {/* Writing Team Section */}
+        <section className="py-16 md:py-24 bg-neutral-50 dark:bg-neutral-900/70 border-t border-border">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-foreground flex items-center justify-center">
+              <Users className="w-10 h-10 mr-4 text-magenta" />
+              Meet Our <span className="text-magenta ml-2">Expert Writers</span>
+            </h2>
+            <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+              Our team of passionate technologists, researchers, and storytellers bringing you the latest insights.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+              {mockAuthors.map((author) => (
+                <AuthorCard key={author.id} author={author} />
+              ))}
+            </div>
+          </div>
+        </section>
       </main>
       <BackToTop />
       <Footer />
