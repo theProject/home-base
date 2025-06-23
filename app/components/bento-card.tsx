@@ -57,7 +57,7 @@ export function BentoCard({
   }
 
   const cardClasses = cn(
-    "bento-glow-card flex flex-col justify-between",
+    "interactive-glow-card flex flex-col justify-between",
     span,
     className,
     imageSrc ? "bg-cover bg-center" : "",

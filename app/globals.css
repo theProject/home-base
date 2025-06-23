@@ -13,7 +13,7 @@
 
   --color-primary: hsl(var(--primary));
   --color-primary-foreground: hsl(var(--primary-foreground));
-  --primary-rgb: 330, 100%, 45%; /* Added for rgba() usage */
+  --primary-rgb: 330, 100%, 45%; /* Magenta-like */
 
   --color-secondary: hsl(var(--secondary));
   --color-secondary-foreground: hsl(var(--secondary-foreground));
@@ -33,9 +33,10 @@
   --color-card: hsl(var(--card));
   --color-card-foreground: hsl(var(--card-foreground));
 
-  --color-magenta: #e20074;
+  --color-magenta: #e20074; /* Explicit magenta if needed */
   --glow-color-light: hsla(var(--primary), 0.5);
   --glow-color-dark: hsla(var(--primary), 0.7);
+  --hover-glow-color: hsla(var(--primary), 0.8); /* More intense magenta for hover */
 
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
@@ -142,8 +143,6 @@
     --card-foreground: 0 0% 98%;
     --popover: 0 0% 3.9%;
     --popover-foreground: 0 0% 98%;
-    /* --primary: 210 100% 50%; Blue for dark mode, or keep magenta */
-    /* --primary-foreground: 0 0% 98%; */
     --secondary: 0 0% 14.9%;
     --secondary-foreground: 0 0% 98%;
     --muted: 0 0% 14.9%;
@@ -322,8 +321,9 @@ html {
   }
 }
 
-/* Enhanced Glass Card for Bento Grid */
-.bento-glow-card {
+/* Enhanced Glass Card for Bento Grid & Script Share */
+.interactive-glow-card {
+  /* Renamed for broader use */
   @apply rounded-2xl p-6 transition-all duration-300 ease-in-out relative overflow-hidden;
   background: rgba(255, 255, 255, 0.05); /* Base for light mode */
   -webkit-backdrop-filter: blur(12px);
@@ -332,22 +332,23 @@ html {
   box-shadow: 0 0 0px 0px var(--current-glow-color), 0 8px 32px 0 rgba(0, 0, 0, 0.1);
 }
 
-.dark .bento-glow-card {
+.dark .interactive-glow-card {
   background: rgba(10, 10, 10, 0.25);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.light .bento-glow-card {
+.light .interactive-glow-card {
   background: rgba(255, 255, 255, 0.4);
   border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
-.bento-glow-card:hover {
+.interactive-glow-card:hover {
   transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 0 20px 5px var(--current-glow-color), 0 12px 40px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 25px 8px var(--hover-glow-color), 0 12px 40px 0 rgba(0, 0, 0, 0.15);
 }
 
-.bento-glow-card::before {
+.interactive-glow-card::before {
+  /* Conic gradient border */
   content: "";
   position: absolute;
   inset: 0;
@@ -369,8 +370,16 @@ html {
   animation: subtle-pulse 3s infinite ease-in-out;
 }
 
-.bento-glow-card:hover::before {
-  opacity: 0.7;
+.interactive-glow-card:hover::before {
+  opacity: 0.7; /* Initial opacity on hover */
+  background: conic-gradient(
+    /* Magenta dominant on hover */
+    from 180deg at 50% 50%,
+    var(--hover-glow-color) 0deg,
+    transparent 90deg /* Make magenta more prominent */,
+    transparent 270deg,
+    var(--hover-glow-color) 360deg
+  );
 }
 
 /* Roadmap Styles */
@@ -393,7 +402,12 @@ html {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 .dark .roadmap-item:hover {
-  box-shadow: 0 4px 15px var(--current-glow-color);
+  box-shadow: 0 4px 15px var(--hover-glow-color); /* Magenta glow on hover */
+}
+
+/* Mission Statement Section Specific Styles */
+.mission-highlight {
+  @apply text-primary font-semibold;
 }
 
 @plugin "@tailwindcss/typography";
