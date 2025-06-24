@@ -446,7 +446,8 @@ html {
 .synthwave-subtitle {
   font-family: theme("fontFamily.mono");
   color: theme("colors.gray.100");
-  text-shadow: 0 0 3px theme("colors.primary.light"), 0 0 6px theme("colors.primary.DEFAULT");
+  /* Use the hex value directly to avoid theme() resolution issues */
+  text-shadow: 0 0 3px #A3D5FF, 0 0 6px theme('colors.primary.DEFAULT');
 }
 
 .synthwave-text-glow {

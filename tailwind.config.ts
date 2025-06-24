@@ -33,9 +33,8 @@ const config: Config = {
 
         primary: {
           DEFAULT: "hsl(var(--primary))",
-          /** NEW: this is what `theme(colors.primary.light)` will resolve to */
-          light: "hsl(var(--primary-light, var(--primary) / 0.7))",
           foreground: "hsl(var(--primary-foreground))",
+          light: "#A3D5FF",
         },
 
         secondary: {
