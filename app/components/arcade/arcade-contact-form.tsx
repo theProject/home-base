@@ -7,7 +7,8 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Loader2, Send } from "lucide-react"
-import { Toaster, toast } from "@/components/ui/sonner" // Assuming you have sonner for toasts
+import { Toaster } from "@/components/ui/sonner"
+import { toast } from "sonner"
 
 export function ArcadeContactForm() {
   const initialState: ArcadeIdeaFormState = { message: "", success: false }
