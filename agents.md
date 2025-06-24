@@ -8,8 +8,8 @@ This repository powers https://bytheproject.com. It is a Vercel-hosted, Next.js 
 
 ## 🔧 Tech Stack
 
-- Next.js 15.3.1 (App Router)
-- React 19.1
+- Next.js 15.2.4 (App Router)
+- React 19
 - Tailwind CSS 4
 - pnpm for package management
 - Dynamic OG image endpoint: `/api/og?title=...`
@@ -58,7 +58,7 @@ Ensure all components resolve and render cleanly.
 
 ---
 
-## 🔁 Task 3 – Update React + Next.js (If Needed)
+## 🔁 Task 3 – Update React + Next.js + Tailwind v4 to latest (If Needed)
 
 - Open `package.json`
 - Ensure the following are at latest stable:
@@ -66,10 +66,12 @@ Ensure all components resolve and render cleanly.
   "next": "15.3.1",
   "react": "19.1.0",
   "react-dom": "19.1.0"
+  "tailwindcss": "4.1.8",
+
   ```
 - If older, update with:
   ```bash
-  pnpm update next react react-dom
+  pnpm update next react react-dom tailwindcss
   ```
 
 ---
