@@ -1,10 +1,9 @@
-// next.config.mjs
-import path from 'path'
-import { fileURLToPath } from 'url'
-import { dirname } from 'path'
+import { fileURLToPath } from "url";
+import path from "path";
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+/** Fix for __dirname in ESM */
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -16,26 +15,16 @@ const nextConfig = {
   },
   images: {
     unoptimized: true,
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'admin.bytheproject.com',
-        pathname: '/uploads/**',
-      },
-    ],
   },
-  transpilePackages: ['framer-motion'],
   webpack(config) {
+    // Allow "@/components/*" imports
     config.resolve.alias = {
-      ...config.resolve.alias,
-      // Alias "framer-motion" imports to the actual CJS file path
-      'framer-motion$': path.resolve(
-        __dirname,
-        'node_modules/framer-motion/dist/cjs/index.js'
-      ),
-    }
-    return config
-  },
-}
+      ...(config.resolve.alias || {}),
+      "@/components": path.join(__dirname, "app/components"),
+    };
 
-export default nextConfig
+    return config;
+  },
+};
+
+export default nextConfig;

@@ -30,8 +30,8 @@ export async function generateStaticParams(): Promise<Params[]> {
   }
 }
 
-export default async function PostPage({ params }: { params: Params }) {
-  const { slug } = params
+export default async function PostPage({ params }: { params: Promise<Params> }) {
+  const { slug } = await params
   const baseUrl = process.env.NEXT_PUBLIC_PAYLOAD_API_URL
   if (!baseUrl) notFound()
 
