@@ -196,9 +196,27 @@ export default function Page() {
           {/* Hero Section */}
           <section className="container mx-auto px-4 pt-32 pb-20 sm:pt-40 md:pt-48 text-center">
             <AnimatedHeroText />
-            <p className="mt-8 text-lg md:text-xl leading-8 text-muted-foreground max-w-3xl mx-auto">
-              We don't just build; we craft digital marvels. From immersive games to intelligent AI, our passion is to
-              innovate and inspire.
+            <p
+              style={{
+                fontFamily: "Arial, sans-serif",
+                fontSize: "1.2em",
+                lineHeight: 1.5,
+              }}
+            >
+              Forget the degrees. We are
+              <span style={{ color: "white" }}>the</span>
+              <span style={{ color: "#e20074" }}>Project.</span>, the
+              <strong style={{ color: "#e20074" }}>relentless</strong> misfits who
+              learned by doing, we learned by
+              <span style={{ color: "#00FFFF" }}>hacking code apart</span> and
+              learning through
+              <strong style={{ color: "white" }}>trial and error</strong>, fueled by
+              a <strong style={{ color: "white" }}>burning craving</strong> for
+              design and <strong style={{ color: "white" }}>innovation</strong>.
+              We don't just create; we
+              <strong style={{ color: "white" }}>defy expectations</strong>,
+              building <strong style={{ color: "white" }}>digital marvels</strong>
+              that prove our worth with every line of code.
             </p>
           </section>
 
