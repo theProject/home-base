@@ -16,6 +16,7 @@ const arcadeGames: GameCardProps[] = [
     reviewScore: 4.5,
     slug: "pixel-pioneer",
     tags: ["Retro", "Platformer", "Adventure"],
+    ctaText: "Coming Soon",
   },
   {
     id: "2",
@@ -26,6 +27,7 @@ const arcadeGames: GameCardProps[] = [
     reviewScore: 4.8,
     slug: "synth-runner",
     tags: ["Endless Runner", "Sci-Fi", "Music"],
+    ctaText: "Coming Soon",
   },
   {
     id: "3",
@@ -36,7 +38,8 @@ const arcadeGames: GameCardProps[] = [
     reviewScore: 4.2,
     slug: "ai-dream-weaver",
     tags: ["AI", "3D Modeling", "Creative Tool"],
-    className: "md:col-span-2", // Example of a wider card
+    className: "md:col-span-2",
+    ctaLink: "https://frostscript.com",
   },
   {
     id: "4",
@@ -47,6 +50,7 @@ const arcadeGames: GameCardProps[] = [
     reviewScore: 4.6,
     slug: "code-breaker-ai",
     tags: ["Puzzle", "AI", "Logic"],
+    ctaLink: "/games/code-breaker-ai.html",
   },
   {
     id: "5",
@@ -57,6 +61,7 @@ const arcadeGames: GameCardProps[] = [
     reviewScore: 4.3,
     slug: "galaxy-glider",
     tags: ["Space Shooter", "Action", "Arcade"],
+    ctaText: "Coming Soon",
   },
   {
     id: "6",
@@ -67,6 +72,7 @@ const arcadeGames: GameCardProps[] = [
     reviewScore: 4.0,
     slug: "prompt-sculptor",
     tags: ["AI", "Art Generation", "Experimental"],
+    ctaText: "Coming Soon",
   },
 ]
 

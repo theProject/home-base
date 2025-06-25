@@ -18,6 +18,8 @@ export interface GameCardProps {
   reviewScore: number
   slug: string
   tags: string[]
+  ctaText?: string
+  ctaLink?: string
   className?: string
 }
 
@@ -29,6 +31,8 @@ export function GameCard({
   reviewScore,
   slug,
   tags,
+  ctaText = "Play Game",
+  ctaLink,
   className,
 }: GameCardProps) {
   const handleShare = (e: React.MouseEvent) => {
@@ -64,7 +68,13 @@ export function GameCard({
         className,
       )}
     >
-      <Link href={`/arcade/${slug}`} className="flex flex-col h-full">
+      <Link
+        href={ctaLink ? ctaLink : "#"}
+        className="flex flex-col h-full"
+        target={ctaLink?.startsWith("http") ? "_blank" : undefined}
+        rel={ctaLink?.startsWith("http") ? "noopener noreferrer" : undefined}
+        onClick={ctaLink ? undefined : (e) => e.preventDefault()}
+      >
         <div className="relative w-full h-40 md:h-48 mb-4 rounded-lg overflow-hidden border border-primary/30">
           <Image
             src={imageUrl || "/placeholder.svg"}
@@ -121,9 +131,10 @@ export function GameCard({
           <Button
             variant="outline"
             size="sm"
+            disabled={!ctaLink}
             className="w-full bg-transparent hover:bg-primary/20 border-primary/50 group-hover:border-primary text-primary group-hover:text-primary-foreground group-hover:bg-primary transition-all duration-300"
           >
-            Play Game <ArrowUpRight className="ml-1 h-4 w-4 transition-transform group-hover:rotate-45" />
+            {ctaText} <ArrowUpRight className="ml-1 h-4 w-4 transition-transform group-hover:rotate-45" />
           </Button>
         </div>
       </Link>

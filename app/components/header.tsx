@@ -93,11 +93,11 @@ export default function Header() {
 
       {/* Mobile nav panel */}
       <div
-        className={`fixed top-16 bottom-0 right-0 z-40 w-32 bg-white text-black dark:bg-black dark:text-white rounded-l-xl transition-transform duration-300 ease-in-out md:hidden ${
+        className={`fixed top-16 bottom-0 right-0 z-40 w-32 text-black dark:text-white rounded-l-xl transition-transform duration-300 ease-in-out md:hidden ${
           mobileMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <nav className="flex flex-col items-start h-full pt-8 bg-white/80 backdrop-blur-xs dark:bg-black/80">
+        <nav className="flex flex-col items-start h-full pt-8 backdrop-blur-md bg-white/70 dark:bg-neutral-900/60">
           {links.map(({ label, href, Icon }) => (
             <Link
               key={href}

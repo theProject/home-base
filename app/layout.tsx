@@ -9,6 +9,7 @@ export const metadata = {
   title: "theProject.",
   description:
     "Celebrating 13 years of business crafting mobile applications, video games, and generative AI.",
+  metadataBase: new URL("https://bytheproject.com"),
 }
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID || "G-GZVVZXVK5X"
