@@ -63,6 +63,8 @@
     "path": "latest",
     "payload": "latest",
     "pg": "^8.16.0",
+    "prism-themes": "^1.9.0",
+    "prismjs": "^1.30.0",
     "react": "^19",
     "react-day-picker": "latest",
     "react-dom": "^19",

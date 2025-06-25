@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Breaker AI - theProject. Arcade</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: fixed;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Synthwave background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #0a0a0a 0%, #1a0033 50%, #330066 100%);
+            z-index: -2;
+        }
+
+        /* Grid effect */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 0, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 0, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform: perspective(500px) rotateX(60deg);
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        .game-wrapper {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            max-width: 1400px;
+            padding: 10px;
+        }
+
+        /* Header Section */
+        .game-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            flex-shrink: 0;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.8);
+            animation: logo-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes logo-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .title-section {
+            flex: 1;
+        }
+
+        .title {
+            font-size: 1.5em;
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+        }
+
+        .subtitle {
+            font-size: 0.8em;
+            color: #ff00ff;
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.8);
+        }
+
+        .help-btn {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            border: none;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 0, 255, 0.3);
+            flex-shrink: 0;
+        }
+
+        .stat {
+            flex: 1;
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.7em;
+            color: #ff00ff;
+        }
+
+        .stat-value {
+            font-size: 1.2em;
+            color: #00ffff;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+        }
+
+        /* Main Game Area */
+        .game-content {
+            flex: 1;
+            display: flex;
+            gap: 10px;
+            min-height: 0;
+        }
+
+        .player-section, .ai-section {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 10px;
+            border: 2px solid;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .player-section {
+            border-image: linear-gradient(45deg, #00ff88, #00ffff) 1;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+
+        .player-section.active {
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.6);
+        }
+
+        .ai-section {
+            border-image: linear-gradient(45deg, #ff00ff, #ff0066) 1;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+        }
+
+        .ai-section.active {
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.6);
+        }
+
+        .section-title {
+            font-size: 1.1em;
+            margin-bottom: 8px;
+            text-align: center;
+            text-shadow: 0 0 15px currentColor;
+        }
+
+        .code-display {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 50px;
+            border: 1px solid rgba(255, 0, 255, 0.3);
+        }
+
+        .code-slot {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            margin: 0 3px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            line-height: 26px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .code-slot.correct {
+            background: rgba(0, 255, 136, 0.5);
+            border-color: #00ff88;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.8);
+        }
+
+        .code-slot.partial {
+            background: rgba(255, 255, 0, 0.5);
+            border-color: #ffff00;
+            box-shadow: 0 0 15px rgba(255, 255, 0, 0.8);
+        }
+
+        .code-slot.wrong {
+            background: rgba(255, 0, 0, 0.5);
+            border-color: #ff0000;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+        }
+
+        .hint-text {
+            font-size: 0.8em;
+            color: #00ffff;
+            text-align: center;
+            min-height: 18px;
+            margin-bottom: 8px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 8px;
+            font-size: 0.9em;
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            border: none;
+            border-radius: 6px;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.5);
+        }
+
+        .btn.clear {
+            background: linear-gradient(45deg, #ff0066, #ff6600);
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+
+        .digit-btn {
+            padding: 10px;
+            font-size: 1em;
+            background: linear-gradient(45deg, rgba(255, 0, 255, 0.2), rgba(0, 255, 255, 0.2));
+            border: 2px solid;
+            border-image: linear-gradient(45deg, #ff00ff, #00ffff) 1;
+            border-radius: 6px;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .digit-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(255, 0, 255, 0.5);
+        }
+
+        .history {
+            flex: 1;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 6px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 0, 255, 0.2);
+            font-size: 0.8em;
+            min-height: 0;
+        }
+
+        .attempt {
+            padding: 4px;
+            margin: 2px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 15px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 8px;
+            border: 1px solid rgba(255, 0, 255, 0.3);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff00ff, #ff0066);
+            transition: width 0.3s ease;
+        }
+
+        /* Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.95), rgba(22, 33, 62, 0.95));
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid;
+            border-image: linear-gradient(45deg, #ff00ff, #00ffff) 1;
+            max-width: 400px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal h2 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px currentColor;
+        }
+
+        .modal p {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .win-message {
+            color: #00ff88;
+        }
+
+        .lose-message {
+            color: #ff0066;
+        }
+
+        .help-modal h3 {
+            color: #ff00ff;
+            margin: 15px 0 10px;
+            font-size: 1.2em;
+        }
+
+        .help-modal ul {
+            text-align: left;
+            list-style: none;
+            padding: 0;
+        }
+
+        .help-modal li {
+            margin: 8px 0;
+            padding-left: 20px;
+            position: relative;
+            font-size: 0.9em;
+        }
+
+        .help-modal li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #00ffff;
+        }
+
+        /* Mobile Portrait */
+        @media (max-width: 768px) and (orientation: portrait) {
+            .game-content {
+                flex-direction: column;
+            }
+            
+            .input-grid {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 4px;
+            }
+            
+            .digit-btn {
+                padding: 8px;
+                font-size: 0.9em;
+            }
+        }
+
+        /* Landscape and larger screens */
+        @media (min-width: 769px), (orientation: landscape) {
+            .game-wrapper {
+                padding: 20px;
+            }
+            
+            .title {
+                font-size: 2em;
+            }
+            
+            .subtitle {
+                font-size: 1em;
+            }
+            
+            .stats-bar {
+                padding: 12px;
+            }
+            
+            .stat-value {
+                font-size: 1.5em;
+            }
+            
+            .code-slot {
+                width: 40px;
+                height: 40px;
+                line-height: 36px;
+                font-size: 1.2em;
+            }
+            
+            .input-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Very small screens */
+        @media (max-height: 600px) {
+            .game-header {
+                margin-bottom: 5px;
+            }
+            
+            .stats-bar {
+                margin-bottom: 5px;
+                padding: 5px;
+            }
+            
+            .code-display {
+                min-height: 40px;
+            }
+            
+            .history {
+                font-size: 0.7em;
+            }
+        }
+
+        /* Prevent touch highlighting */
+        * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        button {
+            touch-action: manipulation;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-wrapper">
+        <!-- Header -->
+        <div class="game-header">
+            <div class="logo-section">
+                <div class="logo">tP</div>
+                <div class="title-section">
+                    <div class="title">The Code Breaker</div>
+                    <div class="subtitle">vs the Rouge AI - DOOMSDAY</div>
+                </div>
+            </div>
+            <button class="help-btn" id="helpBtn">?</button>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat">
+                <div class="stat-label">Score</div>
+                <div class="stat-value" id="score">0</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">Level</div>
+                <div class="stat-value" id="level">1</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">Time</div>
+                <div class="stat-value" id="timer">60</div>
+            </div>
+        </div>
+
+        <!-- Main Game Content -->
+        <div class="game-content">
+            <!-- Player Section -->
+            <div class="player-section">
+                <h2 class="section-title">PLAYER</h2>
+                <div class="code-display" id="playerCode"></div>
+                <div class="hint-text" id="playerHint"></div>
+                
+                <div class="controls">
+                    <button class="btn" id="submitBtn">SUBMIT</button>
+                    <button class="btn clear" id="clearBtn">CLEAR</button>
+                </div>
+                
+                <div class="input-grid" id="inputGrid"></div>
+                
+                <div class="history" id="playerHistory"></div>
+            </div>
+
+            <!-- AI Section -->
+            <div class="ai-section">
+                <h2 class="section-title">DOOMSDAY</h2>
+                <div class="code-display" id="aiCode"></div>
+                <div class="hint-text" id="aiHint"></div>
+                
+                <div class="progress-bar">
+                    <div class="progress-fill" id="aiProgress"></div>
+                </div>
+                
+                <div class="history" id="aiHistory"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Over Modal -->
+    <div class="modal" id="gameModal">
+        <div class="modal-content">
+            <h2 id="modalTitle"></h2>
+            <p id="modalMessage"></p>
+            <button class="btn" id="newGameBtn">NEW GAME</button>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div class="modal" id="helpModal">
+        <div class="modal-content help-modal">
+            <h2>HOW TO PLAY</h2>
+            <h3>Objective:</h3>
+            <p>Crack the code before theProject's Doomsday AI!</p>
+            
+            <h3>Instructions:</h3>
+            <ul>
+                <li>Click numbers to build your code</li>
+                <li>Press SUBMIT when ready</li>
+                <li>Green = right digit, right spot</li>
+                <li>Yellow = right digit, wrong spot</li>
+                <li>Red = digit not in code</li>
+                <li>Use feedback to deduce the code</li>
+            </ul>
+            
+            <h3>Tips:</h3>
+            <ul>
+                <li>Try different digits first</li>
+                <li>Watch Doomsday's progress</li>
+                <li>Higher levels = harder codes</li>
+            </ul>
+            
+            <button class="btn" id="closeHelpBtn">GOT IT!</button>
+        </div>
+    </div>
+
+    <script>
+        // Game state
+        let gameState = {
+            secretCode: '',
+            playerGuess: '',
+            playerAttempts: [],
+            aiAttempts: [],
+            aiProgress: 0,
+            score: 0,
+            level: 1,
+            timeLeft: 60,
+            gameActive: false,
+            codeLength: 4,
+            maxDigit: 6,
+            lastSubmittedGuess: null
+        };
+
+        // Sound effects using Web Audio API
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playSound(frequency, duration, type = 'sine') {
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.value = frequency;
+            oscillator.type = type;
+            
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + duration);
+        }
+
+        function playClickSound() {
+            playSound(800, 0.1);
+        }
+
+        function playCorrectSound() {
+            playSound(1200, 0.2);
+            setTimeout(() => playSound(1600, 0.2), 100);
+        }
+
+        function playWrongSound() {
+            playSound(300, 0.3, 'sawtooth');
+        }
+
+        function playWinSound() {
+            const notes = [523, 659, 784, 1047];
+            notes.forEach((freq, i) => {
+                setTimeout(() => playSound(freq, 0.3), i * 100);
+            });
+        }
+
+        function playLoseSound() {
+            const notes = [400, 350, 300, 250];
+            notes.forEach((freq, i) => {
+                setTimeout(() => playSound(freq, 0.3, 'sawtooth'), i * 100);
+            });
+        }
+
+        // Initialize game
+        function initGame() {
+            gameState.secretCode = generateCode();
+            gameState.playerGuess = '';
+            gameState.playerAttempts = [];
+            gameState.aiAttempts = [];
+            gameState.aiProgress = 0;
+            gameState.timeLeft = 60 + (gameState.level - 1) * 10;
+            gameState.gameActive = true;
+            gameState.lastSubmittedGuess = null;
+            
+            updateDisplay();
+            createInputGrid();
+            startTimer();
+            startAI();
+        }
+
+        // Generate secret code
+        function generateCode() {
+            let code = '';
+            for (let i = 0; i < gameState.codeLength; i++) {
+                code += Math.floor(Math.random() * gameState.maxDigit) + 1;
+            }
+            return code;
+        }
+
+        // Create input grid
+        function createInputGrid() {
+            const grid = document.getElementById('inputGrid');
+            grid.innerHTML = '';
+            
+            for (let i = 1; i <= gameState.maxDigit; i++) {
+                const btn = document.createElement('button');
+                btn.className = 'digit-btn';
+                btn.textContent = i;
+                btn.onclick = (e) => addDigit(i, e);
+                grid.appendChild(btn);
+            }
+        }
+
+        // Add digit to player guess
+        function addDigit(digit, event) {
+            if (gameState.playerGuess.length < gameState.codeLength && gameState.gameActive) {
+                gameState.playerGuess += digit;
+                updateDisplay();
+                playClickSound();
+                
+                // Glow effect on player panel
+                const playerSection = document.querySelector('.player-section');
+                playerSection.classList.add('active');
+                setTimeout(() => playerSection.classList.remove('active'), 300);
+            }
+        }
+
+        // Clear player guess
+        function clearGuess() {
+            gameState.playerGuess = '';
+            updateDisplay();
+            playClickSound();
+        }
+
+        // Submit player guess
+        function submitGuess() {
+            if (gameState.playerGuess.length === gameState.codeLength && gameState.gameActive) {
+                const result = checkCode(gameState.playerGuess);
+                gameState.playerAttempts.push({ guess: gameState.playerGuess, result });
+                gameState.lastSubmittedGuess = gameState.playerGuess;
+                
+                // Show feedback with colored slots
+                showPlayerFeedback();
+                
+                if (result.correct === gameState.codeLength) {
+                    playCorrectSound();
+                    setTimeout(() => {
+                        playWinSound();
+                        endGame(true);
+                    }, 1000);
+                } else {
+                    playWrongSound();
+                    updateHistory('player');
+                    setTimeout(() => {
+                        gameState.playerGuess = '';
+                        gameState.lastSubmittedGuess = null;
+                        updateDisplay();
+                    }, 2000);
+                }
+            }
+        }
+
+        // Show player feedback with colored slots
+        function showPlayerFeedback() {
+            const playerCodeEl = document.getElementById('playerCode');
+            playerCodeEl.innerHTML = '';
+            
+            const result = checkCode(gameState.lastSubmittedGuess);
+            const feedback = getFeedbackArray(gameState.lastSubmittedGuess, result);
+            
+            for (let i = 0; i < gameState.codeLength; i++) {
+                const slot = document.createElement('div');
+                slot.className = 'code-slot';
+                slot.textContent = gameState.lastSubmittedGuess[i];
+                
+                if (feedback[i] === 'correct') {
+                    slot.classList.add('correct');
+                } else if (feedback[i] === 'partial') {
+                    slot.classList.add('partial');
+                } else {
+                    slot.classList.add('wrong');
+                }
+                
+                playerCodeEl.appendChild(slot);
+            }
+        }
+
+        // Get feedback array for visual display
+        function getFeedbackArray(guess, result) {
+            const feedback = new Array(gameState.codeLength).fill('wrong');
+            const secretArr = gameState.secretCode.split('');
+            const guessArr = guess.split('');
+            const secretUsed = new Array(gameState.codeLength).fill(false);
+            const guessUsed = new Array(gameState.codeLength).fill(false);
+            
+            // First pass: mark correct positions
+            for (let i = 0; i < gameState.codeLength; i++) {
+                if (guessArr[i] === secretArr[i]) {
+                    feedback[i] = 'correct';
+                    secretUsed[i] = true;
+                    guessUsed[i] = true;
+                }
+            }
+            
+            // Second pass: mark partial matches
+            for (let i = 0; i < gameState.codeLength; i++) {
+                if (!guessUsed[i]) {
+                    for (let j = 0; j < gameState.codeLength; j++) {
+                        if (!secretUsed[j] && guessArr[i] === secretArr[j]) {
+                            feedback[i] = 'partial';
+                            secretUsed[j] = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            
+            return feedback;
+        }
+
+        // Check code
+        function checkCode(guess) {
+            let correct = 0;
+            let partial = 0;
+            const secretArr = gameState.secretCode.split('');
+            const guessArr = guess.split('');
+            const used = new Array(gameState.codeLength).fill(false);
+            
+            // Check correct positions
+            for (let i = 0; i < gameState.codeLength; i++) {
+                if (guessArr[i] === secretArr[i]) {
+                    correct++;
+                    used[i] = true;
+                    guessArr[i] = null;
+                }
+            }
+            
+            // Check partial matches
+            for (let i = 0; i < gameState.codeLength; i++) {
+                if (guessArr[i] !== null) {
+                    for (let j = 0; j < gameState.codeLength; j++) {
+                        if (!used[j] && guessArr[i] === secretArr[j]) {
+                            partial++;
+                            used[j] = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            
+            return { correct, partial, wrong: gameState.codeLength - correct - partial };
+        }
+
+        // Update display
+        function updateDisplay() {
+            // Player code display
+            const playerCodeEl = document.getElementById('playerCode');
+            
+            // Only update if we're not showing feedback
+            if (!gameState.lastSubmittedGuess) {
+                playerCodeEl.innerHTML = '';
+                
+                for (let i = 0; i < gameState.codeLength; i++) {
+                    const slot = document.createElement('div');
+                    slot.className = 'code-slot';
+                    slot.textContent = gameState.playerGuess[i] || '';
+                    playerCodeEl.appendChild(slot);
+                }
+            }
+            
+            // Update stats
+            document.getElementById('score').textContent = gameState.score;
+            document.getElementById('level').textContent = gameState.level;
+            document.getElementById('timer').textContent = gameState.timeLeft;
+            
+            // Update hint
+            if (gameState.playerAttempts.length > 0) {
+                const lastAttempt = gameState.playerAttempts[gameState.playerAttempts.length - 1];
+                document.getElementById('playerHint').textContent = 
+                    `Correct: ${lastAttempt.result.correct}, Partial: ${lastAttempt.result.partial}`;
+            }
+        }
+
+        // Update history
+        function updateHistory(player) {
+            const historyEl = document.getElementById(player + 'History');
+            const attempts = player === 'player' ? gameState.playerAttempts : gameState.aiAttempts;
+            
+            historyEl.innerHTML = '';
+            attempts.slice(-5).reverse().forEach(attempt => {
+                const div = document.createElement('div');
+                div.className = 'attempt';
+                div.innerHTML = `
+                    <span>${attempt.guess}</span>
+                    <span>✓${attempt.result.correct} ~${attempt.result.partial}</span>
+                `;
+                historyEl.appendChild(div);
+            });
+        }
+
+        // AI logic
+        function startAI() {
+            const aiInterval = setInterval(() => {
+                if (!gameState.gameActive) {
+                    clearInterval(aiInterval);
+                    return;
+                }
+                
+                gameState.aiProgress += 5 + Math.random() * 10;
+                document.getElementById('aiProgress').style.width = gameState.aiProgress + '%';
+                
+                if (gameState.aiProgress >= 100) {
+                    makeAIGuess();
+                    gameState.aiProgress = 0;
+                }
+            }, 500);
+        }
+
+        function makeAIGuess() {
+            // Glow effect on AI panel
+            const aiSection = document.querySelector('.ai-section');
+            aiSection.classList.add('active');
+            setTimeout(() => aiSection.classList.remove('active'), 300);
+            
+            // Smart AI that learns from previous attempts
+            let aiGuess = '';
+            
+            if (gameState.aiAttempts.length === 0) {
+                // First guess is random
+                aiGuess = generateCode();
+            } else {
+                // Use previous feedback to make smarter guesses
+                const lastAttempt = gameState.aiAttempts[gameState.aiAttempts.length - 1];
+                const possibleDigits = [];
+                
+                // Build a pool of possible digits based on feedback
+                for (let i = 1; i <= gameState.maxDigit; i++) {
+                    possibleDigits.push(i.toString());
+                }
+                
+                // Generate new guess
+                for (let i = 0; i < gameState.codeLength; i++) {
+                    aiGuess += possibleDigits[Math.floor(Math.random() * possibleDigits.length)];
+                }
+            }
+            
+            const result = checkCode(aiGuess);
+            gameState.aiAttempts.push({ guess: aiGuess, result });
+            
+            // Update AI display
+            const aiCodeEl = document.getElementById('aiCode');
+            aiCodeEl.innerHTML = '';
+            
+            for (let i = 0; i < gameState.codeLength; i++) {
+                const slot = document.createElement('div');
+                slot.className = 'code-slot';
+                slot.textContent = aiGuess[i];
+                
+                // Add animation classes based on result
+                if (aiGuess[i] === gameState.secretCode[i]) {
+                    slot.classList.add('correct');
+                }
+                
+                aiCodeEl.appendChild(slot);
+            }
+            
+            document.getElementById('aiHint').textContent = 
+                `Correct: ${result.correct}, Partial: ${result.partial}`;
+            
+            updateHistory('ai');
+            
+            if (result.correct === gameState.codeLength) {
+                playLoseSound();
+                endGame(false);
+            }
+        }
+
+        // Timer
+        function startTimer() {
+            const timerInterval = setInterval(() => {
+                if (!gameState.gameActive) {
+                    clearInterval(timerInterval);
+                    return;
+                }
+                
+                gameState.timeLeft--;
+                document.getElementById('timer').textContent = gameState.timeLeft;
+                
+                if (gameState.timeLeft <= 0) {
+                    playLoseSound();
+                    endGame(false);
+                }
+            }, 1000);
+        }
+
+        // End game
+        function endGame(playerWon) {
+            gameState.gameActive = false;
+            
+            const modal = document.getElementById('gameModal');
+            const title = document.getElementById('modalTitle');
+            const message = document.getElementById('modalMessage');
+            
+            if (playerWon) {
+                gameState.score += 100 * gameState.level;
+                gameState.level++;
+                
+                title.className = 'win-message';
+                title.textContent = 'YOU WIN!';
+                message.textContent = `You cracked the code: ${gameState.secretCode}\nScore: ${gameState.score}`;
+            } else {
+                title.className = 'lose-message';
+                title.textContent = 'GAME OVER';
+                message.textContent = `Project Doomsday cracked the code first!\nThe code was: ${gameState.secretCode}`;
+            }
+            
+            modal.style.display = 'flex';
+        }
+
+        // Event listeners
+        document.getElementById('submitBtn').addEventListener('click', submitGuess);
+        document.getElementById('clearBtn').addEventListener('click', clearGuess);
+        document.getElementById('newGameBtn').addEventListener('click', () => {
+            document.getElementById('gameModal').style.display = 'none';
+            
+            // Adjust difficulty for next level
+            if (gameState.level > 1) {
+                if (gameState.level % 3 === 0) {
+                    gameState.codeLength = Math.min(gameState.codeLength + 1, 6);
+                }
+                if (gameState.level % 5 === 0) {
+                    gameState.maxDigit = Math.min(gameState.maxDigit + 1, 9);
+                }
+            }
+            
+            initGame();
+        });
+
+        // Help modal
+        document.getElementById('helpBtn').addEventListener('click', () => {
+            document.getElementById('helpModal').style.display = 'flex';
+        });
+        
+        document.getElementById('closeHelpBtn').addEventListener('click', () => {
+            document.getElementById('helpModal').style.display = 'none';
+        });
+
+        // Keyboard support
+        document.addEventListener('keydown', (e) => {
+            if (gameState.gameActive) {
+                const key = parseInt(e.key);
+                if (key >= 1 && key <= gameState.maxDigit) {
+                    addDigit(key, e);
+                } else if (e.key === 'Enter') {
+                    submitGuess();
+                } else if (e.key === 'Backspace' || e.key === 'Delete') {
+                    clearGuess();
+                }
+            }
+        });
+
+        // Touch event support for mobile
+        document.addEventListener('DOMContentLoaded', function() {
+            // Prevent zoom on double tap
+            let lastTouchEnd = 0;
+            document.addEventListener('touchend', function(e) {
+                const now = Date.now();
+                if (now - lastTouchEnd <= 300) {
+                    e.preventDefault();
+                }
+                lastTouchEnd = now;
+            }, false);
+            
+            // Enable audio context on first user interaction
+            document.addEventListener('touchstart', function() {
+                if (audioContext.state === 'suspended') {
+                    audioContext.resume();
+                }
+            }, { once: true });
+            
+            document.addEventListener('click', function() {
+                if (audioContext.state === 'suspended') {
+                    audioContext.resume();
+                }
+            }, { once: true });
+        });
+
+        // Start game
+        initGame();
+    </script>
+</body>
+</html>
