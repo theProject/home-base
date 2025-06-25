@@ -1,106 +1,49 @@
 agents.md
 
-Configuration notes and interaction specs for dynamic behavior across bytheproject.com
+## Refactor interactive cards to prevent crash and improve UX
 
-/home – Experience Our Creations (Expandable Cards)
+### Summary
 
-Component: ExpandCard
+Replaced the unstable `ExpandableCardDemo` modal system — which caused client-side exceptions — with a lightweight and elegant `PrestigePopup`. This modal appears only when a card is hovered, clicked, or tapped. It displays a floating branded platform message and can be easily dismissed, offering context without disrupting layout or flow.
 
-Cards in this section include platforms like Android, Nintendo, Steam, etc. Clicking Explore opens an expandable modal card styled as follows:
-
-Main card layout remains unchanged.
-
-Expanded view contains:
-
-Full-width image from /public/
-
-Title at top (e.g. “Nintendo”)
-
-Red button labeled Development
-
-Site message:
-
-We’re still undergoing development on this section of the site. Please check back soon as we add the creativity you’ve come to expect.
-Close icon (X) on top-right
-
-Supports Escape key and outside click to dismiss
-
-Assets Mapping:
-
-Card Title	Image Path (public/)
-Android	/AndroidDev
-Nintendo	/Nintendo
-PlayStation	/PlayStation
-Web Dev	/ReactDev
-Steam	/Steam
-/home – Our Flagship Projects
-
-This section features cards for key internal or community projects.
-
-🃏 DarkFrost – The Intro Card Game
-
-Button Text: Coming Soon
-Behavior: No link (disabled or styled to indicate inactivity)
-💬 Hello, Friend.
-
-Button Text: Visit Site
-Link: https://sayhellofriend.com
-👮 Hellertown Police Department
-
-Title: Hellertown Police Department
-Description: As written in the current card
-Button Text: Visit Site
-Link: https://hellertownpolice.org
-/projects – Tech Stack Section Anchor
-
-Section: Our Tech Arsenal & Expertise
-
-The phrase tech stack should act as an anchor link to this section.
-Example behavior: If user clicks a link or button labeled Explore Tech, it should scroll to or route with #tech-arsenal or similar.
-Project Profile Image
-
-The top-level profile for “The Project” should use Tristan’s header logo as the profile image/avatar.
-/arcade – Play Now Button Behavior
-
-🔘 Button Rules
-
-All games display Coming Soon in their Play Now buttons, except:
-✅ Codebreaker AI
-
-Button should say Play Now
-On click: route to external URL
-Link: https://frostscript.com
-No embedded HTML or in-site loading for now
-🧭 Mobile Navigation Enhancement
-
-Slide-Out Menu Styling
-
-To improve readability and polish on mobile devices, apply a background blur effect to the slide-out mobile navigation menu:
-
-🧪 Behavior:
-
-When the mobile nav opens, blur the background content behind it.
-This ensures the nav is legible even when overlaying detailed UI elements or imagery.
-✅ Suggested CSS (Tailwind or plain CSS):
-
-If using Tailwind CSS:
-
-<div className="backdrop-blur-md bg-white/70 dark:bg-neutral-900/60">
-  <!-- nav content -->
-</div>
-if using vanilla css
-.mobile-nav {
-  backdrop-filter: blur(12px);
-  background-color: rgba(255, 255, 255, 0.7); /* adjust for light/dark mode */
-}
-Notes:
-	•	Apply this blur container to the sliding panel <div> only (not the full page).
-	•	Consider adding a subtle shadow or border to the nav for depth.
+Also corrected the hero subtext under the animated intro to better reflect the brand’s voice — a bold, defiant declaration of skill, passion, and innovation.
 
 ---
 
-## Additional Notes
+### Implementation Details
 
-- All buttons should remain consistent in size and style across dark/light modes.
-- ExpandCard modals use `Framer Motion` with layoutId for shared element transitions.
-- Modal scroll areas should gracefully handle text overflow with mobile-friendly behavior (`overflow-auto`, `scrollbar-width: none`).
+#### 🎮 PrestigePopup
+
+- Floating modal triggered on card hover/tap/click
+- Displays relevant platform logo (Nintendo, PlayStation, Steam, etc.)
+- New message tone:
+
+  > **"Coming soon to this platform. We're developing something great and look forward to sharing it with you."**
+
+- Clean visual with smooth framer-motion animation
+- Auto-dismiss on escape, outside click, or hover leave
+- Preserves original card layout — no mutation to `cards.map()`
+
+---
+
+#### 💬 Hero Subtext Fix
+
+Replaced:
+
+> _“We don't just build digital experiences…”_
+
+With the following JSX/HTML (fixed for spacing issues):
+
+```tsx
+<p className="text-[1.2em] leading-relaxed font-sans">
+  Forget the degrees. We are{" "}
+  <span className="text-white">the</span>{" "}
+  <span className="text-[#e20074]">Project.</span>, the{" "}
+  <strong className="text-[#e20074]">relentless</strong> misfits who learned by doing, we learned by{" "}
+  <span className="text-[#00FFFF]">hacking code apart</span> and learning through{" "}
+  <strong className="text-white">trial and error</strong>, fueled by a{" "}
+  <strong className="text-white">burning craving</strong> for design and{" "}
+  <strong className="text-white">innovation</strong>. We don't just create; we{" "}
+  <strong className="text-white">defy expectations</strong>, building{" "}
+  <strong className="text-white">digital marvels</strong> that prove our worth with every line of code.
+</p>
