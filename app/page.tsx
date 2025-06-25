@@ -4,7 +4,7 @@ import { AuroraBackground } from "@/components/aurora-background"
 import { BentoCard } from "@/components/bento-card"
 import { InteractiveRoadmap } from "@/components/interactive-roadmap"
 import { AnimatedHeroText } from "@/components/animated-hero-text"
-import { PlatformCard } from "@/components/platform-card"
+import { ExpandCard } from "@/components/expand-card"
 import { FeaturedBlogPostCard } from "@/components/featured-blog-post-card"
 import { MissionStatementSection } from "@/components/mission-statement-section"
 import { ScriptShareCard } from "@/components/script-share-card"
@@ -18,7 +18,6 @@ import {
   Shield,
   Sparkles,
   Smartphone,
-  Apple,
   Globe,
   MonitorPlay,
   Puzzle,
@@ -53,16 +52,15 @@ export default function Page() {
       description: "A fast-paced mobile card game introducing the lore of DarkFrost. Collect, strategize, and conquer.",
       icon: <Layers className="w-10 h-10" />,
       span: "col-span-1 row-span-1",
-      ctaText: "Play Now",
-      ctaLink: "/projects/darkfrost-cards",
+      ctaText: "Coming Soon",
     },
     {
       title: "Hello, Friend",
       description: "Your lifetime context AI. Understands your past to assist your future, privately and securely.",
       icon: <Brain className="w-10 h-10" />,
       span: "col-span-1 row-span-1",
-      ctaText: "Discover AI",
-      ctaLink: "/projects/hellofriend",
+      ctaText: "Visit Site",
+      ctaLink: "https://sayhellofriend.com",
     },
     {
       title: "The Realms of Ambiguity",
@@ -85,58 +83,42 @@ export default function Page() {
       icon: <Sparkles className="w-10 h-10" />,
       span: "col-span-1 row-span-1",
       ctaText: "Tech Stack",
-      ctaLink: "/services",
+      ctaLink: "/projects#tech-arsenal",
     },
   ]
 
   const platformItems = [
     {
-      platformName: "Android",
+      title: "Android",
       icon: <AndroidIcon />,
-      description: "Explore our range of innovative apps and games available on the Google Play Store.",
-      ctaLink: "#",
-      gradientFrom: "from-green-400/30",
-      gradientTo: "to-lime-500/30",
+      description:
+        "Explore our range of innovative apps and games available on the Google Play Store.",
+      image: "/AndroidDev.png",
     },
     {
-      platformName: "Apple (iOS & macOS)",
-      icon: <Apple className="w-6 h-6" />,
-      description: "Discover beautifully crafted applications for your iPhone, iPad, and Mac.",
-      ctaLink: "#",
-      gradientFrom: "from-slate-400/30",
-      gradientTo: "to-neutral-500/30",
-    },
-    {
-      platformName: "Web (React)",
+      title: "Web (React)",
       icon: <Globe className="w-6 h-6" />,
-      description: "Access our powerful web applications and interactive experiences from any browser.",
-      ctaLink: "#",
-      gradientFrom: "from-sky-400/30",
-      gradientTo: "to-blue-500/30",
+      description:
+        "Access our powerful web applications and interactive experiences from any browser.",
+      image: "/ReactDev.png",
     },
     {
-      platformName: "Steam (PC)",
+      title: "Steam (PC)",
       icon: <MonitorPlay className="w-6 h-6" />,
       description: "Immerse yourself in our PC games available on the Steam platform.",
-      ctaLink: "#",
-      gradientFrom: "from-neutral-700/30",
-      gradientTo: "to-slate-800/30",
+      image: "/Steam.png",
     },
     {
-      platformName: "PlayStation",
+      title: "PlayStation",
       icon: <DiscAlbum className="w-6 h-6" />,
       description: "Experience our captivating games on PlayStation consoles.",
-      ctaLink: "#",
-      gradientFrom: "from-blue-600/30",
-      gradientTo: "to-indigo-700/30",
+      image: "/PlayStation.png",
     },
     {
-      platformName: "Nintendo",
+      title: "Nintendo",
       icon: <Puzzle className="w-6 h-6" />,
       description: "Enjoy fun and engaging titles on your Nintendo Switch.",
-      ctaLink: "#",
-      gradientFrom: "from-red-500/30",
-      gradientTo: "to-rose-600/30",
+      image: "/Nintendo.png",
     },
   ]
 
@@ -231,14 +213,12 @@ export default function Page() {
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 {platformItems.map((item, index) => (
-                  <PlatformCard
+                  <ExpandCard
                     key={index}
-                    platformName={item.platformName}
+                    title={item.title}
                     icon={item.icon}
                     description={item.description}
-                    ctaLink={item.ctaLink}
-                    gradientFrom={item.gradientFrom}
-                    gradientTo={item.gradientTo}
+                    image={item.image}
                   />
                 ))}
               </div>

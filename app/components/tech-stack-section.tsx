@@ -48,12 +48,12 @@ const teamMembers = [
   { name: "Alex Nova", avatar: "/alex-nova-avatar.png", role: "Lead Developer / AI Specialist" },
   { name: "Jamie Byte", avatar: "/jamie-byte-avatar.png", role: "Frontend Wizard / UI/UX" },
   { name: "Casey Pixel", avatar: "/casey-pixel-avatar.png", role: "Backend Architect / Data" },
-  { name: "The Project", avatar: "/placeholder.svg?width=100&height=100", role: "Collective Brainpower" },
+  { name: "The Project", avatar: "/logo.svg", role: "Collective Brainpower" },
 ]
 
 export function TechStackSection() {
   return (
-    <section className="py-16 md:py-24 bg-background dark:bg-neutral-900/50">
+    <section id="tech-arsenal" className="py-16 md:py-24 bg-background dark:bg-neutral-900/50">
       <div className="container mx-auto px-4">
         <div className="mb-12 text-center">
           <h2 className="text-3xl font-bold tracking-tight text-foreground font-geist md:text-4xl lg:text-5xl">
