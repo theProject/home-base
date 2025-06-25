@@ -1,0 +1,82 @@
+/* styles/prism-override.css */
+
+/* VSCode Dark Plus Inspired + Custom Overrides */
+code[class*="language-"],
+pre[class*="language-"] {
+  background: #0a0a0a !important; /* deep black background */
+  color: #e0e0e0; /* neutral light gray */
+  font-size: 0.875rem; /* ~14px */
+  font-family: 'Fira Code', 'Consolas', 'Courier New', monospace;
+  line-height: 1.6;
+  border-radius: 1rem; /* 4xl */
+  overflow-x: auto;
+}
+
+/* Syntax colors */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #6a737d; /* muted gray */
+  font-style: italic;
+}
+
+.token.punctuation {
+  color: #d4d4d4;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #ff79c6; /* magenta */
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #9cdcfe; /* soft teal/blue */
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.token.variable {
+  color: #00e0d8; /* bright cyan/teal */
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword,
+.token.class-name,
+.token.function {
+  color: #ff2cb1; /* electric magenta */
+  font-weight: 600;
+}
+
+.token.regex,
+.token.important {
+  color: #ffcc00; /* gold/yellow */
+}
+
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+.token.italic {
+  font-style: italic;
+}
+
+pre::-webkit-scrollbar {
+  height: 6px;
+}
+pre::-webkit-scrollbar-thumb {
+  background-color: #7d2dd0; /* subtle purple */
+  border-radius: 6px;
+}
