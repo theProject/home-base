@@ -179,8 +179,11 @@ export default function Page() {
           <section className="container mx-auto px-4 pt-32 pb-20 sm:pt-40 md:pt-48 text-center">
             <AnimatedHeroText />
             <p className="mt-8 text-lg md:text-xl leading-8 text-muted-foreground max-w-3xl mx-auto">
-              We don't just build; we craft digital marvels. From immersive games to intelligent AI, our passion is to
-              innovate and inspire.
+              We don't just build&nbsp;
+              <span className="text-magenta">digital experiences</span>; we craft
+              &nbsp;them to&nbsp;
+              <span className="text-teal-500">inspire innovation</span> across games,
+              apps and AI.
             </p>
           </section>
 
