@@ -5,6 +5,7 @@ import { BentoCard } from "@/components/bento-card"
 import { InteractiveRoadmap } from "@/components/interactive-roadmap"
 import { AnimatedHeroText } from "@/components/animated-hero-text"
 import { ExpandCard } from "@/components/expand-card"
+import { PrestigePopup } from "@/components/prestige-popup"
 import { FeaturedBlogPostCard } from "@/components/featured-blog-post-card"
 import { MissionStatementSection } from "@/components/mission-statement-section"
 import { ScriptShareCard } from "@/components/script-share-card"
@@ -178,27 +179,17 @@ export default function Page() {
           {/* Hero Section */}
           <section className="container mx-auto px-4 pt-32 pb-20 sm:pt-40 md:pt-48 text-center">
             <AnimatedHeroText />
-            <p
-              style={{
-                fontFamily: "Arial, sans-serif",
-                fontSize: "1.2em",
-                lineHeight: 1.5,
-              }}
-            >
-              Forget the degrees. We are
-              <span style={{ color: "white" }}>the</span>
-              <span style={{ color: "#e20074" }}>Project.</span>, the
-              <strong style={{ color: "#e20074" }}>relentless</strong> misfits who
-              learned by doing, we learned by
-              <span style={{ color: "#00FFFF" }}>hacking code apart</span> and
-              learning through
-              <strong style={{ color: "white" }}>trial and error</strong>, fueled by
-              a <strong style={{ color: "white" }}>burning craving</strong> for
-              design and <strong style={{ color: "white" }}>innovation</strong>.
-              We don't just create; we
-              <strong style={{ color: "white" }}>defy expectations</strong>,
-              building <strong style={{ color: "white" }}>digital marvels</strong>
-              that prove our worth with every line of code.
+            <p className="text-[1.2em] leading-relaxed font-sans">
+              Forget the degrees. We are{" "}
+              <span className="text-white">the</span>{" "}
+              <span className="text-[#e20074]">Project.</span>, the{" "}
+              <strong className="text-[#e20074]">relentless</strong> misfits who learned by doing, we learned by{" "}
+              <span className="text-[#00FFFF]">hacking code apart</span> and learning through{" "}
+              <strong className="text-white">trial and error</strong>, fueled by a{" "}
+              <strong className="text-white">burning craving</strong> for design and{" "}
+              <strong className="text-white">innovation</strong>. We don't just create; we{" "}
+              <strong className="text-white">defy expectations</strong>, building{" "}
+              <strong className="text-white">digital marvels</strong> that prove our worth with every line of code.
             </p>
           </section>
 
@@ -213,13 +204,13 @@ export default function Page() {
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 {platformItems.map((item, index) => (
-                  <ExpandCard
-                    key={index}
-                    title={item.title}
-                    icon={item.icon}
-                    description={item.description}
-                    image={item.image}
-                  />
+                  <PrestigePopup key={index} logo={item.image}>
+                    <ExpandCard
+                      title={item.title}
+                      icon={item.icon}
+                      description={item.description}
+                    />
+                  </PrestigePopup>
                 ))}
               </div>
             </div>
