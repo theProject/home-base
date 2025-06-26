@@ -131,7 +131,7 @@ export default function Page() {
     description:
       "Explore how artificial intelligence is revolutionizing game design, storytelling, and player experiences. We break down the latest trends and predict what's next.",
     heroImage: { url: "/ai-gaming-concept.png", alt: "AI in Gaming" },
-    authors: [{ id: "1", name: "Dr. Evo Lex", avatar: { url: "/author-avatar.png" } }],
+    authors: [{ id: "1", name: "Dr. Tristan Smith", avatar: { url: "/author-avatar.png" } }],
     categories: [{ id: "1", name: "AI & Tech", slug: "ai-tech" }],
     readTime: 8,
   }
@@ -179,7 +179,7 @@ export default function Page() {
           {/* Hero Section */}
           <section className="container mx-auto px-4 pt-32 pb-20 sm:pt-40 md:pt-48 text-center">
             <AnimatedHeroText />
-            <p className="text-[1.2em] leading-relaxed font-sans">
+            <p className="mt-18 text-[1.2em] leading-relaxed font-sans">
               Forget the degrees. We are{" "}
               <span className="text-white">the</span>{" "}
               <span className="text-[#e20074]">Project.</span>, the{" "}
@@ -197,14 +197,14 @@ export default function Page() {
           <section className="py-16 sm:py-24 bg-background/30 dark:bg-black/30 backdrop-blur-sm">
             <div className="container mx-auto px-4">
               <h2 className="text-3xl sm:text-4xl font-bold text-foreground font-geist text-center mb-4">
-                Experience Our Creations
+                Experience Our Creations - Coming Soon.
               </h2>
               <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-                Available across your favorite platforms. Dive in and explore.
+                Licensed on all our favorite platforms as developers, contributors to many more.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 {platformItems.map((item, index) => (
-                  <PrestigePopup key={index} logo={item.image}>
+                  <PrestigePopup key={index}>
                     <ExpandCard
                       title={item.title}
                       icon={item.icon}
@@ -233,12 +233,12 @@ export default function Page() {
           <section className="py-16 sm:py-24 bg-background/30 dark:bg-black/30 backdrop-blur-sm">
             <div className="container mx-auto px-4">
               <h2 className="text-3xl sm:text-4xl font-bold text-foreground font-geist text-center mb-4">
-                Loved by Our <span className="text-primary">Community</span>
+                Quotes that we <span className="text-primary">Love</span>
               </h2>
               <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-                Hear what people are saying about our projects and our passion for innovation.
+                A carousel of quotes from our industry and visionary leaders coming soon
               </p>
-              <FacebookReviewsSection />
+             <FacebookReviewsSection />
             </div>
           </section>
 
