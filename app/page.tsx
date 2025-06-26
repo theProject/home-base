@@ -178,20 +178,21 @@ export default function Page() {
         <main className="flex-grow">
           {/* Hero Section */}
           <section className="container mx-auto px-4 pt-32 pb-20 sm:pt-40 md:pt-48 text-center">
-            <AnimatedHeroText />
-            <p className="mt-18 text-[1.2em] leading-relaxed font-sans">
-              Forget the degrees. We are{" "}
-              <span className="text-white">the</span>{" "}
-              <span className="text-[#e20074]">Project.</span>, the{" "}
-              <strong className="text-[#e20074]">relentless</strong> misfits who learned by doing, we learned by{" "}
-              <span className="text-[#00FFFF]">hacking code apart</span> and learning through{" "}
-              <strong className="text-white">trial and error</strong>, fueled by a{" "}
-              <strong className="text-white">burning craving</strong> for design and{" "}
-              <strong className="text-white">innovation</strong>. We don't just create; we{" "}
-              <strong className="text-white">defy expectations</strong>, building{" "}
-              <strong className="text-white">digital marvels</strong> that prove our worth with every line of code.
-            </p>
-          </section>
+  <AnimatedHeroText />
+  <p className="mt-18 text-[1.2em] leading-relaxed font-sans text-black dark:text-white">
+    Forget the degrees. We are{" "}
+    <span className="dark:text-white text-black">the</span>{" "}
+    <span className="text-[#e20074]">Project.</span>, the{" "}
+    <strong className="text-[#e20074]">relentless</strong> misfits who learned by doing, we learned by{" "}
+    <span className="text-[#00FFFF]">hacking code apart</span> and learning through{" "}
+    <strong className="dark:text-white text-black">trial and error</strong>, fueled by a{" "}
+    <strong className="dark:text-white text-black">burning craving</strong> for design and{" "}
+    <strong className="dark:text-white text-black">innovation</strong>. We don't just create; we{" "}
+    <strong className="dark:text-white text-black">defy expectations</strong>, building{" "}
+    <strong className="dark:text-white text-black">digital marvels</strong> that prove our worth with every line of code.
+  </p>
+</section>
+
 
           {/* Platforms Section */}
           <section className="py-16 sm:py-24 bg-background/30 dark:bg-black/30 backdrop-blur-sm">
@@ -204,7 +205,7 @@ export default function Page() {
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 {platformItems.map((item, index) => (
-                  <PrestigePopup key={index}>
+                  <PrestigePopup key={index} logo={item.image}>
                     <ExpandCard
                       title={item.title}
                       icon={item.icon}
