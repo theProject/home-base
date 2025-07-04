@@ -172,28 +172,30 @@ export default function Page() {
   ]
 
   return (
-    <AuroraBackground>
-      <div className="relative z-10 min-h-screen bg-transparent flex flex-col">
-        <Header />
-        <main className="flex-grow">
-          {/* Hero Section */}
-          <section className="container mx-auto px-4 pt-32 pb-20 sm:pt-40 md:pt-48 text-center">
-  <AnimatedHeroText />
-  <p className="mt-18 text-[1.2em] leading-relaxed font-sans text-black dark:text-white">
-    Forget the degrees. We are{" "}
-    <span className="dark:text-white text-black">the</span>{" "}
-    <span className="text-[#e20074]">Project.</span>, the{" "}
-    <strong className="text-[#e20074]">relentless</strong> misfits who learned by doing, we learned by{" "}
-    <span className="text-[#00FFFF]">hacking code apart</span> and learning through{" "}
-    <strong className="dark:text-white text-black">trial and error</strong>, fueled by a{" "}
-    <strong className="dark:text-white text-black">burning craving</strong> for design and{" "}
-    <strong className="dark:text-white text-black">innovation</strong>. We don't just create; we{" "}
-    <strong className="dark:text-white text-black">defy expectations</strong>, building{" "}
-    <strong className="dark:text-white text-black">digital marvels</strong> that prove our worth with every line of code.
-  </p>
-</section>
-
-
+  <AuroraBackground>
+  <div className="relative z-10 min-h-screen bg-transparent flex flex-col">
+    <Header />
+    <main className="flex-grow">
+      {/* Hero Section */}
+      <section className="container mx-auto px-4 pt-20 pb-20 sm:pt-28 md:pt-32 text-center">
+        <AnimatedHeroText className="drop-shadow-lg" />
+        <p className="mt-16 text-[1.2em] leading-relaxed font-sans text-black dark:text-white drop-shadow-md">
+          <span className="text-[#e20074] font-bold">Driven by curiosity.</span>{" "}
+          <span className="text-[#00FFFF] font-bold">Powered by creation.</span>
+          <br />
+          At <span className="dark:text-white text-black font-semibold">the</span>{" "}
+          <span className="text-[#e20074] font-bold">Project.</span> we turn{" "}
+          <strong className="text-[#e20074]">vision</strong> into{" "}
+          <strong className="text-[#00FFFF]">reality</strong>—blending world-class{" "}
+          <span className="text-[#e20074] font-bold">design</span>, pioneering{" "}
+          <span className="text-[#00FFFF] font-bold">generative AI research</span>, and hands-on{" "}
+          <span className="dark:text-white text-black font-semibold">game development</span> expertise.
+          We don’t just follow trends;{" "}
+          <strong className="text-[#e20074]">we set them</strong>—crafting innovative digital experiences and delivering solutions that{" "}
+          <strong className="text-[#00FFFF]">redefine what’s possible</strong>.
+        </p>
+      </section>
+    
           {/* Platforms Section */}
           <section className="py-16 sm:py-24 bg-background/30 dark:bg-black/30 backdrop-blur-sm">
             <div className="container mx-auto px-4">
