@@ -7,8 +7,8 @@ import Footer from '@/components/footer'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { BorderButton } from '@/components/ui/border-button'
-import { CheckCircle, AlertCircle } from 'lucide-react'
-import { sendContactEmail } from '@/actions/contact'
+import { CheckCircle, AlertCircle, Facebook, Instagram, Linkedin, Youtube } from 'lucide-react'
+import { sendUpdatesLead } from '@/actions/sendUpdatesLead'
 import Link from 'next/link'
 
 export default function UpdatesPage() {
@@ -23,14 +23,17 @@ export default function UpdatesPage() {
       .catch(() => setTapCount(null))
   }, [])
 
-  async function handleSubmit(formData: FormData) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    const formData = new FormData(e.currentTarget)
     setIsSubmitting(true)
     try {
-      const result = await sendContactEmail(formData)
+      console.log('Submitting formData:', Object.fromEntries(formData));
+      const result = await sendUpdatesLead(formData)
+
       setFormStatus(result)
       if (result.success) {
-        const form = document.getElementById('updates-form') as HTMLFormElement
-        form.reset()
+        e.currentTarget.reset()
       }
     } catch {
       setFormStatus({ success: false, message: 'Something went wrong. Try again?' })
@@ -65,13 +68,13 @@ export default function UpdatesPage() {
                 <CheckCircle className="text-green-400 mr-3 h-6 w-6" />
                 <h3 className="text-xl font-bold text-green-400">Submission Received</h3>
               </div>
-              <p className="text-green-300">{formStatus.message}</p>
-              <BorderButton className="mt-6" onClick={() => setFormStatus({})}>
+              <p className="text-green-300">Thanks! We'll be in touch shortly.</p>
+              <BorderButton className="mt-6 border-[#e20074] hover:border-[#e20074]" onClick={() => setFormStatus({})}>
                 Submit Another
               </BorderButton>
             </div>
           ) : (
-            <form id="updates-form" action={handleSubmit} className="space-y-6">
+            <form id="updates-form" onSubmit={handleSubmit} className="space-y-6">
               {formStatus.message && !formStatus.success && (
                 <div className="bg-red-900/30 p-4 rounded-md flex items-start">
                   <AlertCircle className="text-red-400 mr-3 h-5 w-5 mt-0.5" />
@@ -81,39 +84,45 @@ export default function UpdatesPage() {
 
               {/* Basic Info */}
               <div className="grid sm:grid-cols-2 gap-4">
-                <Input name="name" required placeholder="Your Name" />
-                <Input name="email" required placeholder="Your Email" />
+                <Input name="name" required placeholder="Your Name" className="focus-visible:ring-[#05F2AF]" />
+                <Input name="email" required placeholder="Your Email" className="focus-visible:ring-[#05F2AF]" />
               </div>
               <div className="grid sm:grid-cols-2 gap-4">
-                <Input name="business" placeholder="Business Name" />
-                <Input name="phone" placeholder="Phone Number" />
+                <Input name="business" placeholder="Business Name" className="focus-visible:ring-[#05F2AF]" />
+                <Input name="phone" placeholder="Phone Number" className="focus-visible:ring-[#05F2AF]" />
               </div>
-              <Input name="website" placeholder="Website URL" />
+              <Input name="website" placeholder="Website URL" className="focus-visible:ring-[#05F2AF]" />
 
               {/* Project + Logo */}
-              <Textarea name="logo" placeholder="Describe your free logo idea..." rows={3} />
-              <Textarea name="project" placeholder="Any design/dev/cybersecurity work to discuss?" rows={3} />
-              <Input name="contactMethod" placeholder="Preferred method of contact" />
+              <Textarea name="logo" placeholder="Describe your free logo idea..." rows={3} className="focus-visible:ring-[#05F2AF]" />
+              <Textarea name="project" placeholder="Any design/dev/cybersecurity work to discuss?" rows={3} className="focus-visible:ring-[#05F2AF]" />
+
+              {/* Preferred contact method */}
+              <fieldset className="space-y-2">
+                <legend className="text-sm font-medium text-white">Preferred contact method</legend>
+                <label className="block">
+                  <input type="checkbox" name="contact_email" value="email" className="mr-2" /> Email
+                </label>
+                <label className="block">
+                  <input type="checkbox" name="contact_phone" value="phone" className="mr-2" /> Phone
+                </label>
+              </fieldset>
 
               {/* Consult */}
               <label className="block">
-                <input type="checkbox" name="wantsConsult" className="mr-2" />
-                I’m interested in a consultation
+                <input type="checkbox" name="wantsConsult" className="mr-2" /> I’m interested in a consultation
               </label>
-              <Textarea name="consultation" placeholder="Describe what you’d like to consult about" rows={3} />
+              <Textarea name="consultation" placeholder="Describe what you’d like to consult about" rows={3} className="focus-visible:ring-[#05F2AF]" />
 
               {/* Opt-ins */}
               <label className="block">
-                <input type="checkbox" name="monthlyUpdates" className="mr-2" />
-                Notify me monthly about updates at theProject
+                <input type="checkbox" name="monthlyUpdates" className="mr-2" /> Notify me monthly about updates at theProject
               </label>
               <label className="block">
-                <input type="checkbox" name="betaUpdates" className="mr-2" />
-                Notify me when new products enter beta
+                <input type="checkbox" name="betaUpdates" className="mr-2" /> Notify me when new products enter beta
               </label>
               <label className="block">
-                <input type="checkbox" name="genaiSeries" className="mr-2" />
-                I’d like to join the Generative AI & Prompt Engineering hands-on learning series
+                <input type="checkbox" name="genaiSeries" className="mr-2" /> I’d like to join the Generative AI & Prompt Engineering hands-on learning series
               </label>
 
               {/* Privacy */}
@@ -121,7 +130,7 @@ export default function UpdatesPage() {
                 🔒 We do not share, sell, or subcontract your contact info. Ever.
               </p>
 
-              <BorderButton type="submit" disabled={isSubmitting}>
+              <BorderButton type="submit" disabled={isSubmitting} className="w-full border-[#e20074] hover:border-[#e20074] shadow-lg shadow-[#e20074]/40 transition-all duration-300">
                 {isSubmitting ? 'Sending...' : 'Submit'}
               </BorderButton>
             </form>
@@ -136,11 +145,22 @@ export default function UpdatesPage() {
 
           {/* Social Icons */}
           <div className="flex justify-center gap-6 text-white/80 mt-8 text-2xl">
-            <Link href="https://m.facebook.com/theprojectllc/" target="_blank" aria-label="Facebook">📘</Link>
-            <Link href="https://instagram.com/xotheproject" target="_blank" aria-label="Instagram">📷</Link>
-            <Link href="https://www.linkedin.com/company/the-project-llc" target="_blank" aria-label="LinkedIn">💼</Link>
-            <Link href="https://m.youtube.com/@theprojectdev" target="_blank" aria-label="YouTube">📺</Link>
-            <Link href="/theProject.vcf" download className="underline text-sm ml-2 mt-1">📇 Download vCard</Link>
+            <Link href="https://m.facebook.com/theprojectllc/" target="_blank" aria-label="Facebook">
+              <Facebook className="text-[#e20074] w-6 h-6" />
+            </Link>
+            <Link href="https://instagram.com/xotheproject" target="_blank" aria-label="Instagram">
+              <Instagram className="text-[#e20074] w-6 h-6" />
+            </Link>
+            <Link href="https://www.linkedin.com/company/the-project-llc" target="_blank" aria-label="LinkedIn">
+              <Linkedin className="text-[#e20074] w-6 h-6" />
+            </Link>
+            <Link href="https://m.youtube.com/@theprojectdev" target="_blank" aria-label="YouTube">
+              <Youtube className="text-[#e20074] w-6 h-6" />
+            </Link>
+            <Link href="/theProject.vcf" download className="flex items-center gap-2 text-sm mt-1 text-[#e20074] hover:underline">
+  <img src="/icons/id-card.svg" alt="vCard Icon" className="w-5 h-5" />
+  Download vCard
+</Link>
           </div>
         </motion.div>
       </main>
