@@ -1,0 +1,10 @@
+BEGIN:VCARD
+VERSION:3.0
+PRODID:-//Apple Inc.//iPhone OS 26.0//EN
+N:;;;;
+ORG:theProject.;
+EMAIL;type=INTERNET;type=HOME;type=pref:tjsmith@bytheproject.com
+TEL;type=CELL;type=VOICE;type=pref:(484) 894-2519
+item1.URL;type=pref:https://bytheproject.com
+item1.X-ABLabel:_$!<HomePage>!$_
+END:VCARD

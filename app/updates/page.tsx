@@ -7,7 +7,7 @@ import Footer from '@/components/footer'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { BorderButton } from '@/components/ui/border-button'
-import { CheckCircle, AlertCircle, Facebook, Instagram, Linkedin, Youtube } from 'lucide-react'
+import { CheckCircle, AlertCircle, Facebook, Instagram, Linkedin, Youtube, IdCardIcon } from 'lucide-react'
 import { sendUpdatesLead } from '@/actions/sendUpdatesLead'
 import Link from 'next/link'
 
@@ -55,7 +55,9 @@ export default function UpdatesPage() {
           <div className="text-center">
             <h1 className="text-5xl font-bold font-geist text-white mb-2">Welcome. You’ve been tapped in.</h1>
             <p className="text-white/70 max-w-xl mx-auto">
-              Fill this out and we’ll reach out to create something custom for you — on the house.
+              You - who received our swag - keep tapping it, new promos every week! </p>
+              <p>
+              Fill this out and we’ll reach out to create a custom designed logo for you — on the house. No strings attached.
             </p>
             {tapCount !== null && (
               <p className="text-magenta mt-2 font-medium">👆 This page has been tapped <b>{tapCount}</b> times via NFC!</p>
@@ -130,7 +132,7 @@ export default function UpdatesPage() {
                 🔒 We do not share, sell, or subcontract your contact info. Ever.
               </p>
 
-              <BorderButton type="submit" disabled={isSubmitting} className="w-full border-[#e20074] hover:border-[#e20074] shadow-lg shadow-[#e20074]/40 transition-all duration-300">
+              <BorderButton type="submit" disabled={isSubmitting} className=" border-[#e20074] hover:border-[#e20074] shadow-lg shadow-[#e20074]/40 transition-all duration-300">
                 {isSubmitting ? 'Sending...' : 'Submit'}
               </BorderButton>
             </form>
@@ -157,10 +159,12 @@ export default function UpdatesPage() {
             <Link href="https://m.youtube.com/@theprojectdev" target="_blank" aria-label="YouTube">
               <Youtube className="text-[#e20074] w-6 h-6" />
             </Link>
-            <Link href="/theProject.vcf" download className="flex items-center gap-2 text-sm mt-1 text-[#e20074] hover:underline">
-  <img src="/icons/id-card.svg" alt="vCard Icon" className="w-5 h-5" />
-  Download vCard
-</Link>
+            <a href="/theProject.vcf" download aria-label="Business Card"
+  className="text-[#e20074]"
+>
+  <IdCardIcon className="w-6 h-6" />
+</a>
+
           </div>
         </motion.div>
       </main>
