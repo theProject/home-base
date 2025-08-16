@@ -3,39 +3,23 @@ import Footer from "@/components/footer"
 import { AuroraBackground } from "@/components/aurora-background"
 import { BentoCard } from "@/components/bento-card"
 import { InteractiveRoadmap } from "@/components/interactive-roadmap"
-import { AnimatedHeroText } from "@/components/animated-hero-text"
-import { ExpandCard } from "@/components/expand-card"
-import { PrestigePopup } from "@/components/prestige-popup"
-import { FeaturedBlogPostCard } from "@/components/featured-blog-post-card"
+import Hero from "@/components/hero"
 import { MissionStatementSection } from "@/components/mission-statement-section"
 import { ScriptShareCard } from "@/components/script-share-card"
-import { FacebookReviewsSection } from "@/components/facebook-reviews-section"
-import { GitHubProfileSection } from "@/components/github-profile-section" // New import
+import { GitHubProfileSection } from "@/components/github-profile-section"
 import BackToTop from "@/components/back-to-top"
 import {
   Gamepad2,
   Layers,
   Brain,
   Shield,
-  Sparkles,
   Smartphone,
-  Globe,
-  MonitorPlay,
-  Puzzle,
-  DiscAlbum,
+  Sparkles,
   Code2,
   TerminalSquare,
   FileText,
   GitMerge,
 } from "lucide-react"
-import type { Post } from "@/components/BlogCard"
-
-// Android icon as an SVG string
-const AndroidIcon = () => (
-  <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-    <path d="M17.25 8H6.75C5.7835 8 5 8.7835 5 9.75V16.25C5 17.2165 5.7835 18 6.75 18H17.25C18.2165 18 19 17.2165 19 16.25V9.75C19 8.7835 18.2165 8 17.25 8ZM7 10H8V11H7V10ZM16 11H17V10H16V11ZM8.25 5C8.25 4.58579 7.91421 4.25 7.5 4.25C7.08579 4.25 6.75 4.58579 6.75 5V7H8.25V5ZM15.75 5V7H17.25V5C17.25 4.58579 16.9142 4.25 16.5 4.25C16.0858 4.25 15.75 4.58579 15.75 5Z" />
-  </svg>
-)
 
 export default function Page() {
   const bentoGridItems = [
@@ -50,14 +34,16 @@ export default function Page() {
     },
     {
       title: "DarkFrost - Intro Card Game",
-      description: "A fast-paced mobile card game introducing the lore of DarkFrost. Collect, strategize, and conquer.",
+      description:
+        "A fast-paced mobile card game introducing the lore of DarkFrost. Collect, strategize, and conquer.",
       icon: <Layers className="w-10 h-10" />,
       span: "col-span-1 row-span-1",
       ctaText: "Coming Soon",
     },
     {
       title: "Hello, Friend",
-      description: "Your lifetime context AI. Understands your past to assist your future, privately and securely.",
+      description:
+        "Your lifetime context AI. Understands your past to assist your future, privately and securely.",
       icon: <Brain className="w-10 h-10" />,
       span: "col-span-1 row-span-1",
       ctaText: "Visit Site",
@@ -65,14 +51,16 @@ export default function Page() {
     },
     {
       title: "The Realms of Ambiguity",
-      description: "Navigate a world where nothing is as it seems. Coming soon to iOS and Android.",
+      description:
+        "Navigate a world where nothing is as it seems. Coming soon to iOS and Android.",
       icon: <Smartphone className="w-10 h-10" />,
       span: "col-span-1 md:col-span-2 row-span-1",
       ctaText: "Coming Soon",
     },
     {
       title: "hellertownpolice.org",
-      description: "Serving the community of Hellertown. Official website for news, resources, and contact.",
+      description:
+        "Serving the community of Hellertown. Official website for news, resources, and contact.",
       icon: <Shield className="w-10 h-10" />,
       span: "col-span-1 row-span-1",
       ctaText: "Visit Site",
@@ -80,61 +68,14 @@ export default function Page() {
     },
     {
       title: "Explore Our Tech",
-      description: "Dive deep into the innovative technologies powering our projects and services.",
+      description:
+        "Dive deep into the innovative technologies powering our projects and services.",
       icon: <Sparkles className="w-10 h-10" />,
       span: "col-span-1 row-span-1",
       ctaText: "Tech Stack",
       ctaLink: "/projects#tech-arsenal",
     },
   ]
-
-  const platformItems = [
-    {
-      title: "Android",
-      icon: <AndroidIcon />,
-      description:
-        "Explore our range of innovative apps and games available on the Google Play Store.",
-      image: "/AndroidDev.png",
-    },
-    {
-      title: "Web (React)",
-      icon: <Globe className="w-6 h-6" />,
-      description:
-        "Access our powerful web applications and interactive experiences from any browser.",
-      image: "/ReactDev.png",
-    },
-    {
-      title: "Steam (PC)",
-      icon: <MonitorPlay className="w-6 h-6" />,
-      description: "Immerse yourself in our PC games available on the Steam platform.",
-      image: "/Steam.png",
-    },
-    {
-      title: "PlayStation",
-      icon: <DiscAlbum className="w-6 h-6" />,
-      description: "Experience our captivating games on PlayStation consoles.",
-      image: "/PlayStation.png",
-    },
-    {
-      title: "Nintendo",
-      icon: <Puzzle className="w-6 h-6" />,
-      description: "Enjoy fun and engaging titles on your Nintendo Switch.",
-      image: "/Nintendo.png",
-    },
-  ]
-
-  const mockFeaturedPost: Post = {
-    id: "1",
-    title: "The Future of AI in Game Development: A Deep Dive",
-    slug: "future-ai-game-dev",
-    publishedAt: new Date().toISOString(),
-    description:
-      "Explore how artificial intelligence is revolutionizing game design, storytelling, and player experiences. We break down the latest trends and predict what's next.",
-    heroImage: { url: "/ai-gaming-concept.png", alt: "AI in Gaming" },
-    authors: [{ id: "1", name: "Dr. Tristan Smith", avatar: { url: "/author-avatar.png" } }],
-    categories: [{ id: "1", name: "AI & Tech", slug: "ai-tech" }],
-    readTime: 8,
-  }
 
   const scriptShareItems = [
     {
@@ -172,80 +113,18 @@ export default function Page() {
   ]
 
   return (
-  <AuroraBackground>
-  <div className="relative z-10 min-h-screen bg-transparent flex flex-col">
-    <Header />
-    <main className="flex-grow">
-      {/* Hero Section */}
-      <section className="container mx-auto px-4 pt-20 pb-20 sm:pt-28 md:pt-32 text-center">
-        <AnimatedHeroText className="drop-shadow-lg" />
-        <p className="mt-16 text-[1.2em] leading-relaxed font-sans text-black dark:text-white drop-shadow-md">
-          <span className="text-[#e20074] font-bold">Driven by curiosity.</span>{" "}
-          <span className="text-[#00FFFF] font-bold">Powered by creation.</span>
-          <br />
-          At <span className="dark:text-white text-black font-semibold">the</span>{" "}
-          <span className="text-[#e20074] font-bold">Project.</span> we turn{" "}
-          <strong className="text-[#e20074]">vision</strong> into{" "}
-          <strong className="text-[#00FFFF]">reality</strong>—blending world-class{" "}
-          <span className="text-[#e20074] font-bold">design</span>, pioneering{" "}
-          <span className="text-[#00FFFF] font-bold">generative AI research</span>, and hands-on{" "}
-          <span className="dark:text-white text-black font-semibold">game development</span> expertise.
-          We don’t just follow trends;{" "}
-          <strong className="text-[#e20074]">we set them</strong>—crafting innovative digital experiences and delivering solutions that{" "}
-          <strong className="text-[#00FFFF]">redefine what’s possible</strong>.
-        </p>
-      </section>
-    
-          {/* Platforms Section */}
-          <section className="py-16 sm:py-24 bg-background/30 dark:bg-black/30 backdrop-blur-sm">
-            <div className="container mx-auto px-4">
-              <h2 className="text-3xl sm:text-4xl font-bold text-foreground font-geist text-center mb-4">
-                Experience Our Creations - Coming Soon.
-              </h2>
-              <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-                Licensed on all our favorite platforms as developers, contributors to many more.
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                {platformItems.map((item, index) => (
-                  <PrestigePopup key={index} logo={item.image}>
-                    <ExpandCard
-                      title={item.title}
-                      icon={item.icon}
-                      description={item.description}
-                    />
-                  </PrestigePopup>
-                ))}
-              </div>
-            </div>
-          </section>
+    <AuroraBackground>
+      <div className="relative z-10 min-h-screen bg-transparent flex flex-col">
+        <Header />
+        <main className="flex-grow">
+          {/* Hero */}
+          <Hero />
 
-          {/* Featured Blog Post Section */}
-          <section className="py-16 sm:py-24">
-            <div className="container mx-auto px-4">
-              <h2 className="text-3xl sm:text-4xl font-bold text-foreground font-geist text-center mb-12">
-                From Our <span className="text-primary">Insights</span>
-              </h2>
-              <FeaturedBlogPostCard post={mockFeaturedPost} />
-            </div>
-          </section>
+          {/* --- Experience Our Creations (removed per request) ---
+          <section> ... </section>
+          ------------------------------------------------------- */}
 
-          {/* Mission Statement Section */}
-          <MissionStatementSection />
-
-          {/* Reviews Section */}
-          <section className="py-16 sm:py-24 bg-background/30 dark:bg-black/30 backdrop-blur-sm">
-            <div className="container mx-auto px-4">
-              <h2 className="text-3xl sm:text-4xl font-bold text-foreground font-geist text-center mb-4">
-                Quotes that we <span className="text-primary">Love</span>
-              </h2>
-              <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-                A carousel of quotes from our industry and visionary leaders coming soon
-              </p>
-             <FacebookReviewsSection />
-            </div>
-          </section>
-
-          {/* Bento Grid Projects Section */}
+          {/* Our Flagship Projects */}
           <section className="container mx-auto px-4 pt-20 pb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground font-geist text-center mb-16">
               Our Flagship <span className="text-primary">Projects</span>
@@ -265,7 +144,10 @@ export default function Page() {
             </div>
           </section>
 
-          {/* Script Share Section */}
+          {/* Our Journey (Timeline) */}
+          <InteractiveRoadmap />
+
+          {/* Script Share */}
           <section className="py-16 sm:py-24 bg-background/30 dark:bg-black/30 backdrop-blur-sm">
             <div className="container mx-auto px-4">
               <h2 className="text-3xl sm:text-4xl font-bold text-foreground font-geist text-center mb-4">
@@ -289,12 +171,16 @@ export default function Page() {
             </div>
           </section>
 
-          {/* GitHub Profile Section */}
-          <GitHubProfileSection username="theProject" profileUrl="https://github.com/theProject" />
+          {/* Our Driving Force */}
+          <MissionStatementSection />
 
-          {/* Interactive Roadmap Section */}
-          <InteractiveRoadmap />
+          {/* GitHub */}
+          <GitHubProfileSection
+            username="theProject"
+            profileUrl="https://github.com/theProject"
+          />
         </main>
+
         <BackToTop />
         <Footer />
       </div>
