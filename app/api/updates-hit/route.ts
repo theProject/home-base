@@ -13,7 +13,7 @@ export async function POST() {
       `
     )
 
-    return NextResponse.json({ count: rows[0]?.count ?? 0 })
+    return NextResponse.json({ count: rows[0].count })
   } catch (err) {
     console.error('Error updating evergreen counter:', err)
     return NextResponse.json({ error: 'Failed to update count' }, { status: 500 })
@@ -23,15 +23,11 @@ export async function POST() {
 export async function GET() {
   try {
     const { rows } = await pool.query<{ count: number }>(
-      `
-      SELECT count FROM nfc_counter
-      WHERE id = 1;
-      `
+      `SELECT count FROM nfc_counter WHERE id = 1;`
     )
-
-    return NextResponse.json({ count: rows[0]?.count ?? 0 })
+    return NextResponse.json({ count: rows[0].count })
   } catch (err) {
-    console.error('Error retrieving evergreen counter:', err)
+    console.error('Error retrieving counter:', err)
     return NextResponse.json({ error: 'Failed to retrieve count' }, { status: 500 })
   }
 }
