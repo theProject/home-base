@@ -141,7 +141,7 @@ export default function UpdatesPage() {
               <Textarea name="logo" placeholder="Describe your free logo idea..." rows={3} className="focus-visible:ring-[#05F2AF]" />
               <Textarea name="project" placeholder="Any design/dev/cybersecurity work to discuss?" rows={3} className="focus-visible:ring-[#05F2AF]" />
 
-              {/* Preferred contact method */}
+              {/* Preferred contact method fix*/}
               <fieldset className="space-y-2">
                 <legend className="text-sm font-medium text-white">Preferred contact method</legend>
                 <label className="block">
