@@ -1,4 +1,3 @@
-// app/lib/db.ts
 import { Pool } from "@neondatabase/serverless"
 
 if (!process.env.NEON_DATABASE_URL) {
@@ -9,11 +8,11 @@ export const pool = new Pool({
   connectionString: process.env.NEON_DATABASE_URL,
 })
 
-// Typing `err` fixes the implicit-any error
 pool.on("error", (err: Error) => {
   console.error("Unexpected idle client error", err)
 })
 
+// ---------- CONTACTS (Legacy Form) ----------
 export type Contact = {
   id: number
   name: string
@@ -62,4 +61,70 @@ export async function getContactSubmissions(): Promise<Contact[]> {
     `
   )
   return rows
+}
+
+// ---------- NFC LEADS (Updates Page Submissions) ----------
+
+export type NfcLead = {
+  id: number
+  name: string
+  email: string
+  business: string | null
+  phone: string | null
+  website: string | null
+  free_logo: string | null
+  project_needs: string | null
+  contact_method: string | null
+  opted_monthly: boolean
+  opted_beta: boolean
+  created_at: string
+}
+
+export async function insertNfcLead(data: {
+  name: string
+  email: string
+  business?: string
+  phone?: string
+  website?: string
+  free_logo?: string
+  project_needs?: string
+  contact_method?: string
+  opted_monthly?: boolean
+  opted_beta?: boolean
+}): Promise<void> {
+  const {
+    name,
+    email,
+    business,
+    phone,
+    website,
+    free_logo,
+    project_needs,
+    contact_method,
+    opted_monthly = false,
+    opted_beta = false,
+  } = data
+
+  await pool.query(
+    `
+    INSERT INTO nfc_leads (
+      name, email, business, phone, website,
+      free_logo, project_needs, contact_method,
+      opted_monthly, opted_beta
+    )
+    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
+    `,
+    [
+      name,
+      email,
+      business ?? null,
+      phone ?? null,
+      website ?? null,
+      free_logo ?? null,
+      project_needs ?? null,
+      contact_method ?? null,
+      opted_monthly,
+      opted_beta,
+    ]
+  )
 }

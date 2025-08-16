@@ -7,9 +7,46 @@ import Footer from '@/components/footer'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { BorderButton } from '@/components/ui/border-button'
-import { CheckCircle, AlertCircle, Facebook, Instagram, Linkedin, Youtube, IdCardIcon } from 'lucide-react'
+import {
+  CheckCircle,
+  AlertCircle,
+  Facebook,
+  Instagram,
+  Linkedin,
+  Youtube,
+  IdCardIcon,
+} from 'lucide-react'
 import { sendUpdatesLead } from '@/actions/sendUpdatesLead'
 import Link from 'next/link'
+
+// Counter with animation
+function AnimatedCounter({ count }: { count: number }) {
+  const [displayCount, setDisplayCount] = useState(0)
+
+  useEffect(() => {
+    let frame: number
+    let current = 0
+    const step = Math.ceil(count / 60) || 1
+
+    function animate() {
+      if (current < count) {
+        current += step
+        if (current > count) current = count
+        setDisplayCount(current)
+        frame = requestAnimationFrame(animate)
+      }
+    }
+
+    animate()
+    return () => cancelAnimationFrame(frame)
+  }, [count])
+
+  return (
+    <p className="text-magenta mt-2 font-medium text-center">
+      👆 This page has been tapped <b>{displayCount.toLocaleString()}</b> times via NFC!
+    </p>
+  )
+}
 
 export default function UpdatesPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -18,8 +55,8 @@ export default function UpdatesPage() {
 
   useEffect(() => {
     fetch('/api/updates-hit', { method: 'POST' })
-      .then(res => res.json())
-      .then(data => setTapCount(data.count))
+      .then((res) => res.json())
+      .then((data) => setTapCount(data.count))
       .catch(() => setTapCount(null))
   }, [])
 
@@ -27,10 +64,9 @@ export default function UpdatesPage() {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
     setIsSubmitting(true)
-    try {
-      console.log('Submitting formData:', Object.fromEntries(formData));
-      const result = await sendUpdatesLead(formData)
 
+    try {
+      const result = await sendUpdatesLead(formData)
       setFormStatus(result)
       if (result.success) {
         e.currentTarget.reset()
@@ -53,15 +89,18 @@ export default function UpdatesPage() {
           className="space-y-10"
         >
           <div className="text-center">
-            <h1 className="text-5xl font-bold font-geist text-white mb-2">Welcome. You’ve been tapped in.</h1>
+            <h1 className="text-5xl font-bold font-geist text-white mb-2">
+              Welcome. You’ve been tapped in.
+            </h1>
             <p className="text-white/70 max-w-xl mx-auto">
-              You - who received our swag - keep tapping it, new promos every week! </p>
-              <p>
-              Fill this out and we’ll reach out to create a custom designed logo for you — on the house. No strings attached.
+              You — who received our swag — keep tapping it. New promos every week!
             </p>
-            {tapCount !== null && (
-              <p className="text-magenta mt-2 font-medium">👆 This page has been tapped <b>{tapCount}</b> times via NFC!</p>
-            )}
+            <p className="mt-2">
+              Fill this out and we’ll reach out to create a custom designed logo for you —
+              <b> on the house</b>. No strings attached.
+            </p>
+
+            {tapCount !== null && <AnimatedCounter count={tapCount} />}
           </div>
 
           {formStatus.success ? (
@@ -71,7 +110,10 @@ export default function UpdatesPage() {
                 <h3 className="text-xl font-bold text-green-400">Submission Received</h3>
               </div>
               <p className="text-green-300">Thanks! We'll be in touch shortly.</p>
-              <BorderButton className="mt-6 border-[#e20074] hover:border-[#e20074]" onClick={() => setFormStatus({})}>
+              <BorderButton
+                className="mt-6 border-[#e20074] hover:border-[#e20074]"
+                onClick={() => setFormStatus({})}
+              >
                 Submit Another
               </BorderButton>
             </div>
@@ -132,9 +174,14 @@ export default function UpdatesPage() {
                 🔒 We do not share, sell, or subcontract your contact info. Ever.
               </p>
 
-              <BorderButton type="submit" disabled={isSubmitting} className=" border-[#e20074] hover:border-[#e20074] shadow-lg shadow-[#e20074]/40 transition-all duration-300">
+              {/* Submit Button */}
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full sm:w-auto mt-4 bg-[#e20074] text-white px-6 py-3 rounded-full shadow-md hover:shadow-[#e20074]/40 transition-all duration-300 text-lg font-semibold"
+              >
                 {isSubmitting ? 'Sending...' : 'Submit'}
-              </BorderButton>
+              </button>
             </form>
           )}
 
@@ -159,12 +206,9 @@ export default function UpdatesPage() {
             <Link href="https://m.youtube.com/@theprojectdev" target="_blank" aria-label="YouTube">
               <Youtube className="text-[#e20074] w-6 h-6" />
             </Link>
-            <a href="/theProject.vcf" download aria-label="Business Card"
-  className="text-[#e20074]"
->
-  <IdCardIcon className="w-6 h-6" />
-</a>
-
+            <a href="/theProject.vcf" download aria-label="Business Card" className="text-[#e20074]">
+              <IdCardIcon className="w-6 h-6" />
+            </a>
           </div>
         </motion.div>
       </main>
