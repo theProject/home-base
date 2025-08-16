@@ -24,21 +24,21 @@ import {
 export default function Page() {
   const bentoGridItems = [
     {
-      title: "DarkFrost - The JRPG",
+      title: "darkFrost - The JRPG",
       description:
         "An epic journey awaits in a world of frost and mystery. Classic JRPG mechanics with a modern twist.",
       icon: <Gamepad2 className="w-10 h-10" />,
       span: "col-span-1 md:col-span-2 row-span-1",
-      ctaText: "Learn More",
+      ctaText: "7 Years in dev!",
       ctaLink: "/projects/darkfrost",
     },
     {
-      title: "DarkFrost - Intro Card Game",
+      title: "TasaiYume",
       description:
-        "A fast-paced mobile card game introducing the lore of DarkFrost. Collect, strategize, and conquer.",
+        "What colors do you dream in?  Explore a world of vibrant possibilities.",
       icon: <Layers className="w-10 h-10" />,
       span: "col-span-1 row-span-1",
-      ctaText: "Coming Soon",
+      ctaText: "Active Production",
     },
     {
       title: "Hello, Friend",
@@ -55,15 +55,15 @@ export default function Page() {
         "Navigate a world where nothing is as it seems. Coming soon to iOS and Android.",
       icon: <Smartphone className="w-10 h-10" />,
       span: "col-span-1 md:col-span-2 row-span-1",
-      ctaText: "Coming Soon",
+      ctaText: "In Art Development",
     },
     {
-      title: "hellertownpolice.org",
+      title: "HellertownPolice.org",
       description:
         "Serving the community of Hellertown. Official website for news, resources, and contact.",
       icon: <Shield className="w-10 h-10" />,
       span: "col-span-1 row-span-1",
-      ctaText: "Visit Site",
+      ctaText: "Visit this amazing team's site",
       ctaLink: "https://hellertownpolice.org",
     },
     {
