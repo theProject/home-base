@@ -46,7 +46,7 @@ const arcadeGames: GameCardProps[] = [
     title: "okayhacker | simulation",
     description: "Master 14 real‑world hacking challenges in this terminal-based simulator.",
     language: "React, Next.js",
-    imageUrl: "/okayhacker-placeholder.png", // update to match your public folder
+    imageUrl: "/61817404-0660-44AC-B275-0ACF6A3FBC1F.png", // update to match your public folder
     reviewScore: 5.0,
     slug: "okayhacker",
     tags: ["Console", "Hacking", "Simulation"],
