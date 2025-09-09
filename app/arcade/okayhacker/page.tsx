@@ -22,6 +22,7 @@ import {
   ChevronRight,
   Award,
   Layers,
+  Wifi,
 } from 'lucide-react'
 
 /**
