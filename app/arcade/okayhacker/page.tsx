@@ -33,13 +33,10 @@ import {
 } from 'lucide-react';
 
 /*
- * OkayHacker Game Page
- *
- * This component implements a full featured terminal hacking simulation with
- * enhanced visuals, responsive layout, and additional levels. Import it
- * into your Next.js project under app/arcade/okayhacker/page.tsx and link it
- * from your arcade index. The game uses TailwindCSS for styling and the
- * lucide-react icon set. Ensure these dependencies are available.
+ * Nope, webdevtools are a good spot
+ * to look and cheat - but i thought
+ * of that.  dont get discouraged!
+ * ~lithium187
  */
 
 const OkayHackerGame = () => {
