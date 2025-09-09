@@ -9,29 +9,18 @@ import BackToTop from "@/components/back-to-top" // Import BackToTop
 const arcadeGames: GameCardProps[] = [
   {
     id: "1",
-    title: "Pixel Pioneer",
-    description: "Navigate treacherous pixel landscapes and gather ancient artifacts. A retro adventure!",
-    language: "JavaScript",
-    imageUrl: "/placeholder-kw6g7.png",
-    reviewScore: 4.5,
-    slug: "pixel-pioneer",
-    tags: ["Retro", "Platformer", "Adventure"],
-    ctaText: "Coming Soon",
-  },
-  {
-    id: "2",
     title: "Synth Runner",
     description: "Dash through a neon-drenched cityscape, dodging obstacles in this fast-paced endless runner.",
     language: "TypeScript",
     imageUrl: "/synthwave-runner.png",
     reviewScore: 4.8,
     slug: "synth-runner",
-    tags: ["Endless Runner", "Sci-Fi", "Music"],
-    ctaText: "Coming Soon",
+    tags: ["Endless Runner", "Sci‑Fi", "Music"],
+    ctaText: "Coming Soon...", // existing link unchanged
   },
   {
-    id: "3",
-    title: "AI Dream Weaver",
+    id: "2",
+    title: "iMagine 3D AI",
     description: "Generate stunning 3D models from your text prompts. Unleash your imagination!",
     language: "Python, Next.js",
     imageUrl: "/ai-3d-model-generation-interface.png",
@@ -42,7 +31,7 @@ const arcadeGames: GameCardProps[] = [
     ctaLink: "https://frostscript.com",
   },
   {
-    id: "4",
+    id: "3",
     title: "Code Breaker AI",
     description: "Challenge an AI in a game of wits and logic. Can you crack the code before it does?",
     language: "Next.js",
@@ -53,28 +42,17 @@ const arcadeGames: GameCardProps[] = [
     ctaLink: "/games/code-breaker-ai.html",
   },
   {
-    id: "5",
-    title: "Galaxy Glider",
-    description: "Pilot your starship through asteroid fields and alien territories. High-octane space action!",
-    language: "JavaScript",
-    imageUrl: "/placeholder.svg?width=400&height=300",
-    reviewScore: 4.3,
-    slug: "galaxy-glider",
-    tags: ["Space Shooter", "Action", "Arcade"],
-    ctaText: "Coming Soon",
+    id: "4",
+    title: "okayhacker | simulation",
+    description: "Master 14 real‑world hacking challenges in this terminal-based simulator.",
+    language: "React, Next.js",
+    imageUrl: "/okayhacker-placeholder.png", // update to match your public folder
+    reviewScore: 5.0,
+    slug: "okayhacker",
+    tags: ["Console", "Hacking", "Simulation"],
+    ctaLink: "/arcade/okayhacker", // points to your new game route
   },
-  {
-    id: "6",
-    title: "Prompt Sculptor",
-    description: "Another take on AI creativity: sculpt intricate digital art using only text commands.",
-    language: "Python, Next.js",
-    imageUrl: "/placeholder.svg?width=400&height=300",
-    reviewScore: 4.0,
-    slug: "prompt-sculptor",
-    tags: ["AI", "Art Generation", "Experimental"],
-    ctaText: "Coming Soon",
-  },
-]
+];
 
 export default function ArcadePage() {
   return (
