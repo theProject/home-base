@@ -32,7 +32,7 @@ const mockAuthors: AuthorProfile[] = [
     avatarUrl: "/avatars/tristan-smith.png",
     bio: "Tristan, Founder of theProject, is a cybersecurity expert for the offensive security team and a software developer with a passion for exploring emerging technologies and their societal impacts.",
     tags: ["AI/ML", "Software Dev", "Cybersecurity"],
-    socialLinks: { linkedin: "https:", twitter: "#", website: "#" },
+    socialLinks: { linkedin: "https://www.linkedin.com/in/tristanjsmith", twitter: "https://x.com/theProjectDev", website: "https://bytheproject.com" },
   },
   {
     id: "2",
