@@ -49,7 +49,7 @@ export function AuthorCard({ author }: AuthorCardProps) {
           />
         </div>
       </CardHeader>
-      <CardContent className="pt-20 text-center">
+      <CardContent className="pt-24 text-center">
         <CardTitle className="text-xl font-semibold text-foreground">{author.name}</CardTitle>
         <CardDescription className="text-magenta mb-3">{author.title}</CardDescription>
         <p className="text-sm text-muted-foreground mb-4 px-2 line-clamp-3 min-h-[60px]">{author.bio}</p>

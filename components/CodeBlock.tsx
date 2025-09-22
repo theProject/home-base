@@ -10,7 +10,7 @@ import "prismjs/components/prism-csharp"
 import "prismjs/components/prism-css"
 import "prismjs/components/prism-markup"
 import "prism-themes/themes/prism-vsc-dark-plus.css"
-import "../../styles/prism-override.css"
+import "@/styles/prism-custom.css" // Custom styles for the code block
 
 type CodeProps = {
   language?: string

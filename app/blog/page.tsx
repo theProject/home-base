@@ -374,14 +374,14 @@ export default function BlogPage() {
           <div className="container mx-auto px-4">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-foreground flex items-center justify-center">
               <Users className="w-10 h-10 mr-4 text-magenta" />
-              Meet Our <span className="text-magenta ml-2">Expert Writers</span>
+              The Start of our new blog - <span className="text-magenta ml-2">Relentless.</span>
             </h2>
             <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-              Our team of passionate technologists, researchers, and storytellers bringing you the latest insights.
+              We started building a team of passionate technologists, researchers, and storytellers bringing you the latest insights. If you are looking for a spot on our team, contact us!
             </p>
 
             {(() => {
-              const VISIBLE_AUTHORS = 1; // 👈 change this later to show more authors
+              const VISIBLE_AUTHORS = 1; // 👈 change this later when we sign more authors
               const visible = mockAuthors.slice(0, VISIBLE_AUTHORS)
 
               if (visible.length === 1) {
