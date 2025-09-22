@@ -43,9 +43,9 @@ export function AuthorCard({ author }: AuthorCardProps) {
           <Image
             src={author.avatarUrl || "/placeholder.svg"}
             alt={author.name}
-            width={192}
-            height={192}
-            className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 rounded-full border-4 border-background object-cover shadow-lg w-36 h-36"
+            width={256}
+            height={256}
+            className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 rounded-full border-4 border-background object-cover shadow-lg w-44 h-44"
           />
         </div>
       </CardHeader>
