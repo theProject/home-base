@@ -1,7 +1,8 @@
 // components/MediaBlock.tsx
 'use client'
 import React from 'react'
-import { getMediaUrl } from '../utilities/getMediaUrl'
+import { getMediaUrl } from "@/lib/getMediaUrl";
+
 
 type MediaBlockProps = {
   src: string
