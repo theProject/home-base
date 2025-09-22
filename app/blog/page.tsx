@@ -374,10 +374,10 @@ export default function BlogPage() {
           <div className="container mx-auto px-4">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-foreground flex items-center justify-center">
               <Users className="w-10 h-10 mr-4 text-magenta" />
-              The Start of our new blog - <span className="text-magenta ml-2">Relentless.</span>
+              Welcome To Our New Blog - Project <span className="text-magenta ml-2">Relentless.</span>
             </h2>
             <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-              We started building a team of passionate technologists, researchers, and storytellers bringing you the latest insights. If you are looking for a spot on our team, contact us!
+              We are building a team of passionate technologists, researchers, and storytellers bringing you the latest insights. Actively seeking fellow hackers, game devs and deep learning experts - If you are looking for a spot on the team, contact us!
             </p>
 
             {(() => {
