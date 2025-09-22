@@ -8,7 +8,7 @@ import Image from "next/image"
 import { format } from "date-fns"
 import BackToTop from "@/components/back-to-top"
 import { CalendarDays, ChevronLeft, ChevronRight, Clock, Search, UserCircle, Rss, Users, Newspaper } from "lucide-react"
-import  BorderButton  from "@/components/ui/border-button"
+import BorderButton from "@/components/ui/border-button"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { BlogCard, type Post as PostSummary } from "@/components/BlogCard"
@@ -17,7 +17,7 @@ import { Badge } from "@/components/ui/badge"
 import { TechNewsCard, type TechNewsCardProps } from "@/components/tech-news-card"
 import { ArticlePipelineSection } from "@/components/article-pipeline-section"
 
-// Types (PostSummary is now imported from BlogCard)
+// Types (PostSummary is imported from BlogCard)
 interface Category {
   id: string
   name: string
@@ -370,24 +370,40 @@ export default function BlogPage() {
         </section>
 
         {/* Writing Team Section */}
-<section className="py-16 md:py-24 bg-background border-b border-border dark:border-neutral-800">
-  <div className="container mx-auto px-4">
-    <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-foreground flex items-center justify-center">
-      <Users className="w-10 h-10 mr-4 text-magenta" />
-      Meet Our <span className="text-magenta ml-2">Expert Writers</span>
-    </h2>
-    <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-      Our team of passionate technologists, researchers, and storytellers bringing you the latest insights.
-    </p>
+        <section className="py-16 md:py-24 bg-background border-b border-border dark:border-neutral-800">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-foreground flex items-center justify-center">
+              <Users className="w-10 h-10 mr-4 text-magenta" />
+              Meet Our <span className="text-magenta ml-2">Expert Writers</span>
+            </h2>
+            <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+              Our team of passionate technologists, researchers, and storytellers bringing you the latest insights.
+            </p>
 
-    {/* Centered single card */}
-    <div className="flex justify-center">
-      {mockAuthors.slice(0, 1).map((author) => (
-        <AuthorCard key={author.id} author={author} />
-      ))}
-    </div>
-  </div>
-</section>
+            {(() => {
+              const VISIBLE_AUTHORS = 1; // 👈 change this later to show more authors
+              const visible = mockAuthors.slice(0, VISIBLE_AUTHORS)
+
+              if (visible.length === 1) {
+                return (
+                  <div className="flex justify-center">
+                    <div className="w-full sm:max-w-md md:max-w-lg lg:max-w-xl">
+                      <AuthorCard author={visible[0]} />
+                    </div>
+                  </div>
+                )
+              }
+
+              return (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+                  {visible.map((author) => (
+                    <AuthorCard key={author.id} author={author} />
+                  ))}
+                </div>
+              )
+            })()}
+          </div>
+        </section>
 
         {/* Article Pipeline Section */}
         <ArticlePipelineSection />
