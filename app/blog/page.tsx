@@ -27,12 +27,12 @@ interface Category {
 const mockAuthors: AuthorProfile[] = [
   {
     id: "1",
-    name: "Alex Writer",
-    title: "Senior Technology Analyst",
-    avatarUrl: "/avatars/alex-writer.png",
-    bio: "Alex dives deep into the latest tech trends, offering insightful analysis and practical advice for navigating the digital landscape.",
+    name: "Tristan Smith",
+    title: "Engineering, Offensive Security, Design, Chief Dreamer",
+    avatarUrl: "/avatars/tristan-smith.png",
+    bio: "Tristan, Founder of theProject, is a cybersecurity expert for the offensive security team and a software developer with a passion for exploring emerging technologies and their societal impacts.",
     tags: ["AI/ML", "Software Dev", "Cybersecurity"],
-    socialLinks: { linkedin: "#", twitter: "#", website: "#" },
+    socialLinks: { linkedin: "https:", twitter: "#", website: "#" },
   },
   {
     id: "2",
@@ -370,22 +370,24 @@ export default function BlogPage() {
         </section>
 
         {/* Writing Team Section */}
-        <section className="py-16 md:py-24 bg-background border-b border-border dark:border-neutral-800">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-foreground flex items-center justify-center">
-              <Users className="w-10 h-10 mr-4 text-magenta" />
-              Meet Our <span className="text-magenta ml-2">Expert Writers</span>
-            </h2>
-            <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-              Our team of passionate technologists, researchers, and storytellers bringing you the latest insights.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-              {mockAuthors.map((author) => (
-                <AuthorCard key={author.id} author={author} />
-              ))}
-            </div>
-          </div>
-        </section>
+<section className="py-16 md:py-24 bg-background border-b border-border dark:border-neutral-800">
+  <div className="container mx-auto px-4">
+    <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-foreground flex items-center justify-center">
+      <Users className="w-10 h-10 mr-4 text-magenta" />
+      Meet Our <span className="text-magenta ml-2">Expert Writers</span>
+    </h2>
+    <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+      Our team of passionate technologists, researchers, and storytellers bringing you the latest insights.
+    </p>
+
+    {/* Centered single card */}
+    <div className="flex justify-center">
+      {mockAuthors.slice(0, 1).map((author) => (
+        <AuthorCard key={author.id} author={author} />
+      ))}
+    </div>
+  </div>
+</section>
 
         {/* Article Pipeline Section */}
         <ArticlePipelineSection />
