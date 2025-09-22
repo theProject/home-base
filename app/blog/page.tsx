@@ -30,8 +30,8 @@ const mockAuthors: AuthorProfile[] = [
     name: "Tristan Smith",
     title: "Software Engineer, Offensive Security Hacker (Ethically that is), Lover of Design, and the Chief Dreamer",
     avatarUrl: "/avatars/tristan-smith.png",
-    bio: "Tristan is the founder of theProject - a platform that shrugs off conventional boundaries, embracing innovation and creativity. He is a passionate offensive security researcher, software developer, and designer with a knack for turning complex ideas into engaging stories. If you're lucky, you'll hear his bellowing shriek of HACK THE PLANET on just the right days.",
-    tags: ["AI/ML", "Software Dev", "Black Hat Research", "Cybersecurity", "Game Dev", "Leadership"],
+    bio: "Tristan is the founder of theProject - fueled with a relentless curiosity of black and white hats, software development, and designing the next best videogame.",
+    tags: ["AI/ML", "Software Dev", "Hacking", "Cybersecurity", "Game Dev", "Leadership"],
     socialLinks: { linkedin: "https://www.linkedin.com/in/tristanjsmith", twitter: "https://x.com/theProjectDev", website: "https://bytheproject.com" },
   },
   {
