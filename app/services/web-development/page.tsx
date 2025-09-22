@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import Header from "@/components/header"
-import Footer from "@/components/footer"
-import { BorderButton } from "@/components/ui/border-button"
+import Header from "../../components/header"
+import Footer from "../../components/footer"
+import { BorderButton } from "../../components/ui/border-button"
 import type { ReactNode } from "react"
 import type { LucideIcon } from "lucide-react"
 import {

@@ -1,10 +1,10 @@
-import { GameCard, type GameCardProps } from "@/components/arcade/game-card"
-import { ArcadeContactForm } from "@/components/arcade/arcade-contact-form"
+import { GameCard, type GameCardProps } from "../components/arcade/game-card"
+
 import { Sparkles, Gamepad2, Lightbulb } from "lucide-react"
-import { AuroraBackground } from "@/components/aurora-background" // Assuming this exists and is suitable
-import Header from "@/components/header" // Import your existing Header
-import Footer from "@/components/footer" // Import your existing Footer
-import BackToTop from "@/components/back-to-top" // Import BackToTop
+import { AuroraBackground } from "../components/aurora-background"
+import Header from "../components/header"
+import Footer from "../components/footer"
+import BackToTop from "../components/back-to-top"
 
 const arcadeGames: GameCardProps[] = [
   {
@@ -15,8 +15,9 @@ const arcadeGames: GameCardProps[] = [
     imageUrl: "/synthwave-runner.png",
     reviewScore: 4.8,
     slug: "Psyntax-sadness",
-    tags: ["Endless Runner", "Sci‑Fi", "Music"],
-    ctaLink: "https://frostscript.com",  },
+    tags: ["Endless Runner", "Sci-Fi", "Music"],
+    ctaLink: "https://frostscript.com",
+  },
   {
     id: "2",
     title: "iMagine 3D AI",
@@ -26,7 +27,7 @@ const arcadeGames: GameCardProps[] = [
     reviewScore: 4.2,
     slug: "ai-dream-weaver",
     tags: ["AI", "3D Modeling", "Creative Tool"],
-    className: "md:col-span-2",
+    // Removed className to keep GameCardProps clean
     ctaLink: "https://www.frostscript.com",
   },
   {
@@ -43,13 +44,13 @@ const arcadeGames: GameCardProps[] = [
   {
     id: "4",
     title: "okayhacker | simulation",
-    description: "Master 14 real‑world hacking challenges in this terminal-based simulator.",
+    description: "Master 14 real-world hacking challenges in this terminal-based simulator.",
     language: "React, Next.js",
-    imageUrl: "/61817404-0660-44AC-B275-0ACF6A3FBC1F.png", // update to match your public folder
+    imageUrl: "/61817404-0660-44AC-B275-0ACF6A3FBC1F.png",
     reviewScore: 5.0,
     slug: "okayhacker",
     tags: ["Console", "Hacking", "Simulation"],
-    ctaLink: "/arcade/okayhacker", // points to your new game route
+    ctaLink: "/arcade/okayhacker",
   },
 ];
 
@@ -58,7 +59,15 @@ export default function ArcadePage() {
     <>
       <Header />
       <div className="relative min-h-screen bg-gray-900 text-gray-100 overflow-hidden synthwave-bg-dots">
-        <AuroraBackground className="opacity-30 synthwave-aurora" /> {/* Adjusted Aurora */}
+        {/* AuroraBackground doesn't accept className, wrap it */}
+        <div className="opacity-30 synthwave-aurora pointer-events-none">
+  <AuroraBackground>
+    {/* minimal, invisible child to satisfy required `children` */}
+    <div />
+  </AuroraBackground>
+</div>
+
+
         <main className="relative z-10 container mx-auto px-4 py-16 sm:py-24">
           {/* Hero Section */}
           <section className="text-center mb-16 md:mb-24">
@@ -86,18 +95,9 @@ export default function ArcadePage() {
             </div>
           </section>
 
-          {/* Contact Form Section */}
-          <section className="max-w-2xl mx-auto">
-            <div className="flex items-center justify-center mb-8">
-              <Lightbulb className="h-8 w-8 text-primary mr-3 synthwave-icon-glow" />
-              <h2 className="text-3xl md:text-4xl font-bold text-center synthwave-subtitle">Got a Game Idea?</h2>
-            </div>
-            <p className="text-center text-gray-300 mb-8">
-              Have a concept for a mini-game or a cool AI feature you'd love to see us build? Share your vision with us!
-            </p>
-            <ArcadeContactForm />
-          </section>
+          
         </main>
+
         <BackToTop />
       </div>
       <Footer />
