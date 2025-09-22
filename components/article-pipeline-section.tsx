@@ -64,7 +64,6 @@ export function ArticlePipelineSection() {
 
         <div className="relative max-w-3xl mx-auto">
           {/* Vertical line for the timeline */}
-          <div className="absolute left-4 sm:left-1/2 top-0 bottom-0 w-0.5 bg-border dark:bg-neutral-700 transform -translate-x-1/2 hidden sm:block"></div>
 
           {pipelineItemsData.map((item, index) => (
             <div key={item.id} className="mb-10 flex items-start sm:items-center group">
