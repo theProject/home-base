@@ -1,45 +1,59 @@
 import Header from "@/components/header"
 import Footer from "@/components/footer"
-import { Smartphone, Gamepad, Cpu, Code, Palette, BarChart } from "lucide-react"
+import { Smartphone, Gamepad, Cpu, Code, Palette } from "lucide-react" // removed BarChart
 import { BorderButton } from "@/components/ui/border-button"
 import Link from "next/link"
+import type { ReactNode } from "react"
 
-const services = [
-  {
-    icon: <Smartphone className="h-8 w-8 text-magenta" />,
-    title: "Mobile App Development",
-    description:
-      "We create intuitive, high-performance mobile applications for iOS and Android platforms that engage users and drive business growth.",
-  },
-  {
-    icon: <Gamepad className="h-8 w-8 text-magenta" />,
-    title: "Video Game Development",
-    description:
-      "From concept to launch, we develop immersive gaming experiences across multiple platforms with cutting-edge graphics and gameplay.",
-  },
-  {
-    icon: <Cpu className="h-8 w-8 text-magenta" />,
-    title: "Generative AI Solutions",
-    description:
-      "We harness the power of generative AI to create innovative solutions that transform industries and enhance user experiences.",
-  },
+type Service = {
+  icon: ReactNode
+  title: string
+  description: string
+  href: string
+}
+
+const services: Service[] = [
   {
     icon: <Code className="h-8 w-8 text-magenta" />,
-    title: "Custom Software Development",
+    title: "Full-Stack Web Development",
     description:
-      "Our team builds tailored software solutions that address your unique business challenges and streamline operations.",
+      "Modern, fast, SEO-ready websites and web apps built end-to-end (Next.js, React, APIs, databases, auth, deployments).",
+    href: "/services/web-development",
   },
   {
     icon: <Palette className="h-8 w-8 text-magenta" />,
     title: "UI/UX Design",
     description:
-      "We design beautiful, intuitive interfaces that enhance user satisfaction and drive engagement with your digital products.",
+      "Beautiful, intuitive interfaces and flows that convert—wireframes to high-fidelity design systems and prototypes.",
+    href: "/services/ui-ux-design",
   },
   {
-    icon: <BarChart className="h-8 w-8 text-magenta" />,
-    title: "Digital Strategy",
+    icon: <Smartphone className="h-8 w-8 text-magenta" />,
+    title: "Mobile App Development",
     description:
-      "We help businesses navigate the digital landscape with strategic planning and implementation of technology solutions.",
+      "High-performance iOS/Android apps with smooth UX, native capabilities, and scalable backends.",
+    href: "/services/mobile-app-development",
+  },
+  {
+    icon: <Gamepad className="h-8 w-8 text-magenta" />,
+    title: "Video Game Development",
+    description:
+      "From concept to launch—polished gameplay, performant builds, and cross-platform pipelines.",
+    href: "/services/game-development",
+  },
+  {
+    icon: <Cpu className="h-8 w-8 text-magenta" />,
+    title: "Generative AI Solutions",
+    description:
+      "RAG, agents, and AI-powered features that unlock automation, insights, and delightful user experiences.",
+    href: "/services/generative-ai",
+  },
+  {
+    icon: <Code className="h-8 w-8 text-magenta" />,
+    title: "Custom Software Development",
+    description:
+      "Tailored systems and internal tools that streamline operations and scale with your business.",
+    href: "/services/custom-software",
   },
 ]
 
@@ -63,9 +77,15 @@ export default function ServicesPage() {
                 className="p-6 rounded-lg border border-black/10 dark:border-white/10 hover:border-magenta/30 dark:hover:border-magenta/30 transition-colors"
               >
                 <div className="mb-4">{service.icon}</div>
-                <h3 className="text-xl font-bold text-black dark:text-white mb-3 font-geist">{service.title}</h3>
-                <p className="text-black/70 dark:text-white/70 mb-4">{service.description}</p>
-                <BorderButton size="sm">Learn More</BorderButton>
+                <h3 className="text-xl font-bold text-black dark:text-white mb-3 font-geist">
+                  {service.title}
+                </h3>
+                <p className="text-black/70 dark:text-white/70 mb-4">
+                  {service.description}
+                </p>
+                <Link href={service.href} aria-label={`Learn more about ${service.title}`}>
+                  <BorderButton size="sm">Learn More</BorderButton>
+                </Link>
               </div>
             ))}
           </div>

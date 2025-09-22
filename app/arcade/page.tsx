@@ -10,14 +10,13 @@ const arcadeGames: GameCardProps[] = [
   {
     id: "1",
     title: "Synth Runner",
-    description: "Dash through a neon-drenched cityscape, dodging obstacles in this fast-paced endless runner.",
+    description: "Reset electrical connectors to make your synth-racecar fly again!",
     language: "TypeScript",
     imageUrl: "/synthwave-runner.png",
     reviewScore: 4.8,
-    slug: "synth-runner",
+    slug: "Psyntax-sadness",
     tags: ["Endless Runner", "Sci‑Fi", "Music"],
-    ctaText: "Coming Soon...", // existing link unchanged
-  },
+    ctaLink: "https://frostscript.com",  },
   {
     id: "2",
     title: "iMagine 3D AI",
@@ -28,7 +27,7 @@ const arcadeGames: GameCardProps[] = [
     slug: "ai-dream-weaver",
     tags: ["AI", "3D Modeling", "Creative Tool"],
     className: "md:col-span-2",
-    ctaLink: "https://frostscript.com",
+    ctaLink: "https://www.frostscript.com",
   },
   {
     id: "3",
