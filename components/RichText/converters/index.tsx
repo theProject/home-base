@@ -11,7 +11,7 @@ import { headingConverter } from './headingConverter'
 import BannerBlock from '@/components/BannerBlock'
 import CodeBlock from '@/components/CodeBlock'
 import MediaBlock from '@/components/MediaBlock'
-import { getMediaUrl } from '@/utilities/getMediaUrl'
+import { getMediaUrl } from "@/lib/getMediaUrl";
 import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 
 // Local substitute for Payload's JsonObject constraint
