@@ -6,7 +6,7 @@ import Header from '@/components/header'
 import Footer from '@/components/footer'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { BorderButton } from '@/components/ui/border-button'
+import  BorderButton  from '@/components/ui/border-button'
 import {
   CheckCircle,
   AlertCircle,

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { format } from "date-fns"
-import { BorderButton } from "@/components/ui/border-button"
+import  BorderButton  from "@/components/ui/border-button"
 
 type Contact = {
   id: number

@@ -1,10 +1,10 @@
-import { GameCard, type GameCardProps } from "../components/arcade/game-card"
+import { GameCard, type GameCardProps } from "@/components/arcade/game-card"
 
 import { Sparkles, Gamepad2, Lightbulb } from "lucide-react"
-import { AuroraBackground } from "../components/aurora-background"
-import Header from "../components/header"
-import Footer from "../components/footer"
-import BackToTop from "../components/back-to-top"
+import { AuroraBackground } from "@/components/aurora-background"
+import Header from "@/components/header"
+import Footer from "@/components/footer"
+import BackToTop from "@/components/back-to-top"
 
 const arcadeGames: GameCardProps[] = [
   {

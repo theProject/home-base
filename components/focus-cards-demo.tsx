@@ -1,4 +1,4 @@
-import { FocusCardsContainer, type FocusCardProps } from "./ui/focus-cards" // Ensure correct import path
+import { FocusCardsContainer, type FocusCardProps } from "@/components/ui/focus-cards" // Ensure correct import path
 
 const cards: FocusCardProps[] = [
   {

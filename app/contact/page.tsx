@@ -1,13 +1,13 @@
 "use client"
 
 import { useState } from "react"
-import Header from "../components/header"
-import Footer from "../components/footer"
+import Header from "@/components/header"
+import Footer from "@/components/footer"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Mail, Phone, MapPin, CheckCircle, AlertCircle } from "lucide-react"
 import { sendContactEmail } from "../actions/contact"
-import { BorderButton } from "../components/ui/border-button"
+import  BorderButton  from "@/components/ui/border-button"
 
 export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)

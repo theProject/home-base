@@ -1,7 +1,7 @@
 import Header from "@/components/header"
 import Footer from "@/components/footer"
 import FocusCardsDemo from "@/components/focus-cards-demo"
-import { BorderButton } from "@/components/ui/border-button"
+import  BorderButton  from "@/components/ui/border-button"
 import Link from "next/link"
 import { TechStackSection } from "@/components/tech-stack-section" // Import the new section
 

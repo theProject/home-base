@@ -1,6 +1,6 @@
 import Header from "@/components/header"
 import Footer from "@/components/footer"
-import { BorderButton } from "@/components/ui/border-button"
+import  BorderButton  from "@/components/ui/border-button"
 import Link from "next/link"
 import Image from "next/image"
 

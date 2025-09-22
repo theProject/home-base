@@ -1,33 +1,22 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { ArrowUpToLine } from "lucide-react"
-import { BorderButton } from "@/components/ui/border-button"
+import React, { useEffect, useState } from "react";
+import { ArrowUpToLine } from "lucide-react";
+import BorderButton from "@/components/ui/border-button";
 
 export default function BackToTop() {
-  const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(false);
 
-  // Show button when page is scrolled down
   useEffect(() => {
-    const toggleVisibility = () => {
-      if (window.scrollY > 500) {
-        setIsVisible(true)
-      } else {
-        setIsVisible(false)
-      }
-    }
+    const onScroll = () => setIsVisible(window.scrollY > 500);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll(); // initialize
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-    window.addEventListener("scroll", toggleVisibility)
-    return () => window.removeEventListener("scroll", toggleVisibility)
-  }, [])
-
-  // Scroll to top function
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    })
-  }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <div
@@ -37,11 +26,12 @@ export default function BackToTop() {
     >
       <BorderButton
         onClick={scrollToTop}
-        className="rounded-lg p-1 bg-teal-300 hover:bg-magenta/90 transition-colors"
+        size="md"
+        className="rounded-lg p-1"
         aria-label="Back to top"
       >
-        <ArrowUpToLine className="h-8 w-6 text-white" />
+        <ArrowUpToLine className="h-8 w-6" />
       </BorderButton>
     </div>
-  )
+  );
 }
