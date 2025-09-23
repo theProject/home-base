@@ -15,32 +15,32 @@ interface PipelineItem {
 const pipelineItemsData: PipelineItem[] = [
   {
     id: "1",
-    title: "The Future of Decentralized AI: Opportunities and Challenges",
-    status: "Drafting",
-    expectedDate: "Early July 2024",
+    title: "From Curiosity to Compromise: A Hacker’s First Breach",
+    status: "Reviewing",
+    expectedDate: "Early October 2025",
     description:
-      "Exploring how AI and blockchain technologies are converging and what it means for developers and users.",
+      "A story-style dive into the mindset of a hacker as they navigate reconnaissance, scanning, and that first moment of system access.",
   },
   {
     id: "2",
-    title: "Mastering Quantum-Resistant Encryption Algorithms",
-    status: "Researching",
-    expectedDate: "Mid July 2024",
-    description: "A deep dive into the next generation of cryptography to protect data from quantum threats.",
+    title: "Inside the Exploit: Breaking Down the Attack Chain",
+    status: "Drafting",
+    expectedDate: "Mid October 2025",
+    description: "An in-depth look at how vulnerabilities are strung together — from phishing to privilege escalation — told like a real-world operation.",
   },
   {
     id: "3",
-    title: "Ethical Frameworks for Generative Art and Media",
-    status: "Reviewing",
-    expectedDate: "Late July 2024",
-    description: "Navigating the complex ethical landscape of AI-generated content and intellectual property.",
+    title: "The Counterstrike: Blue Teams Fighting Back",
+    status: "Researching",
+    expectedDate: "Mid November 2025",
+    description: "A dramatic turn of the story where defenders deploy detection, forensics, and incident response to push back against intruders.",
   },
   {
     id: "4",
-    title: "Building Scalable Microservices with Rust and WebAssembly",
+    title: "Lessons in the Aftermath: Building Stronger Security",
     status: "Scheduled",
-    expectedDate: "August 2024",
-    description: "A practical guide to leveraging Rust and Wasm for high-performance, secure microservices.",
+    expectedDate: "December 2025",
+    description: "The conclusion that ties the arc together — sharing the insights, mitigations, and human side of what both hackers and defenders learn after the dust settles.",
   },
 ]
 
@@ -59,7 +59,7 @@ export function ArticlePipelineSection() {
           What We&apos;re <span className="text-magenta">Working On Next</span>
         </h2>
         <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-          A sneak peek into the articles currently in our pipeline, bringing you fresh insights soon.
+          A sneak peek into the articles currently in our pipeline, see the world through the eyes of a new hacker and the targets defenders.
         </p>
 
         <div className="relative max-w-3xl mx-auto">
