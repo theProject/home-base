@@ -1,42 +1,38 @@
-import Header from "@/components/header"
-import Footer from "@/components/footer"
-import BorderButton from "@/components/ui/border-button"
-import Link from "next/link"
-import type { Metadata } from "next"
-import type { ComponentType, ReactNode, SVGProps } from "react"
+import Header from "@/components/header";
+import Footer from "@/components/footer";
+import BorderButton from "@/components/ui/border-button";
+import Link from "next/link";
+import type { Metadata } from "next";
+import type { ComponentType, ReactNode, SVGProps } from "react";
 import {
   Rocket,
-  Smartphone,
-  Gamepad2,
-  ShoppingBag,
-  Building2,
-  Layers,
-  Bell,
   Cpu,
+  Database,
   Shield,
-  Gauge,
-  Apple,
+  Layers,
+  Network,
+  BookText,
   Bot,
-  BadgeCheck,
-  // If these two throw in your version of lucide-react, SafeIcon will cover it.
-  Tv,
-  Store,
-  Cog,
+  Search,
+  Brain,
+  ClipboardCheck,
+  Gauge,
   Cloud,
-  Palette,
-  HeartHandshake,
   Check,
   MapPin,
-} from "lucide-react"
+  HeartHandshake,
+  Cog,
+  BadgeCheck,
+} from "lucide-react";
 
 export const metadata: Metadata = {
   title:
-    "Mobile App Development | theProject. — iOS • Android • Windows (Hellertown & Lehigh Valley)",
+    "Generative AI Solutions | theProject. — RAG • Chatbots • Automations (Hellertown & Lehigh Valley)",
   description:
-    "Registered Apple, Google Play, and Microsoft developer. We build high-performance mobile apps and games—design, development, launch, and live ops. Local to Hellertown, PA — serving the Lehigh Valley & beyond.",
-}
+    "Design & build practical AI: RAG search, copilots, document Q&A, automations, and analytics. OpenAI/Azure, vector DBs, privacy-minded deployments.",
+};
 
-type Icon = ComponentType<SVGProps<SVGSVGElement>>
+type Icon = ComponentType<SVGProps<SVGSVGElement>>;
 
 function Glow({ children }: { children: ReactNode }) {
   return (
@@ -49,123 +45,92 @@ function Glow({ children }: { children: ReactNode }) {
       />
       {children}
     </div>
-  )
+  );
 }
 
-/** Renders a Lucide icon safely. If the provided icon is undefined (version mismatch),
- *  it falls back to Layers so we never crash the tree. */
-function SafeIcon({
-  I,
-  className,
-  ...rest
-}: { I?: Icon } & SVGProps<SVGSVGElement>) {
-  const C = I ?? Layers
-  return <C className={className} {...rest} />
-}
-
-const focusAreas: { icon?: Icon; title: string; blurb: string }[] = [
+const focus = [
   {
-    icon: Gamepad2,
-    title: "Games & Interactive",
+    icon: Bot,
+    title: "Chatbots & Copilots",
+    blurb: "Task-aware assistants for teams, customers, and workflows.",
+  },
+  {
+    icon: Search,
+    title: "RAG & Search",
     blurb:
-      "Unity/Godot pipelines, achievements, leaderboards, IAPs, live events.",
+      "Ask your docs. Vector search across PDFs, policies, wikis, and tickets.",
   },
   {
-    icon: ShoppingBag,
-    title: "E-Commerce Apps",
-    blurb: "Native checkouts, Apple/Google Pay, subscriptions, analytics.",
+    icon: Network,
+    title: "Automations",
+    blurb: "Email triage, data entry, tagging, summarization, and alerts.",
   },
-  {
-    icon: Building2,
-    title: "Internal/LOB",
-    blurb:
-      "Dashboards, offline sync, secure auth, device features for field teams.",
-  },
-]
+];
 
-const capabilities: { icon?: Icon; title: string }[] = [
-  { icon: Bell, title: "Push notifications" },
-  { icon: Cpu, title: "Native performance" },
-  { icon: Shield, title: "Security & SSO" },
-  { icon: Gauge, title: "Smooth 60fps UX" },
-  { icon: Palette, title: "Design systems" },
-  { icon: Cloud, title: "Cloud APIs & RAG" },
-]
-
-// If your lucide-react version lacks Tv or Store, SafeIcon will render Layers instead.
-// Optional: swap Tv -> Monitor and Store -> Window for maximum compatibility.
-const platforms: { icon?: Icon; label: string }[] = [
-  { icon: Apple, label: "iOS / iPadOS (App Store)" },
-  { icon: Bot, label: "Android (Google Play)" },
-  { icon: Tv, label: "tvOS / Android TV (optional)" },
-  { icon: Store, label: "Windows / Microsoft Store" },
-]
+const capabilities = [
+  { icon: Database, title: "Vector DBs (Pinecone, pgvector)" },
+  { icon: Layers, title: "Embeddings, rerankers, hybrid search" },
+  { icon: Shield, title: "PII redaction & access control" },
+  { icon: Cloud, title: "Azure OpenAI / OpenAI" },
+  { icon: Brain, title: "Function calling / tools" },
+  { icon: Gauge, title: "Eval harness & analytics" },
+];
 
 const stack = [
-  "React Native / Expo",
-  "Swift / SwiftUI",
-  "Kotlin / Jetpack Compose",
-  "Unity / Godot (games)",
-  "Node / Next.js APIs",
-  "Postgres / Payload CMS",
-  "EAS / fastlane CI/CD",
-  "App Store Connect / Play Console",
-]
+  "Next.js / Node / Python",
+  "OpenAI / Azure OpenAI",
+  "Supabase / Postgres / Payload CMS",
+  "Pinecone / pgvector",
+  "LangChain / custom tool calling",
+  "Vercel / Azure / Serverless",
+];
 
-type Plan = {
-  name: string
-  price: string
-  tagline: string
-  highlights: string[]
-  badge?: string
-  featured?: boolean
-  cta: string
-}
-
-const plans: Plan[] = [
+const plans = [
   {
-    name: "Indie Game Starter",
-    price: "from $3.5k–$8k",
-    tagline: "Prototype to store-ready MVP for solo devs and small studios.",
+    name: "Discovery & Design",
+    price: "from $1.5k–$3k",
+    tagline:
+      "Workshops, data audit, success metrics, and a practical roadmap.",
     highlights: [
-      "Core loop & 1–2 polished levels",
-      "Basic UI + haptics + analytics",
-      "IAP or ads (single network)",
-      "TestFlight / Internal testing",
-      "1 post-launch update",
+      "Use-case mapping & feasibility",
+      "Data sources & privacy review",
+      "Model selection guidance",
+      "Rough UX flows & KPIs",
+      "Fixed proposal & timeline",
     ],
-    badge: "Great for first launch",
+    badge: "Fast start",
     cta: "/contact",
   },
   {
-    name: "Business App",
-    price: "from $15k–$40k",
-    tagline: "E-commerce or internal app with integrations and auth.",
+    name: "Pilot (RAG / Copilot)",
+    price: "from $8k–$20k",
+    tagline:
+      "A working prototype integrated with your data and simple guardrails.",
     highlights: [
-      "Design system + brand fit",
-      "Secure auth (OAuth/SSO/MFA)",
-      "Payments, push, offline-first",
-      "CI/CD + crash & performance monitoring",
-      "30 days of stabilization",
+      "Ingestion pipelines (docs/wikis/CRM)",
+      "Vector search + reranking",
+      "Basic auth & audit logging",
+      "Prompt library & evals",
+      "Stakeholder demo + iteration",
     ],
     featured: true,
     badge: "Most popular",
     cta: "/contact",
   },
   {
-    name: "Pro / Game Studio",
-    price: "from $60k+",
-    tagline: "Content pipelines, live ops, multi-platform releases.",
+    name: "Production",
+    price: "from $30k+",
+    tagline: "Reliability, monitoring, and compliance for real workloads.",
     highlights: [
-      "Custom tooling & level pipeline",
-      "Live events, analytics, A/B tests",
-      "Cross-platform inputs (TV/Controller)",
-      "Scalable backend & observability",
-      "Roadmap & ongoing partnership",
+      "Observability & eval dashboards",
+      "Role-based access & redaction",
+      "Fine-tuning or adapters (when useful)",
+      "CI/CD + cost controls",
+      "SLA & ongoing partnership",
     ],
     cta: "/contact",
   },
-]
+];
 
 export default function Page() {
   return (
@@ -176,30 +141,23 @@ export default function Page() {
         {/* Hero */}
         <section className="max-w-7xl mx-auto">
           <div className="relative overflow-hidden rounded-2xl border border-black/10 dark:border-white/10 p-8 md:p-12">
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0 opacity-20
-              [background:radial-gradient(600px_300px_at_10%_-10%,#e20074_6%,transparent_60%),radial-gradient(600px_300px_at_110%_10%,#01F9C6_6%,transparent_60%)]"
-            />
+            <div className="pointer-events-none absolute inset-0 opacity-20 [background:radial-gradient(600px_300px_at_10%_-10%,#e20074_6%,transparent_60%),radial-gradient(600px_300px_at_110%_10%,#01F9C6_6%,transparent_60%)]" />
             <div className="relative">
               <span className="inline-flex items-center gap-2 rounded-full border border-black/10 dark:border-white/10 px-3 py-1 text-xs text-black/70 dark:text-white/70">
                 <Rocket className="h-3.5 w-3.5" />
-                Mobile App Development
+                Generative AI Solutions
               </span>
               <h1 className="mt-4 font-geist text-4xl md:text-5xl font-bold text-black dark:text-white">
-                High-performance mobile apps & games — designed, built, shipped
+                Practical AI that earns its keep — RAG, copilots, automations
               </h1>
               <p className="mt-4 max-w-2xl text-black/75 dark:text-white/75">
-                Registered <strong>Apple</strong>, <strong>Google Play</strong>,
-                and <strong>Microsoft</strong> developer. Local to{" "}
-                <strong>Hellertown, PA</strong>—serving the{" "}
-                <strong>Lehigh Valley</strong> and beyond. We handle design,
-                development, store compliance, and post-launch support.
+                We build useful AI, not science projects. From chat over your
+                docs to workflow copilots with evals, guardrails, and analytics.
               </p>
 
               <div className="mt-6 flex flex-wrap items-center gap-3">
                 <Glow>
-                  <Link href="/contact" aria-label="Start a mobile project">
+                  <Link href="/contact" aria-label="Start an AI project">
                     <BorderButton size="lg">Free Consultation</BorderButton>
                   </Link>
                 </Glow>
@@ -213,16 +171,14 @@ export default function Page() {
 
               <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-black/70 dark:text-white/70">
                 <span className="inline-flex items-center gap-2">
-                  <BadgeCheck className="h-4 w-4 text-magenta" /> App Store /
-                  Play Store ready
+                  <BadgeCheck className="h-4 w-4 text-magenta" /> Privacy-minded
+                  deployments
                 </span>
                 <span className="inline-flex items-center gap-2">
-                  <Cog className="h-4 w-4 text-magenta" /> CI/CD & release
-                  automation
+                  <Cog className="h-4 w-4 text-magenta" /> CI/CD + eval gates
                 </span>
                 <span className="inline-flex items-center gap-2">
-                  <Layers className="h-4 w-4 text-magenta" /> Native modules when
-                  it matters
+                  <Layers className="h-4 w-4 text-magenta" /> RAG done right
                 </span>
               </div>
             </div>
@@ -239,8 +195,8 @@ export default function Page() {
               </h2>
             </div>
             <p className="text-sm text-black/70 dark:text-white/70 md:ml-2">
-              Restaurants, shops, gyms, makers, contractors, clinics—let’s build
-              local. In-person sessions welcome.
+              Local shops to enterprises — we’ll scope realistic wins with clear
+              ROI.
             </p>
           </div>
         </section>
@@ -251,22 +207,25 @@ export default function Page() {
             Where we shine
           </h2>
           <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-            {focusAreas.map(({ icon: I, title, blurb }, i) => (
-              <div
-                key={i}
-                className="rounded-xl border border-black/10 dark:border-white/10 p-5 hover:border-magenta/40 dark:hover:border-magenta/40 transition-colors"
-              >
-                <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10">
-                  <SafeIcon I={I} className="h-5 w-5 text-magenta" />
+            {focus.map((f, i) => {
+              const I = f.icon as Icon;
+              return (
+                <div
+                  key={i}
+                  className="rounded-xl border border-black/10 dark:border-white/10 p-5 hover:border-magenta/40 dark:hover:border-magenta/40 transition-colors"
+                >
+                  <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10">
+                    <I className="h-5 w-5 text-magenta" />
+                  </div>
+                  <h3 className="font-geist text-lg font-semibold text-black dark:text-white">
+                    {f.title}
+                  </h3>
+                  <p className="mt-1 text-sm text-black/70 dark:text-white/70">
+                    {f.blurb}
+                  </p>
                 </div>
-                <h3 className="font-geist text-lg font-semibold text-black dark:text-white">
-                  {title}
-                </h3>
-                <p className="mt-1 text-sm text-black/70 dark:text-white/70">
-                  {blurb}
-                </p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </section>
 
@@ -274,37 +233,21 @@ export default function Page() {
         <section className="max-w-7xl mx-auto mt-12">
           <div className="rounded-2xl border border-black/10 dark:border-white/10 p-6">
             <h3 className="font-geist text-lg font-semibold text-black dark:text-white flex items-center gap-2">
-              <Smartphone className="h-5 w-5 text-magenta" /> Core capabilities
+              <Brain className="h-5 w-5 text-magenta" /> Core capabilities
             </h3>
             <div className="mt-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-              {capabilities.map(({ icon: I, title }, i) => (
-                <div
-                  key={i}
-                  className="rounded-lg border border-black/10 dark:border-white/10 px-3 py-2 text-sm text-black/80 dark:text-white/80 flex items-center gap-2"
-                >
-                  <SafeIcon I={I} className="h-4 w-4 text-magenta" />
-                  {title}
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Platforms */}
-        <section className="max-w-7xl mx-auto mt-12">
-          <div className="rounded-xl border border-black/10 dark:border-white/10 p-6">
-            <h3 className="font-geist text-lg font-semibold text-black dark:text-white flex items-center gap-2">
-              <Layers className="h-5 w-5 text-magenta" /> Target platforms
-            </h3>
-            <div className="mt-4 flex flex-wrap gap-3">
-              {platforms.map(({ icon: I, label }, i) => (
-                <span
-                  key={i}
-                  className="inline-flex items-center gap-2 rounded-md border border-black/10 dark:border-white/10 px-3 py-1 text-sm text-black/80 dark:text-white/80"
-                >
-                  <SafeIcon I={I} className="h-4 w-4 text-magenta" /> {label}
-                </span>
-              ))}
+              {capabilities.map((c, i) => {
+                const I = c.icon as Icon;
+                return (
+                  <div
+                    key={i}
+                    className="rounded-lg border border-black/10 dark:border-white/10 px-3 py-2 text-sm text-black/80 dark:text-white/80 flex items-center gap-2"
+                  >
+                    <I className="h-4 w-4 text-magenta" />
+                    {c.title}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -338,7 +281,7 @@ export default function Page() {
               <div
                 key={i}
                 className={`relative rounded-2xl border p-6 transition-colors ${
-                  p.featured
+                  (p as any).featured
                     ? "border-magenta/60 bg-magenta/[0.04] dark:bg-magenta/[0.06]"
                     : "border-black/10 dark:border-white/10"
                 }`}
@@ -379,12 +322,12 @@ export default function Page() {
             ))}
           </div>
           <p className="mt-4 text-xs text-black/60 dark:text-white/60">
-            Ranges depend on complexity, integrations, art/sound (for games), and
-            timelines. Fixed bids after discovery. Payment plans available.
+            Pricing excludes model usage fees; we’ll estimate monthly run-rate
+            during discovery. Fixed bids after design. Payment plans available.
           </p>
         </section>
 
-        {/* Nonprofit invite */}
+        {/* Nonprofit */}
         <section className="max-w-7xl mx-auto mt-10">
           <div className="relative overflow-hidden rounded-2xl border border-black/10 dark:border-white/10 p-6 md:p-8">
             <div className="pointer-events-none absolute inset-0 opacity-25 [background:radial-gradient(400px_240px_at_0%_0%,#e20074_8%,transparent_60%),radial-gradient(400px_240px_at_100%_100%,#01F9C6_8%,transparent_60%)]" />
@@ -396,8 +339,8 @@ export default function Page() {
                 </h3>
               </div>
               <p className="text-black/75 dark:text-white/75">
-                Building for the greater good? Reach out—we offer discounted rates
-                and pro-bono work when possible.
+                Education, libraries, community orgs — ask about discounted
+                rates and pro-bono options.
               </p>
               <Glow>
                 <Link href="/contact">
@@ -414,11 +357,11 @@ export default function Page() {
             <div className="pointer-events-none absolute inset-0 opacity-25 [background:radial-gradient(400px_240px_at_0%_0%,#e20074_8%,transparent_60%),radial-gradient(400px_240px_at_100%_100%,#01F9C6_8%,transparent_60%)]" />
             <div className="relative">
               <h3 className="font-geist text-2xl md:text-3xl font-bold text-black dark:text-white">
-                Have an idea in mind?
+                Ready to make AI useful?
               </h3>
               <p className="mt-2 max-w-2xl text-black/75 dark:text-white/75">
-                We’ll map your features, suggest a pragmatic MVP, and give a clear
-                timeline & budget—no fluff.
+                We’ll design a realistic pilot, wire it to your data, and prove
+                value quickly.
               </p>
               <div className="mt-5">
                 <Glow>
@@ -434,5 +377,5 @@ export default function Page() {
 
       <Footer />
     </div>
-  )
+  );
 }
