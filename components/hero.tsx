@@ -1,18 +1,20 @@
 "use client"
 
 import Link from "next/link"
-import Image from "next/image"
 import { ArrowRight, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { motion } from "framer-motion"
 
 /**
- * Exact-vision Hero component (matching the provided mock).
- * - Dark, desaturated gradient with magenta→teal aurora
- * - Tight headline, subhead, two CTAs
- * - Credibility row
- * - Layered device cluster (laptop, phone, tablet) built with CSS frames
- *   so you don't need external mockup assets. You can optionally swap
- *   the generated screens for real screenshots via the props below.
+ * Enhanced Hero component.
+ *
+ * This component retains the original layout and visuals (gradient backdrop,
+ * copy on the left, device mockups on the right) but introduces gentle
+ * animations to breathe life into the first fold of the site.  Each major
+ * element fades and slides into view when the user scrolls to the hero, and
+ * the device cluster now floats up and down on an infinite loop.  These
+ * enhancements were inspired by the subtle but delightful motions used by
+ * leading studios such as R/GA and Ustwo.
  */
 export default function Hero() {
   return (
@@ -23,7 +25,13 @@ export default function Hero() {
       <div className="container mx-auto px-4 pt-24 pb-16 sm:pt-32 sm:pb-24">
         <div className="grid items-center gap-12 lg:grid-cols-2">
           {/* Left: copy */}
-          <div className="max-w-2xl">
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            viewport={{ once: true }}
+            className="max-w-2xl"
+          >
             <span className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium text-muted-foreground bg-background/60 backdrop-blur supports-[backdrop-filter]:bg-background/40">
               <Sparkles className="h-3.5 w-3.5" /> Design • AI • Games
             </span>
@@ -36,7 +44,8 @@ export default function Hero() {
 
             <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
               theProject is a studio in Eastern PA delivering production-grade apps,
-              games, and AI systems—for startups, agencies, and local orgs that care about polish and performance.
+              games, and AI systems—for startups, agencies, and local orgs that
+              care about polish and performance.
             </p>
 
             <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row">
@@ -57,14 +66,24 @@ export default function Hero() {
               <span>DarkFrost</span>
               <span>TasaiYume</span>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right: device cluster */}
-          <div className="relative h-[420px] sm:h-[480px] md:h-[520px] lg:h-[560px]">
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ y: [0, -10, 0], opacity: 1, x: 0 }}
+            transition={{
+              opacity: { duration: 0.6, ease: "easeOut", delay: 0.1 },
+              x: { duration: 0.6, ease: "easeOut", delay: 0.1 },
+              y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
+            }}
+            viewport={{ once: true }}
+            className="relative h-[420px] sm:h-[480px] md:h-[520px] lg:h-[560px]"
+          >
             <LaptopMockup className="absolute -right-4 bottom-0 scale-[.98] sm:scale-100" />
             <PhoneMockup className="absolute -right-6 sm:-right-10 top-10 rotate-6" />
             <TabletMockup className="absolute right-24 bottom-2 -rotate-6 hidden md:block" />
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
@@ -79,17 +98,19 @@ function BackgroundAuroa() {
       {/* Soft vignette */}
       <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.35),transparent_30%,transparent_70%,rgba(0,0,0,0.45))]" />
       {/* Subtle grid */}
-      <div className="pointer-events-none absolute inset-0 opacity-[0.08] [mask-image:radial-gradient(65%_65%_at_50%_35%,black,transparent)]" style={{
-        backgroundImage:
-          "linear-gradient(to_right,rgba(255,255,255,.2)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,.2)_1px,transparent_1px)",
-        backgroundSize: "28px 28px",
-      }} />
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.08] [mask-image:radial-gradient(65%_65%_at_50%_35%,black,transparent)]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to_right,rgba(255,255,255,.2)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,.2)_1px,transparent_1px)",
+          backgroundSize: "28px 28px",
+        }}
+      />
     </div>
   )
 }
 
 /* ---------- Device Mockups (CSS-only frames) ---------- */
-
 function LaptopMockup({ className = "" }: { className?: string }) {
   return (
     <div className={`w-[520px] max-w-full drop-shadow-2xl ${className}`}>
@@ -179,4 +200,3 @@ function ScreenHero({ variant }: { variant: "app" | "game" | "docs" }) {
     </div>
   )
 }
-
