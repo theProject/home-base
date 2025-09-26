@@ -4,6 +4,7 @@ import Link from "next/link"
 import { ArrowRight, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
+import Image from "next/image"
 
 /**
  * Enhanced Hero component.
@@ -119,7 +120,14 @@ function LaptopMockup({ className = "" }: { className?: string }) {
         <div className="mx-auto h-4 w-40 rounded-b-xl bg-black/50" />
         {/* screen */}
         <div className="relative rounded-[14px] border border-white/10 bg-zinc-950 overflow-hidden">
-          <ScreenHero variant="app" />
+          {/* Replace the placeholder with a real interface graphic */}
+          <Image
+            src="/images/laptop-screen.png"
+            alt="Laptop screen showing a modern app interface"
+            fill
+            className="object-cover"
+            priority
+          />
         </div>
         {/* keyboard deck */}
         <div className="mx-auto mt-2 h-2 w-[92%] rounded-b-2xl bg-gradient-to-b from-zinc-700/50 to-zinc-900/70 shadow-inner" />
@@ -135,7 +143,13 @@ function PhoneMockup({ className = "" }: { className?: string }) {
         {/* dynamic island */}
         <div className="mx-auto mb-2 h-5 w-28 rounded-full bg-black/60" />
         <div className="relative aspect-[9/19] w-full overflow-hidden rounded-[28px] border border-white/10 bg-zinc-950">
-          <ScreenHero variant="game" />
+          <Image
+            src="/images/phone-screen.png"
+            alt="Mobile screen with abstract interface"
+            fill
+            className="object-cover"
+            priority
+          />
         </div>
       </div>
     </div>
@@ -147,7 +161,13 @@ function TabletMockup({ className = "" }: { className?: string }) {
     <div className={`w-[280px] drop-shadow-2xl ${className}`}>
       <div className="rounded-[28px] border border-white/15 bg-gradient-to-b from-zinc-900 to-black p-2">
         <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl border border-white/10 bg-zinc-950">
-          <ScreenHero variant="docs" />
+          <Image
+            src="/images/tablet-screen.png"
+            alt="Tablet screen with abstract interface"
+            fill
+            className="object-cover"
+            priority
+          />
         </div>
       </div>
     </div>
@@ -158,45 +178,4 @@ function TabletMockup({ className = "" }: { className?: string }) {
  * Fake screen content to avoid external image assets while keeping the look.
  * Swap this for real screenshots by replacing the inner JSX with an <Image />.
  */
-function ScreenHero({ variant }: { variant: "app" | "game" | "docs" }) {
-  const gradient = {
-    app: "from-[#0ea5e9]/30 via-transparent to-[#e20074]/25",
-    game: "from-[#e20074]/40 via-transparent to-[#0ea5e9]/30",
-    docs: "from-[#0ea5e9]/25 via-transparent to-[#e20074]/25",
-  }[variant]
-
-  return (
-    <div className="relative h-full w-full">
-      {/* background wash */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${gradient}`} />
-      <div className="absolute inset-0 bg-[radial-gradient(600px_300px_at_70%_20%,rgba(255,255,255,0.08),transparent)]" />
-
-      {/* headline bar mimic */}
-      <div className="absolute left-0 right-0 top-0 flex items-center gap-2 border-b border-white/5 bg-black/30 px-3 py-2 text-xs text-white/70">
-        <div className="h-2 w-2 rounded-full bg-red-500/70" />
-        <div className="h-2 w-2 rounded-full bg-yellow-500/70" />
-        <div className="h-2 w-2 rounded-full bg-green-500/70" />
-        <span className="ml-2">Hero studio</span>
-      </div>
-
-      {/* content blocks */}
-      <div className="absolute inset-x-0 bottom-0 top-9 space-y-3 overflow-hidden px-4 pb-4">
-        <div className="mt-4 h-8 w-4/5 rounded bg-white/10" />
-        <div className="h-4 w-2/3 rounded bg-white/10" />
-        <div className="h-4 w-3/5 rounded bg-white/10" />
-        <div className="mt-4 grid grid-cols-3 gap-3">
-          <div className="h-24 rounded-lg bg-white/10" />
-          <div className="h-24 rounded-lg bg-white/10" />
-          <div className="h-24 rounded-lg bg-white/10" />
-        </div>
-        <div className="mt-auto flex gap-2">
-          <div className="h-9 w-28 rounded-md bg-white/15" />
-          <div className="h-9 w-28 rounded-md border border-white/15" />
-        </div>
-      </div>
-
-      {/* subtle inner glow */}
-      <div className="absolute inset-0 rounded-[inherit] ring-1 ring-inset ring-white/10" />
-    </div>
-  )
-}
+// ScreenHero function removed because real images are now used for the mockups.
