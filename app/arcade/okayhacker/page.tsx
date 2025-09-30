@@ -1221,20 +1221,22 @@ const OkayHackerGame = () => {
           </div>
 
           <div className="relative max-w-6xl mx-auto text-center">
-            {/* THE SYSTEM — stays on one line and won’t overwrite the next line */}
-<div className="glitch-wrap">
+            {/* NASTY SYSTEM — stays on one line and won’t overwrite the next line */}
+
+{/* centered, responsive, single-line glitch */}
+<div className="glitch-wrap glitch--auto">
   <GlitchText
-    speed={2}
+    speed={1}
     enableShadows
     enableOnHover
     className="glitch-title"
   >
-    The System
+    hack the planet
   </GlitchText>
 </div>
 
 {/* Byline logo under it */}
-<h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mt-2">
+<h1 className="text-2xl sm:text-3xl md:text-2xl font-bold mt-2">
   <span className="logo text-white tracking-tight">
     brought to you by <span className="logo-em">okayhacker</span>
   </span>
@@ -1307,44 +1309,72 @@ const OkayHackerGame = () => {
           </div>
         </div>
 
-        
-        <style jsx global>{`
-          .logo {
-            font-family: "Helvetica Neue", Helvetica, Arial, "Liberation Sans", system-ui, -apple-system, "Segoe UI", sans-serif !important;
-            font-weight: 700 !important;
-            letter-spacing: -0.04em !important; /* tighter spacing */
-            color: #ffffff !important; /* solid white */
-          }
-        
-.glitch-wrap{
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+   <style jsx global>{`
+  .logo{
+    font-family:"Helvetica Neue",Helvetica,Arial,"Liberation Sans",system-ui,-apple-system,"Segoe UI",sans-serif !important;
+    font-weight:700 !important;
+    letter-spacing:-0.04em !important;
+    color:#fff !important;
+  }
 
-  
-  height: clamp(56px, 7vw, 140px);
-  margin-bottom: 0.25rem; 
-  overflow: visible;      
-}
+  /* wrapper prevents wrapping/overlap and centers the title */
+  .glitch-wrap{
+    position:relative;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:clamp(56px,7vw,140px);
+    margin-bottom:0.25rem;
+    overflow:visible;
+  }
 
-.glitch-title{
-  white-space: nowrap !important;   
-  line-height: 1 !important;        
-  display: inline-block !important;  
-  pointer-events: none;              
+  /* animate the GlitchText element itself */
+  .glitch-title{
+    position:relative;
+    white-space:nowrap !important;
+    line-height:1 !important;
+    display:inline-block !important;
+    user-select:none;
 
-  
-  font-weight: 800;
-  font-size: clamp(32px, 7vw, 96px);
-}
+    font-weight:800;
+    font-size:clamp(32px,7vw,96px);
+    color:#fff; /* in case component sets its own color */
 
-        
-.logo-em{
-  font-weight: 800;
-  letter-spacing: 0.02em;
-}
-        `}</style>
+    --glitch-speed: 1000ms;
+    animation: glitch-rgb var(--glitch-speed) steps(2, end) infinite;
+    animation-play-state: paused; /* default paused; runs on hover via wrapper */
+    will-change: transform, text-shadow;
+
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* play on hover; use glitch--auto on wrapper to always run */
+  .glitch--hover .glitch-title:hover { animation-play-state: running; }
+  .glitch--auto .glitch-title { animation-play-state: running; }
+
+  @media (prefers-reduced-motion: reduce){
+    .glitch-title{
+      animation:none !important;
+      text-shadow:none !important;
+      transform:none !important;
+    }
+  }
+
+  @keyframes glitch-rgb{
+    0%   { transform: translate(0,0) skew(0deg);        text-shadow: 0 0 0 #000, 0 0 0 #000; }
+    6%   { transform: translate(1px,-1px) skew(0.2deg);  text-shadow: 2px 0 0 #ff004c, -2px 0 0 #00f7ff; }
+    12%  { transform: translate(-1px,1px) skew(-0.2deg); text-shadow: -2px 0 0 #ff004c, 2px 0 0 #00f7ff; }
+    18%  { transform: translate(2px,0) skew(0.3deg);     text-shadow: 3px 0 0 #ff004c, -3px 0 0 #00f7ff; }
+    24%  { transform: translate(-2px,0) skew(-0.3deg);   text-shadow: -3px 0 0 #ff004c, 3px 0 0 #00f7ff; }
+    30%  { transform: translate(0,1px) skew(0.1deg);     text-shadow: 1px 0 0 #ff004c, -1px 0 0 #00f7ff; }
+    36%  { transform: translate(0,-1px) skew(-0.1deg);   text-shadow: -1px 0 0 #ff004c, 1px 0 0 #00f7ff; }
+    60%  { transform: translate(1px,0) skew(0.2deg);     text-shadow: 2px 0 0 #ff004c, -2px 0 0 #00f7ff; }
+    76%  { transform: translate(-1px,0) skew(-0.2deg);   text-shadow: -2px 0 0 #ff004c, 2px 0 0 #00f7ff; }
+    100% { transform: translate(0,0) skew(0deg);         text-shadow: 0 0 0 #000, 0 0 0 #000; }
+  }
+`}</style>
+
       </div>
     );
   }
@@ -1420,18 +1450,18 @@ const OkayHackerGame = () => {
           <div className="flex items-center space-x-4">
             <Layers className="w-8 h-8 text-pink-500" />
             <div>
-              {/* White logo with tighter tracking (inline styles lock spacing) */}
-              <h1
-                className="text-2xl font-bold"
-                style={{
-                  letterSpacing: '-0.04em',
-                  color: '#ffffff',
-                  fontFamily: '"Helvetica Neue", Helvetica, Arial, "Liberation Sans", system-ui, -apple-system, "Segoe UI", sans-serif',
-                  fontWeight: 700,
-                }}
-              >
-                okayhacker
-              </h1>
+             {/* Glitch headline (hover to animate). Use glitch--auto instead of glitch--hover for always-on */}
+<div className="glitch-wrap glitch--hover">
+  <GlitchText speed={1} enableShadows enableOnHover className="glitch-title">
+    The System
+  </GlitchText>
+</div>
+
+{/* Your logo */}
+<h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold mb-2 md:mb-4">
+  <span className="logo">okayhacker</span>
+</h1>
+
               <p className="text-xs text-gray-500">Ethical Hacking Simulator</p>
             </div>
           </div>
