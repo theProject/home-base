@@ -1,154 +1,118 @@
-"use client"
+"use client";
 
-import { useState, useEffect, useMemo } from "react"
-import Header from "@/components/header"
-import Footer from "@/components/footer"
-import Link from "next/link"
-import Image from "next/image"
-import { format } from "date-fns"
-import BackToTop from "@/components/back-to-top"
-import { CalendarDays, ChevronLeft, ChevronRight, Clock, Search, UserCircle, Rss, Users, Newspaper } from "lucide-react"
-import BorderButton from "@/components/ui/border-button"
-import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
-import { BlogCard, type Post as PostSummary } from "@/components/BlogCard"
-import { AuthorCard, type AuthorProfile } from "@/components/author-card"
-import { Badge } from "@/components/ui/badge"
-import { TechNewsCard, type TechNewsCardProps } from "@/components/tech-news-card"
-import { ArticlePipelineSection } from "@/components/article-pipeline-section"
+import { useState, useEffect, useMemo } from "react";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
+import Link from "next/link";
+import Image from "next/image";
+import { format } from "date-fns";
+import BackToTop from "@/components/back-to-top";
+import { CalendarDays, ChevronLeft, ChevronRight, Clock, Search, UserCircle, Users } from "lucide-react";
+import BorderButton from "@/components/ui/border-button";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { BlogCard, type Post as PostSummary } from "@/components/BlogCard";
+import { AuthorCard, type AuthorProfile } from "@/components/author-card";
+import { Badge } from "@/components/ui/badge";
+import { ArticlePipelineSection } from "@/components/article-pipeline-section";
+import LiquidGlass from "@/components/LiquidGlass";
 
 // Types (PostSummary is imported from BlogCard)
 interface Category {
-  id: string
-  name: string
-  slug: string
+  id: string;
+  name: string;
+  slug: string;
 }
 
 const mockAuthors: AuthorProfile[] = [
   {
     id: "1",
     name: "Tristan Smith",
-    title: "Software Engineer, Offensive Security Hacker (Ethically that is), Lover of Design, and the Chief Dreamer",
+    title:
+      "Software Engineer, Offensive Security Hacker (Ethically that is), Lover of Design, and the Chief Dreamer",
     avatarUrl: "/avatars/tristan-smith.png",
     bio: "Tristan is the founder of theProject - fueled with a relentless curiosity of black and white hats, software development, and designing the next best videogame.",
     tags: ["AI/ML", "Software Dev", "Hacking", "Cybersecurity", "Game Dev", "Leadership"],
-    socialLinks: { linkedin: "https://www.linkedin.com/in/tristanjsmith", twitter: "https://x.com/theProjectDev", website: "https://bytheproject.com" },
+    socialLinks: {
+      linkedin: "https://www.linkedin.com/in/tristanjsmith",
+      twitter: "https://x.com/theProjectDev",
+      website: "https://bytheproject.com",
+    },
   },
-  {
-    id: "2",
-    name: "Maria Editor",
-    title: "Lead Editor & Content Strategist",
-    avatarUrl: "/avatars/maria-editor.png",
-    bio: "Maria ensures every piece of content is polished, engaging, and valuable, shaping the voice of our publication.",
-    tags: ["Content Strategy", "Editing", "UX Writing"],
-    socialLinks: { linkedin: "#", twitter: "#" },
-  },
-  {
-    id: "3",
-    name: "David Analyst",
-    title: "Emerging Tech Specialist",
-    avatarUrl: "/avatars/david-analyst.png",
-    bio: "David explores the cutting edge, from quantum computing to Web3, breaking down complex topics for our readers.",
-    tags: ["Quantum", "Web3", "Futurism"],
-    socialLinks: { linkedin: "#", website: "#" },
-  },
-  {
-    id: "4",
-    name: "Chloe Strategist",
-    title: "Community & Growth Manager",
-    avatarUrl: "/avatars/chloe-strategist.png",
-    bio: "Chloe connects with our audience, fostering a vibrant community and ensuring our content reaches those who need it most.",
-    tags: ["Community", "Marketing", "Growth Hacking"],
-    socialLinks: { linkedin: "#", twitter: "#" },
-  },
-]
-
-const techNewsData: TechNewsCardProps[] = [
-  {
-    sourceName: "TechCrunch",
-    logoUrl: "/logos/news/techcrunch-logo.png",
-    feedUrl: "https://techcrunch.com/feed/",
-    description: "Startup and technology news, reviews, and analysis.",
-  },
-  {
-    sourceName: "The Verge",
-    logoUrl: "/logos/news/theverge-logo.png",
-    feedUrl: "https://www.theverge.com/rss/index.xml",
-    description: "Covering the intersection of technology, science, art, and culture.",
-  },
-  {
-    sourceName: "Ars Technica",
-    logoUrl: "/logos/news/arstechnica-logo.png",
-    feedUrl: "https://arstechnica.com/feed/",
-    description: "In-depth technology news, analysis, and reviews for IT professionals and enthusiasts.",
-  },
-  {
-    sourceName: "Wired",
-    logoUrl: "/logos/news/wired-logo.png",
-    feedUrl: "https://www.wired.com/feed/rss",
-    description: "How technology is changing every aspect of our lives—from culture to business.",
-  },
-]
+];
 
 export default function BlogPage() {
-  const [isLoading, setIsLoading] = useState(true)
-  const [allPosts, setAllPosts] = useState<PostSummary[]>([])
-  const [currentPage, setCurrentPage] = useState(1)
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
-  const [categories, setCategories] = useState<Category[]>([])
-  const [searchQuery, setSearchQuery] = useState("")
-  const postsPerPage = 9
+  const [isLoading, setIsLoading] = useState(true);
+  const [allPosts, setAllPosts] = useState<PostSummary[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const postsPerPage = 9;
 
   useEffect(() => {
     async function fetchData() {
-      setIsLoading(true)
+      setIsLoading(true);
       try {
-        const res = await fetch("/api/posts?depth=2")
-        if (!res.ok) throw new Error(`Fetch failed: ${res.status}`)
-        const data = await res.json()
-        const fetchedPosts: PostSummary[] = data.docs || []
-        setAllPosts(fetchedPosts)
-        const uniqueCategories: Record<string, Category> = {}
+        const res = await fetch("/api/posts?depth=2");
+        if (!res.ok) throw new Error(`Fetch failed: ${res.status}`);
+        const data = await res.json();
+        const fetchedPosts: PostSummary[] = data.docs || [];
+        setAllPosts(fetchedPosts);
+
+        const unique: Record<string, Category> = {};
         fetchedPosts.forEach((p) =>
           p.categories?.forEach((c) => {
-            uniqueCategories[c.id] = c
+            unique[c.id] = c;
           }),
-        )
-        setCategories(Object.values(uniqueCategories))
+        );
+        setCategories(Object.values(unique));
       } catch (err) {
-        console.error("Error fetching blog posts:", err)
+        console.error("Error fetching blog posts:", err);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
     }
-    fetchData()
-  }, [])
+    fetchData();
+  }, []);
 
-  const featuredPost = useMemo(() => allPosts.find((p) => p.featured) || allPosts[0] || null, [allPosts])
-  const nonFeaturedPosts = useMemo(() => allPosts.filter((p) => p.id !== featuredPost?.id), [allPosts, featuredPost])
+  const featuredPost = useMemo(
+    () => allPosts.find((p) => p.featured) || allPosts[0] || null,
+    [allPosts],
+  );
+
+  const nonFeaturedPosts = useMemo(
+    () => allPosts.filter((p) => p.id !== featuredPost?.id),
+    [allPosts, featuredPost],
+  );
 
   const filteredPosts = useMemo(() => {
     return nonFeaturedPosts.filter((p) => {
-      const byCategory = !selectedCategory || p.categories?.some((c) => c.slug === selectedCategory)
+      const byCategory = !selectedCategory || p.categories?.some((c) => c.slug === selectedCategory);
       const bySearch =
         !searchQuery ||
         p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         (p.description?.toLowerCase().includes(searchQuery.toLowerCase()) ?? false) ||
-        (p.authors?.some((a) => a.name.toLowerCase().includes(searchQuery.toLowerCase())) ?? false)
-      return byCategory && bySearch
-    })
-  }, [nonFeaturedPosts, selectedCategory, searchQuery])
+        (p.authors?.some((a) => a.name.toLowerCase().includes(searchQuery.toLowerCase())) ?? false);
+      return byCategory && bySearch;
+    });
+  }, [nonFeaturedPosts, selectedCategory, searchQuery]);
 
-  const totalPages = useMemo(() => Math.ceil(filteredPosts.length / postsPerPage), [filteredPosts, postsPerPage])
-  const paginatedPosts = useMemo(() => {
-    return filteredPosts.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage)
-  }, [filteredPosts, currentPage, postsPerPage])
+  const totalPages = useMemo(
+    () => Math.ceil(filteredPosts.length / postsPerPage),
+    [filteredPosts, postsPerPage],
+  );
+
+  const paginatedPosts = useMemo(
+    () => filteredPosts.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage),
+    [filteredPosts, currentPage, postsPerPage],
+  );
 
   useEffect(() => {
-    setCurrentPage(1)
-  }, [selectedCategory, searchQuery])
+    setCurrentPage(1);
+  }, [selectedCategory, searchQuery]);
 
-  const formatDate = (dateString: string) => format(new Date(dateString), "MMMM d, yyyy")
+  const formatDate = (dateString: string) => format(new Date(dateString), "MMMM d, yyyy");
 
   if (isLoading) {
     return (
@@ -159,23 +123,24 @@ export default function BlogPage() {
         </main>
         <Footer />
       </div>
-    )
+    );
   }
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
       <Header />
       <main className="flex-grow">
-        {/* Hero Section - Blog Intro */}
-        <section className="py-16 md:py-24 bg-gradient-to-b from-background to-neutral-50 dark:from-neutral-900 dark:to-neutral-800/70 border-b border-border dark:border-neutral-800">
-          <div className="container mx-auto px-4 text-center">
-            <Rss className="w-16 h-16 text-magenta mx-auto mb-6" />
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">Tech Insights & Innovations</h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-              Your premier source for deep dives into technology, software development, and the future of digital.
-            </p>
-          </div>
-        </section>
+        {/* Parallax Liquid Glass Hero */}
+        <LiquidGlass
+          title="Tech Insights & Innovations"
+          subtitle="Deep dives into engineering, AI, offensive security, and game design — from the studio building it."
+          badgeText={
+            <>
+              Project <span className="text-magenta">Relentless</span> — Blog
+            </>
+          }
+          height="py-20 md:py-28"
+        />
 
         {/* Featured Post Section */}
         {featuredPost && (
@@ -214,6 +179,7 @@ export default function BlogPage() {
                       {featuredPost.title}
                     </h3>
                     <p className="text-muted-foreground mb-4 line-clamp-3">{featuredPost.description}</p>
+
                     <div className="flex items-center text-sm text-muted-foreground mb-1">
                       {featuredPost.authors?.[0]?.avatar?.url ? (
                         <Image
@@ -228,6 +194,7 @@ export default function BlogPage() {
                       )}
                       <span>{featuredPost.authors?.[0]?.name || "Anonymous"}</span>
                     </div>
+
                     <div className="flex items-center space-x-4 text-sm text-muted-foreground">
                       <span className="flex items-center">
                         <CalendarDays className="w-4 h-4 mr-1.5" />
@@ -282,6 +249,7 @@ export default function BlogPage() {
                     </BorderButton>
                   ))}
                 </div>
+
                 <div className="relative w-full md:w-auto md:ml-auto md:max-w-xs">
                   <Search className="absolute top-1/2 left-3 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <input
@@ -351,24 +319,6 @@ export default function BlogPage() {
           </div>
         </section>
 
-        {/* Tech News Feeds Section */}
-        <section className="py-16 md:py-24 bg-neutral-50 dark:bg-neutral-900/70 border-t border-b border-border dark:border-neutral-800">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-foreground flex items-center justify-center">
-              <Newspaper className="w-10 h-10 mr-4 text-magenta" />
-              Latest <span className="text-magenta ml-2">Tech News</span> Feeds
-            </h2>
-            <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-              Stay updated with headlines from leading technology news sources.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-              {techNewsData.map((newsItem) => (
-                <TechNewsCard key={newsItem.sourceName} {...newsItem} />
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* Writing Team Section */}
         <section className="py-16 md:py-24 bg-background border-b border-border dark:border-neutral-800">
           <div className="container mx-auto px-4">
@@ -380,28 +330,12 @@ export default function BlogPage() {
               We are building a team of passionate technologists, researchers, and storytellers bringing you the latest insights. Actively seeking fellow hackers, game devs and deep learning experts - If you are looking for a spot on the team, contact us!
             </p>
 
-            {(() => {
-              const VISIBLE_AUTHORS = 1; // 👈 change this later when we sign more authors
-              const visible = mockAuthors.slice(0, VISIBLE_AUTHORS)
-
-              if (visible.length === 1) {
-                return (
-                  <div className="flex justify-center">
-                    <div className="w-full sm:max-w-md md:max-w-lg lg:max-w-xl">
-                      <AuthorCard author={visible[0]} />
-                    </div>
-                  </div>
-                )
-              }
-
-              return (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
-                  {visible.map((author) => (
-                    <AuthorCard key={author.id} author={author} />
-                  ))}
-                </div>
-              )
-            })()}
+            {/* Single author for now */}
+            <div className="flex justify-center">
+              <div className="w-full sm:max-w-md md:max-w-lg lg:max-w-xl">
+                <AuthorCard author={mockAuthors[0]} />
+              </div>
+            </div>
           </div>
         </section>
 
@@ -411,5 +345,5 @@ export default function BlogPage() {
       <BackToTop />
       <Footer />
     </div>
-  )
+  );
 }
