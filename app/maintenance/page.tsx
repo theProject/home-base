@@ -106,7 +106,28 @@ export default function MaintenancePage() {
         </div>
       </header>
 
-      {/* haiku fade message */}
+      {/* haiku fade message */}{/* header */}
+<header
+  className={`absolute top-0 left-0 right-0 z-20 flex items-center justify-between 
+    px-5 py-6 sm:px-10 sm:py-8 min-h-20 pt-[env(safe-area-inset-top)] 
+    transition-colors duration-500 ${isPortrait ? "text-white" : "text-black"}`}
+>
+  <h1 className="text-xl sm:text-2xl font-bold tracking-tight">
+    theProject.
+  </h1>
+
+  <nav className="hidden gap-8 text-sm font-medium sm:flex">
+    <a href="#" className="hover:opacity-80">Status</a>
+    <a href="#" className="hover:opacity-80">Contact</a>
+  </nav>
+
+  {/* simplified mobile nav */}
+  <div className="flex sm:hidden gap-4 text-sm font-medium">
+    <a href="#" className="hover:opacity-80">Status</a>
+    <a href="#" className="hover:opacity-80">Contact</a>
+  </div>
+</header>
+
       <AnimatePresence mode="wait">
         <motion.div
           key={index}
