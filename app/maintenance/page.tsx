@@ -11,8 +11,10 @@ export default function MaintenancePage() {
   const messages = [
     "Relentless by nature",
     "We redefine what's possible",
+    "We live in the frontier.",
     "Innovation begs persistence",
     "Design is calling us forward",
+    "We are under construction.",
   ];
 
   // autoplay fix
