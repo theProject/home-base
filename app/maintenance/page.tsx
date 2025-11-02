@@ -116,7 +116,7 @@ export default function MaintenancePage() {
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 2.2, ease: [0.4, 0, 0.2, 1] }}
           style={{
-            color: isPortrait ? "white" : "black",
+            color: isPortrait ? "black" : "white",
             textShadow: isPortrait
               ? "0 2px 8px rgba(0,0,0,0.7)"
               : "0 1px 4px rgba(255,255,255,0.4)",
@@ -129,7 +129,7 @@ export default function MaintenancePage() {
       {/* footer */}
       <footer
         className={`absolute bottom-0 left-0 right-0 z-20 flex flex-col sm:flex-row items-center justify-between gap-3 px-4 py-4 sm:px-10 sm:py-6 text-xs sm:text-sm transition-colors duration-500 ${
-          isPortrait ? "text-white" : "text-gray-700"
+          isPortrait ? "text-black" : "text-gray-700"
         }`}
       >
         <span>© {new Date().getFullYear()} theProject.</span>
