@@ -108,7 +108,7 @@ export default function MaintenancePage() {
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 2.2, ease: [0.4, 0, 0.2, 1] }}
           style={{
-            color: isPortrait ? "black" : "white",
+            color: isPortrait ? "black" : "black",
             textShadow: isPortrait
               ? "0 2px 8px rgba(0,0,0,0.7)"
               : "0 1px 4px rgba(255,255,255,0.4)",
