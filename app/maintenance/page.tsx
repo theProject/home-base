@@ -76,37 +76,7 @@ export default function MaintenancePage() {
         <div className="absolute inset-0 bg-gradient-to-t from-white/70 via-white/20 to-transparent pointer-events-none" />
       </div>
 
-      {/* header */}
-      <header
-        className={`absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-5 py-4 sm:px-10 sm:py-6 transition-colors duration-500 ${
-          isPortrait ? "text-white" : "text-black"
-        }`}
-      >
-        <h1 className="text-xl sm:text-2xl font-bold tracking-tight">
-          theProject.
-        </h1>
-
-        <nav className="hidden gap-8 text-sm font-medium sm:flex">
-          <a href="#" className="hover:opacity-80">
-            Status
-          </a>
-          <a href="#" className="hover:opacity-80">
-            Contact
-          </a>
-        </nav>
-
-        {/* simplified mobile nav */}
-        <div className="flex sm:hidden gap-4 text-sm font-medium">
-          <a href="#" className="hover:opacity-80">
-            Status
-          </a>
-          <a href="#" className="hover:opacity-80">
-            Contact
-          </a>
-        </div>
-      </header>
-
-      {/* haiku fade message */}{/* header */}
+    {/* header */}
 <header
   className={`absolute top-0 left-0 right-0 z-20 flex items-center justify-between 
     px-5 py-6 sm:px-10 sm:py-8 min-h-20 pt-[env(safe-area-inset-top)] 
@@ -128,6 +98,7 @@ export default function MaintenancePage() {
   </div>
 </header>
 
+      {/* haiku fade message */}
       <AnimatePresence mode="wait">
         <motion.div
           key={index}
@@ -150,7 +121,7 @@ export default function MaintenancePage() {
       {/* footer */}
       <footer
         className={`absolute bottom-0 left-0 right-0 z-20 flex flex-col sm:flex-row items-center justify-between gap-3 px-4 py-4 sm:px-10 sm:py-6 text-xs sm:text-sm transition-colors duration-500 ${
-          isPortrait ? "text-black" : "text-white"
+          isPortrait ? "text-black" : "text-"
         }`}
       >
         <span>© {new Date().getFullYear()} theProject.</span>
