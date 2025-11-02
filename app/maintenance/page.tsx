@@ -129,7 +129,7 @@ export default function MaintenancePage() {
       {/* footer */}
       <footer
         className={`absolute bottom-0 left-0 right-0 z-20 flex flex-col sm:flex-row items-center justify-between gap-3 px-4 py-4 sm:px-10 sm:py-6 text-xs sm:text-sm transition-colors duration-500 ${
-          isPortrait ? "text-black" : "text-gray-700"
+          isPortrait ? "text-black" : "text-white"
         }`}
       >
         <span>© {new Date().getFullYear()} theProject.</span>
